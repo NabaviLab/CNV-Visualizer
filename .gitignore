@@ -47,7 +47,8 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
+# UWSGI stuff:
+*.pid
 *.log
 
 # Sphinx documentation
