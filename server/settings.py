@@ -1,0 +1,10 @@
+import os
+
+RESOURCE_METHODS = ['GET']
+
+ITEM_METHODS = []
+
+CACHE_CONTROL = 'max-age=20'
+CACHE_EXPIRES = 20
+
+DOMAIN = {}
