@@ -1,6 +1,6 @@
 import os
 
-RESOURCE_METHODS = ['GET']
+RESOURCE_METHODS = ['GET', 'POST']
 
 ITEM_METHODS = []
 
