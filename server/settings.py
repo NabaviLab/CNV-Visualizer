@@ -1,5 +1,7 @@
 import os
 
+X_DOMAINS = '*'
+
 URL_PREFIX = 'cnvvis'
 
 MONGO_HOST = os.environ.get('MONGO_HOST', 'localhost')
