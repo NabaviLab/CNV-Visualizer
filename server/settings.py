@@ -1,5 +1,9 @@
 import os
 
+X_DOMAINS = '*'
+
+URL_PREFIX = 'cnvvis'
+
 RESOURCE_METHODS = ['GET', 'POST']
 
 ITEM_METHODS = []
