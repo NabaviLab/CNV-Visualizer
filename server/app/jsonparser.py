@@ -17,8 +17,7 @@ def jparse(path):
             line['region_call'] = string[8]
             chrome['chr1'].append(line)
 
-    output = str(chrome)
     with open(outpath,'w') as outfile:
-        dump(output, outfile)
+        dump(chrome, outfile)
 
     return outpath
