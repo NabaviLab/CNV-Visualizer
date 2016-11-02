@@ -19,8 +19,7 @@ def logs():
     #add method call to get .txt file of section from galaxy (returns path)
     jpath = jparse('./data/filtered.called')
     with open(jpath) as jfile:
-        jstring = load(jfile)
-        jobj = loads(jstring)
+        jobj = load(jfile)
         return jobj
 
 if __name__=="__main__":
