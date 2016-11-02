@@ -1,8 +1,10 @@
 from eve import Eve
 from json import loads, load
 from .jsonparser import jparse
+from flask_cors import CORS
 
 app = Eve()
+CORS(app)
 
 @app.route('/cnvvis')
 def base():
