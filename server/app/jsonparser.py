@@ -3,7 +3,6 @@ import re
 
 def jparse(path):
     outpath = path
-    outpath = outpath[:-4]
     outpath = outpath.join('.json')
     jtxt = open(path,'r')
     lines = jtxt.readlines()
@@ -29,7 +28,9 @@ def jparse(path):
         else:
             pass
         linearray.append(']}')
+
     output = ''.join(linearray)
     with open(outpath,'w') as outfile:
         dump(output, outfile)
+
     return outpath
