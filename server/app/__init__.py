@@ -5,11 +5,11 @@ from .jsonparser import jparse
 
 app = Eve()
 
-@app.route('/')
+@app.route('/cnvvis')
 def base():
     return 'hello'
 
-@app.route('/greet/<name>')
+@app.route('/cnvvis/greet/<name>')
 def greet(name):
     return "hi " + name
 
