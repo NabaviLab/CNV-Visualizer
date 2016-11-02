@@ -1,5 +1,4 @@
 from json import dump
-import re
 
 def jparse(path):
     outpath = path
@@ -7,29 +6,18 @@ def jparse(path):
     jtxt = open(path,'r')
     lines = jtxt.readlines()
     jtxt.close()
-    linearray = []
-    linearray.append('{"chr1":[')
+    chrome = { 'chr1': [] }
     for index, value in enumerate(lines):
         if index != 0:
             string = value.split()
-            linearray.append('{"chr_start":')
-            linearray.append(string[1])
-            linearray.append(',"chr_stop":')
-            linearray.append(string[2])
-            linearray.append(',"adjusted_log_ratio":')
-            linearray.append(string[6])
-            linearray.append(',"region_call":')
-            linearray.append(string[8])
-            linearray.append('"}')
-            if (index+1) < len(lines):
-                linearray.append(',')
-            else:
-                pass
-        else:
-            pass
-        linearray.append(']}')
+            line = dict()
+            line['chr_start'] = int(string[1])
+            line['chr_stop'] = int(string[2])
+            line['adjusted_log_ratio'] = float(string[6])
+            line['region_call'] = string[8]
+            chrome['chr1'].append(line)
 
-    output = ''.join(linearray)
+    output = str(chrome)
     with open(outpath,'w') as outfile:
         dump(output, outfile)
 
