@@ -5,22 +5,22 @@ from .jsonparser import jparse
 
 app = Eve()
 
-@app.route('/cnvvis')
+@app.route('/')
 def base():
-        return 'hello'
+    return 'hello'
 
-@app.route('/cnvvis/<name>')
+@app.route('/greet/<name>')
 def greet(name):
-        return "hi " + name
+    return "hi " + name
 
-@app.route('/cnvvis/logratios/<start>-<stop>')
-	def logs(start, stop):
-        #add method call to get .txt file of section from galaxy (returns path)
-        jpath = jparse(<path to .txt_file>)
-        with open(jpath) as jfile
-	        jstring = load(jfile)
-        jobj = loads(jstring)
-        return jobj
+#@app.route('/cnvvis/logratios/<start>-<stop>')
+#def logs(start, stop):
+#    #add method call to get .txt file of section from galaxy (returns path)
+#    jpath = jparse(<path to .txt_file>)
+#    with open(jpath) as jfile
+#        jstring = load(jfile)
+#    jobj = loads(jstring)
+#    return jobj
 
 if __name__=="__main__":
-	app.run()
+    app.run()
