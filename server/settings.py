@@ -2,6 +2,8 @@ import os
 
 X_DOMAINS = '*'
 
+DEBUG = True
+
 URL_PREFIX = 'cnvvis'
 
 RESOURCE_METHODS = ['GET', 'POST']

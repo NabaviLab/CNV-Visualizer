@@ -2,7 +2,7 @@ from json import dump
 
 def jparse(path):
     outpath = path
-    outpath = outpath.join('.json')
+    outpath = outpath + '.json'
     jtxt = open(path,'r')
     lines = jtxt.readlines()
     jtxt.close()

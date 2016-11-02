@@ -14,8 +14,8 @@ def base():
 def greet(name):
     return "hi " + name
 
-@app.route('/cnvvis/logratios/<start>-<stop>')
-def logs(start, stop):
+@app.route('/cnvvis/logratios')
+def logs():
     #add method call to get .txt file of section from galaxy (returns path)
     jpath = jparse('./data/filtered.called')
     with open(jpath) as jfile:
