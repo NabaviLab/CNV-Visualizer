@@ -1,6 +1,6 @@
 from bioblend import galaxy
 
-gi = galaxy.GalaxyInstance(url='http://127.0.0.1:8081', key=)
+gi = galaxy.GalaxyInstance(url='http://127.0.0.1:8081', key="99a35067d39e1fd38eb7087bb13a59b8")
 dsc = galaxy.datasets.DatasetClient(gi)
 tlc = galaxy.tools.ToolClient(gi)
 hsc = galaxy.histories.HistoryClient(gi)
@@ -10,8 +10,8 @@ library = [l for l in gi.libraries.show_library(library_id, contents=True) if l[
 
 tmp = hsc.create_history(name="CNV Vis")
 
-copynumber_id = [l['id'] for l in lib if 'copynumber' in l['name']]
-hsc.upload_dataset_form_library(tmp['id'], copynumber_id[0])
+copynumber_id = [l['id'] for l in library if 'copynumber' in l['name']]
+hsc.upload_dataset_from_library(tmp['id'], copynumber_id[0])
 base_id = hsc.show_history(tmp['id'], contents=True)[-1]['dataset_id']
 
 def get_filtered(start, stop):
