@@ -1,6 +1,7 @@
 from eve import Eve
 from json import loads, load
 from flask_cors import CORS
+from flask import request
 
 from .jsonparser import jparse
 from .galaxy import get_filtered
@@ -16,8 +17,10 @@ def base():
 def greet(name):
     return "hi " + name
 
-@app.route('/cnvvis/logratios/<start>-<stop>')
-def logs(start, stop):
+@app.route('/cnvvis/logratios')
+def logs():
+    start = request.args.get('start')
+    stop = request.args.get('stop')
     get_filtered(int(start), int(stop))
     #add method call to get .txt file of section from galaxy (returns path)
     jpath = jparse('./data/filtered.called')
