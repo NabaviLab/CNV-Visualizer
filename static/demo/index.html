@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  </head>
+  <body>
+    <input type="text" id='start' placeholder="enter start range"></input>
+    <input type="text" id='end' placeholder="enter end range"></input>
+    <input type="button" name="submit" value="submit" onclick="drawLogRatios()">
+    <div id="plotly-ratios"></div>
+    <script src="LogRatioPlotly.js"></script>
+
+    <input type="text" id='start2' placeholder="enter start range"></input>
+    <input type="text" id='end2' placeholder="enter end range"></input>
+    <input type="button" name="submit2" value="submit" onclick="d3DrawLogRatios()">
+    <div id="ratios-load"></div>
+    <script src="LogRatioPlot.js"></script>
+  </body>
+</html>
