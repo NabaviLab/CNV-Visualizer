@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask import request
 
 from .jsonparser import jparse
-from .galaxy import get_filtered
+from .data import filter_copynumber
 
 app = Eve()
 CORS(app)
@@ -21,9 +21,8 @@ def greet(name):
 def logs():
     start = request.args.get('start')
     stop = request.args.get('stop')
-    get_filtered(int(start), int(stop))
-    #add method call to get .txt file of section from galaxy (returns path)
-    jpath = jparse('./data/filtered.called')
+    data = filter_copynumber('../data/sim1.copynumber.called', int(start), int(stop))
+    jpath = jparse(data)
     with open(jpath) as jfile:
         return jfile.read()
 
