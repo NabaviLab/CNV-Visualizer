@@ -6,6 +6,7 @@ def jparse(jstring):
     for index, value in enumerate(totalstring):
         if index != 0:
             string = value.split()
+            print(string)
             line = dict()
             line['chr_start'] = int(string[1])
             line['chr_stop'] = int(string[2])
@@ -13,4 +14,4 @@ def jparse(jstring):
             line['region_call'] = string[8]
             chrome['chr1'].append(line)
 
-    return jsonify(**chrome)
+    return jsonify(chrome)
