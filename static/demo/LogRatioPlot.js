@@ -1,7 +1,7 @@
 function d3DrawLogRatios() {
   var start2 = document.getElementById('start2').value;
   var end2 = document.getElementById('end2').value;
-  var url = "http://nabavilab.uconn.edu/cnvvis/logratios/" + start2 + "-" + end2;
+  var url = "http://nabavilab.uconn.edu/cnvvis/logratios?start=" + start2 + "&stop=" + end2;
 
   d3.json(url, function(error, data) {
     if (error) return console.warn(error);
