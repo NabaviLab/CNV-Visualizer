@@ -22,9 +22,8 @@ def logs():
     start = request.args.get('start')
     stop = request.args.get('stop')
     data = filter_copynumber('../data/sim1.copynumber.called', int(start), int(stop))
-    jpath = jparse(data)
-    with open(jpath) as jfile:
-        return jfile.read()
+    jresponse = jparse(data)
+    return jresponse
 
 if __name__=="__main__":
     app.run()
