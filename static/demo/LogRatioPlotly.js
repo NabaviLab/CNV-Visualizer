@@ -1,7 +1,7 @@
 function drawLogRatios() {
   var start = document.getElementById('start').value;
   var end = document.getElementById('end').value;
-  var url = "http://nabavilab.uconn.edu/cnvvis/logratios/" + start + "-" + end;
+  var url = "http://nabavilab.uconn.edu/cnvvis/logratios?start=" + start + "&stop=" + end;
   var data;
 
   Plotly.d3.json(url, function(error, json) {
@@ -33,7 +33,7 @@ function drawLogRatios() {
     };
 
 
-    Plotly.newPlot('plotly-ratios', [ratios1], layout, {showLink: false});
+    Plotly.newPlot('plotly-ratios', [ratios1], layout, {displayModeBar: false});
 
   });
 };
