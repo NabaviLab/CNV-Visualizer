@@ -19,8 +19,8 @@ def greet(name):
 
 @app.route('/cnvvis/logratios')
 def logs():
-    start = request.args.get('start')
-    stop = request.args.get('stop')
+    start = int(request.args.get('start', default=0))
+    stop = int(request.args.get('stop', default=5000000000))
     data = filter_copynumber('data/sim1.copynumber.called', int(start), int(stop))
     jresponse = jparse(data)
     return jresponse
