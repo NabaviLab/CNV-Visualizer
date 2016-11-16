@@ -1,12 +1,16 @@
+import os
+
 from eve import Eve
-from json import loads, load
-from flask_cors import CORS
-from flask import request
+from flask import request, redirect, send_from_directory, url_for
+from flask.ext.cors import CORS
+from werkzeug.utils import secure_filename
 
 from .jsonparser import jparse
 from .data import filter_copynumber
 
 app = Eve()
+app.config['UPLOAD_FOLDER'] = 'data/'
+app.config['ALLOWED_EXTENSIONS'] = {'txt'}
 CORS(app)
 
 @app.route('/cnvvis')
@@ -25,6 +29,39 @@ def logs():
     jpath = jparse(data)
     with open(jpath) as jfile:
         return jfile.read()
+
+@app.route('/cnvvis/upload', methods=['GET','POST'])
+def upload():
+    def allowed_file(filename):
+        return '.' in f.filename \
+                and f.filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS'] 
+
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            print('no file')
+            return redirect(request.url)
+        f = request.files['file']
+        if f.filename == '':
+            print('no filename')
+            return redirect(request.url)
+        if f and allowed_file(f.filename):
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file', filename=filename))
+
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form action="" method=POST enctype=multipart/form-data>
+    <p><input type=file name=file>
+    <input type=submit value=Upload>
+    </form>
+    '''
+
+@app.route('/cnvvis/uploads/<filename>')
+def uploaded_file(filename):
+    return open(os.path.join(app.config['UPLOAD_FOLDER'], filename)).read()
 
 if __name__=="__main__":
     app.run()
