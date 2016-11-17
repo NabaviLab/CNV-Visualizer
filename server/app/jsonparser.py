@@ -1,15 +1,12 @@
-from json import dump
+from flask import jsonify
 
-def jparse(path):
-    outpath = path
-    outpath = outpath + '.json'
-    jtxt = open(path,'r')
-    lines = jtxt.readlines()
-    jtxt.close()
+def jparse(jstring):
     chrome = { 'chr1': [] }
-    for index, value in enumerate(lines):
+    totalstring = jstring.split('\r\n')
+    for index, value in enumerate(totalstring):
         if index != 0:
             string = value.split()
+            print(string)
             line = dict()
             line['chr_start'] = int(string[1])
             line['chr_stop'] = int(string[2])
@@ -17,7 +14,4 @@ def jparse(path):
             line['region_call'] = string[8]
             chrome['chr1'].append(line)
 
-    with open(outpath,'w') as outfile:
-        dump(chrome, outfile)
-
-    return outpath
+    return jsonify(chrome)
