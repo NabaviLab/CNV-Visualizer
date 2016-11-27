@@ -10,8 +10,10 @@ from .data import filter_copynumber
 
 app = Eve()
 app.config['UPLOAD_FOLDER'] = 'data/'
-app.config['ALLOWED_EXTENSIONS'] = {'txt'}
+app.config['ALLOWED_EXTENSIONS'] = {'txt', 'called'}
 CORS(app)
+
+cnvpath = None
 
 @app.route('/cnvvis')
 def base():
@@ -23,37 +25,45 @@ def greet(name):
 
 @app.route('/cnvvis/logratios')
 def logs():
-    start = int(request.args.get('start', default=0))
-    stop = int(request.args.get('stop', default=5000000000))
-    data = filter_copynumber('data/sim1.copynumber.called', int(start), int(stop))
-    jresponse = jparse(data)
-    return jresponse
+    global cnvpath
+    if cnvpath:
+        start = int(request.args.get('start', default=0))
+        stop = int(request.args.get('stop', default=5000000000))
+        data = filter_copynumber(cnvpath, int(start), int(stop))
+        jresponse = jparse(data)
+        return jresponse
+    return 'no cnv file uploaded'
 
 @app.route('/cnvvis/upload', methods=['GET','POST'])
 def upload():
+    global cnvpath
     def allowed_file(filename):
         return '.' in f.filename \
                 and f.filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS'] 
 
     if request.method == 'POST':
-        if 'file' not in request.files:
+        files = ('cnv',)
+        if any(name not in request.files for name in files):
             print('no file')
             return redirect(request.url)
-        f = request.files['file']
+
+        f = request.files['cnv']
         if f.filename == '':
             print('no filename')
             return redirect(request.url)
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(cnvpath)
             return redirect(url_for('uploaded_file', filename=filename))
+        print('problem')
 
     return '''
     <!doctype html>
     <title>Upload new File</title>
     <h1>Upload new File</h1>
     <form action="" method=POST enctype=multipart/form-data>
-    <p><input type=file name=file>
+    <p><input type=file name=cnv>
     <input type=submit value=Upload>
     </form>
     '''
