@@ -10,10 +10,11 @@ from .data import filter_copynumber
 
 app = Eve()
 app.config['UPLOAD_FOLDER'] = 'data/'
-app.config['ALLOWED_EXTENSIONS'] = {'txt', 'called'}
 CORS(app)
 
 cnvpath = None
+refpath = None
+samplepath = None
 
 @app.route('/cnvvis')
 def base():
@@ -36,13 +37,13 @@ def logs():
 
 @app.route('/cnvvis/upload', methods=['GET','POST'])
 def upload():
-    global cnvpath
-    def allowed_file(filename):
+    global cnvpath, refpath, samplepath
+    def allowed_file(filename, ext):
         return '.' in f.filename \
-                and f.filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS'] 
+                and f.filename.rsplit('.', 1)[1] == ext
 
     if request.method == 'POST':
-        files = ('cnv',)
+        files = ('cnv', 'reference', 'sample')
         if any(name not in request.files for name in files):
             print('no file')
             return redirect(request.url)
@@ -51,12 +52,36 @@ def upload():
         if f.filename == '':
             print('no filename')
             return redirect(request.url)
-        if f and allowed_file(f.filename):
-            filename = secure_filename(f.filename)
-            cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            f.save(cnvpath)
-            return redirect(url_for('uploaded_file', filename=filename))
-        print('problem')
+        if not (f and allowed_file(f.filename, 'called')):
+            print('file nonexistant or not allowed')
+            return redirect(request.url)
+        filename = secure_filename(f.filename)
+        cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        f.save(cnvpath)
+
+        f = request.files['reference']
+        if f.filename == '':
+            print('no filename')
+            return redirect(request.url)
+        if not (f and allowed_file(f.filename, 'bam')):
+            print('file nonexistant or not allowed')
+            return redirect(request.url)
+        filename = secure_filename(f.filename)
+        refpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        f.save(refpath)
+
+        f = request.files['sample']
+        if f.filename == '':
+            print('no filename')
+            return redirect(request.url)
+        if not (f and allowed_file(f.filename, 'bam')):
+            print('file nonexistant or not allowed')
+            return redirect(request.url)
+        filename = secure_filename(f.filename)
+        samplepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        f.save(samplepath)
+
+        return 'success'
 
     return '''
     <!doctype html>
@@ -64,6 +89,8 @@ def upload():
     <h1>Upload new File</h1>
     <form action="" method=POST enctype=multipart/form-data>
     <p><input type=file name=cnv>
+    <p><input type=file name=reference>
+    <p><input type=file name=sample>
     <input type=submit value=Upload>
     </form>
     '''
