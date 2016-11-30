@@ -1,7 +1,7 @@
 import os
 
 from eve import Eve
-from flask import request, redirect, send_from_directory, url_for
+from flask import request, redirect, send_from_directory, url_for, Response
 from flask.ext.cors import CORS
 from werkzeug.utils import secure_filename
 
@@ -105,12 +105,22 @@ def upload():
 @app.route('/cnvvis/uploads/<filename>')
 def uploaded_file(filename):
     content_range = request.headers.get('Range', "-")
+    data = None
     with open(os.path.join(app.config['UPLOAD_FOLDER'], filename)) as req_file:
-        start, stop = content_range.split('-')
+        if 'bytes' in content_range:
+            start, stop = content_range.split('=')[1].split('-')
+        else:
+            start, stop = None, None
         start = int(start) if start else 0
         stop = int(stop) if stop else os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         req_file.seek(start)
-        return req_file.read(stop - start)
+        data = req_file.read(stop - start)
+    rv = Response(data,
+            206,
+            direct_passthrough = True)
+    rv.headers.add('Content-Range', 'bytes {0}-{1}/{2}'.format(start, stop, stop - start))
+
+    return rv
 
 if __name__=="__main__":
     app.run()
