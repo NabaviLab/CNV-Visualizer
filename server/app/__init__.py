@@ -104,7 +104,13 @@ def upload():
 
 @app.route('/cnvvis/uploads/<filename>')
 def uploaded_file(filename):
-    return open(os.path.join(app.config['UPLOAD_FOLDER'], filename)).read()
+    content_range = request.headers.get('Range', "-")
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename)) as req_file:
+        start, stop = content_range.split('-')
+        start = int(start) if start else 0
+        stop = int(stop) if stop else os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        req_file.seek(start)
+        return req_file.read(stop - start)
 
 if __name__=="__main__":
     app.run()
