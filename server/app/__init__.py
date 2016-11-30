@@ -43,43 +43,50 @@ def upload():
                 and f.filename.rsplit('.', 1)[1] == ext
 
     if request.method == 'POST':
-        files = ('cnv', 'reference', 'sample')
-        if any(name not in request.files for name in files):
-            print('no file')
-            return redirect(request.url)
+        if 'cnv' not in request.files and not cnvpath:
+            return 'no cnv file'
 
-        f = request.files['cnv']
-        if f.filename == '':
-            print('no filename')
-            return redirect(request.url)
-        if not (f and allowed_file(f.filename, 'called')):
-            print('file nonexistant or not allowed')
-            return redirect(request.url)
-        filename = secure_filename(f.filename)
-        cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        f.save(cnvpath)
+        if 'cnv' in request.files:
+            f = request.files['cnv']
+            if f.filename == '':
+                print('no filename')
+                return redirect(request.url)
+            if not (f and allowed_file(f.filename, 'called')):
+                print('file nonexistant or not allowed')
+                return redirect(request.url)
+            filename = secure_filename(f.filename)
+            cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(cnvpath)
 
-        f = request.files['reference']
-        if f.filename == '':
-            print('no filename')
-            return redirect(request.url)
-        if not (f and allowed_file(f.filename, 'bam')):
-            print('file nonexistant or not allowed')
-            return redirect(request.url)
-        filename = secure_filename(f.filename)
-        refpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        f.save(refpath)
+        if 'reference' not in request.files and not refpath:
+            return 'no reference file'
 
-        f = request.files['sample']
-        if f.filename == '':
-            print('no filename')
-            return redirect(request.url)
-        if not (f and allowed_file(f.filename, 'bam')):
-            print('file nonexistant or not allowed')
-            return redirect(request.url)
-        filename = secure_filename(f.filename)
-        samplepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        f.save(samplepath)
+        if 'reference' in request.files:
+            f = request.files['reference']
+            if f.filename == '':
+                print('no filename')
+                return redirect(request.url)
+            if not (f and allowed_file(f.filename, 'bam')):
+                print('file nonexistant or not allowed')
+                return redirect(request.url)
+            filename = secure_filename(f.filename)
+            refpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(refpath)
+
+        if 'sample' not in request.files and not samplepath:
+            return 'no sample file'
+
+        if 'sample' in request.files:
+            f = request.files['sample']
+            if f.filename == '':
+                print('no filename')
+                return redirect(request.url)
+            if not (f and allowed_file(f.filename, 'bam')):
+                print('file nonexistant or not allowed')
+                return redirect(request.url)
+            filename = secure_filename(f.filename)
+            samplepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(samplepath)
 
         return 'success'
 
