@@ -5,7 +5,6 @@ function d3DrawLogRatios() {
 
   d3.json(url, function(error, data) {
     if (error) return console.warn(error);
-    console.log(data);
     showScatterPlot(data.chr1);
   });
 
