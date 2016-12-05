@@ -1,7 +1,5 @@
-function drawLogRatios() {
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
-  var url = "http://nabavilab.uconn.edu/cnvvis/logratios?start=" + start + "&stop=" + end;
+function drawLogRatios(start, stop) {
+  var url = "http://nabavilab.uconn.edu/cnvvis/logratios?" + "start=" + start + "&stop=" + stop;
   var data;
 
   Plotly.d3.json(url, function(error, json) {
@@ -28,12 +26,16 @@ function drawLogRatios() {
         title: 'Base Pair'
       },
       yaxis: {
-        title: 'Log Ratio'
+        title: 'Log R Ratio'
       }
     };
 
 
     Plotly.newPlot('plotly-ratios', [ratios1], layout, {displayModeBar: false});
-
+    Plotly.relayout('plotly-ratios', {'xaxis.range': [start, stop]});
   });
 };
+
+function repaintPlot(start, stop) {
+  Plotly.relayout('plotly-ratios', {'xaxis.range': [start, stop]});
+}

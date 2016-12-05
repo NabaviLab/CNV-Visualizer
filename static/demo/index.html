@@ -64,6 +64,18 @@
                             name: 'Sample BAM'})">Sample BAM</a></li>
                 <li><a href="#"
                           onclick="igv.browser.loadTrack({
+                            type: 'annotation',
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/control.bed',
+                            name: 'Control bed',
+                            indexed: false})">Control bed</a></li>
+                <li><a href="#"
+                          onclick="igv.browser.loadTrack({
+                            type: 'annotation',
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/sample.bed',
+                            name: 'Sample bed',
+                            indexed: false})">Sample bed</a></li>
+                <li><a href="#"
+                          onclick="igv.browser.loadTrack({
                             url: 'http://nabavilab.uconn.edu/cnvvis/uploads/sim1.copynumber.called',
                             name: 'CNV'})">CNV (not working yet)</a></li>
               </ul>
@@ -93,7 +105,15 @@
        <div id="igvDiv"></div>
      </div>
    </div>
+   <div class="row">
+     <div class="col-md-4 col-lg-4">
+     </div>
+     <div class="col-md-8 col-lg-8">
+       <div id="plotly-ratios"></div>
+     </div>
   </div>
+
+  <script type="text/javascript" src="LogRatioPlotly.js"></script>
 
   <script type="text/javascript">
     var fullPath = document.getElementById('upload').value;
@@ -105,7 +125,14 @@
 
    <script type="text/javascript">
     $(document).ready(function () {
-        var div = $("#igvDiv")[0],
+
+        var HASH_PREFIX = "#/locus/";
+        var currentHash = window.location.hash;
+        var locus = currentHash && currentHash.indexOf(HASH_PREFIX) === 0
+           ? currentHash.substr(HASH_PREFIX.length)
+           : "chr1:155,160,475-155,184,282";   // default location
+
+       var div = $("#igvDiv")[0],
                 options = {
                     showNavigation: true,
                     showRuler: true,
@@ -120,12 +147,26 @@
                         name: "Genes",
                         url: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
                         index: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
-                        displayMode: "EXPANDED"
+                        displayMode: "EXPANDED",
+                        order: Number.MAX_VALUE
                       }
                     ]
                 };
-            igv.createBrowser(div, options);
+
+          var myBrowser = igv.createBrowser(div, options);
+
+
+          myBrowser.on('locuschange', function (referenceFrame, label) {
+            var locusString = label.split(":");
+            var range = locusString[1].split("-");
+            drawLogRatios(range[0].replace(/,/g, ""), range[1].replace(/,/g, ""));
+            window.location.replace(HASH_PREFIX + label);
+          });
+
         });
+
+
+
       </script>
   </body>
 </html>
