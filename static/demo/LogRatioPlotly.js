@@ -56,7 +56,3 @@ function drawLogRatios(start, stop) {
 
 
 };
-
-function repaintPlot(start, stop) {
-  Plotly.relayout('plotly-ratios', {'xaxis.range': [start, stop]});
-}
