@@ -80,8 +80,7 @@ def upload():
     <h1>Upload new File</h1>
     <form action="" method=POST enctype=multipart/form-data>
     <p><input type=file name=cnv>
-    <p><input type=file name=reference>
-    <p><input type=file name=sample>
+    <p><input type=file name=bam>
     <input type=submit value=Upload>
     </form>
     '''
