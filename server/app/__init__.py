@@ -13,8 +13,7 @@ app.config['UPLOAD_FOLDER'] = 'data/'
 CORS(app)
 
 cnvpath = None
-refpath = None
-samplepath = None
+bampath = None
 
 @app.route('/cnvvis')
 def base():
@@ -37,7 +36,7 @@ def logs():
 
 @app.route('/cnvvis/upload', methods=['GET','POST'])
 def upload():
-    global cnvpath, refpath, samplepath
+    global cnvpath, bampath
     def allowed_file(filename, ext):
         return '.' in f.filename \
                 and f.filename.rsplit('.', 1)[1] == ext
@@ -58,11 +57,11 @@ def upload():
             cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             f.save(cnvpath)
 
-        if 'reference' not in request.files and not refpath:
+        if 'bam' not in request.files and not bampath:
             return 'no reference file'
 
-        if 'reference' in request.files:
-            f = request.files['reference']
+        if 'bam' in request.files:
+            f = request.files['bam']
             if f.filename == '':
                 print('no filename')
                 return redirect(request.url)
@@ -73,21 +72,6 @@ def upload():
             refpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             f.save(refpath)
 
-        if 'sample' not in request.files and not samplepath:
-            return 'no sample file'
-
-        if 'sample' in request.files:
-            f = request.files['sample']
-            if f.filename == '':
-                print('no filename')
-                return redirect(request.url)
-            if not (f and allowed_file(f.filename, 'bam')):
-                print('file nonexistant or not allowed')
-                return redirect(request.url)
-            filename = secure_filename(f.filename)
-            samplepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            f.save(samplepath)
-
         return 'success'
 
     return '''
@@ -96,8 +80,7 @@ def upload():
     <h1>Upload new File</h1>
     <form action="" method=POST enctype=multipart/form-data>
     <p><input type=file name=cnv>
-    <p><input type=file name=reference>
-    <p><input type=file name=sample>
+    <p><input type=file name=bam>
     <input type=submit value=Upload>
     </form>
     '''
