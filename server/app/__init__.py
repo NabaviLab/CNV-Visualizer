@@ -48,10 +48,10 @@ def upload():
         if 'cnv' in request.files:
             f = request.files['cnv']
             if f.filename == '':
-                print('no filename')
+                print('no filename - cnv')
                 return redirect(request.url)
             if not (f and allowed_file(f.filename, 'called')):
-                print('file nonexistant or not allowed')
+                print('file nonexistant or not allowed - cnv')
                 return redirect(request.url)
             filename = secure_filename(f.filename)
             cnvpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -63,14 +63,14 @@ def upload():
         if 'bam' in request.files:
             f = request.files['bam']
             if f.filename == '':
-                print('no filename')
+                print('no filename - bam')
                 return redirect(request.url)
             if not (f and allowed_file(f.filename, 'bam')):
-                print('file nonexistant or not allowed')
+                print('file nonexistant or not allowed - bam')
                 return redirect(request.url)
             filename = secure_filename(f.filename)
-            refpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            f.save(refpath)
+            bampath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            f.save(bampath)
 
         return 'success'
 
