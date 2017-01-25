@@ -1,7 +1,5 @@
-function drawLogRatios() {
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
-  var url = "http://nabavilab.uconn.edu/cnvvis/logratios?start=" + start + "&stop=" + end;
+function drawLogRatios(start, stop) {
+  var url = "http://nabavilab.uconn.edu/cnvvis/logratios?" + "start=" + start + "&stop=" + stop;
   var data;
 
   Plotly.d3.json(url, function(error, json) {
@@ -28,12 +26,33 @@ function drawLogRatios() {
         title: 'Base Pair'
       },
       yaxis: {
-        title: 'Log Ratio'
+        title: 'Log R Ratio'
       }
     };
 
+    var d3 = Plotly.d3;
 
-    Plotly.newPlot('plotly-ratios', [ratios1], layout, {displayModeBar: false});
+    var WIDTH_IN_PERCENT_OF_PARENT = 100,
+    HEIGHT_IN_PERCENT_OF_PARENT = 50;
 
+    var gd3 = d3.select('#plotly-ratios')
+                .style({
+                  width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+                  'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+
+                  height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+                  'margin-top': 0
+                });
+
+    var gd = gd3.node();
+
+    Plotly.newPlot(gd, [ratios1], layout, {displayModeBar: false});
+    Plotly.relayout(gd, {'xaxis.range': [start, stop]});
+
+    window.onresize = function() {
+      Plotly.Plots.resize(gd);
+    };
   });
+
+
 };

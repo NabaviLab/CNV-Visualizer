@@ -6,7 +6,6 @@ def jparse(jstring):
     for index, value in enumerate(totalstring):
         if index != 0:
             string = value.split()
-            print(string)
             line = dict()
             line['chr_start'] = int(string[1])
             line['chr_stop'] = int(string[2])

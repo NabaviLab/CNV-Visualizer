@@ -1,23 +1,228 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
-  </head>
-  <body>
-    <input type="text" id='start' placeholder="enter start range"></input>
-    <input type="text" id='end' placeholder="enter end range"></input>
-    <input type="button" name="submit" value="submit" onclick="drawLogRatios()">
-    <div id="plotly-ratios"></div>
-    <script src="LogRatioPlotly.js"></script>
 
-    <input type="text" id='start2' placeholder="enter start range"></input>
-    <input type="text" id='end2' placeholder="enter end range"></input>
-    <input type="button" name="submit2" value="submit" onclick="d3DrawLogRatios()">
-    <div id="ratios-load"></div>
-    <script src="LogRatioPlot.js"></script>
-  </body>
+    <!-- jQuery JS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"/>
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+
+    <!-- IGV CSS -->
+    <link rel="stylesheet" type="text/css" href="https://igv.org/web/test/multilocus/igv-multilocus.css">
+
+    <!-- IGV JS-->
+    <script type="text/javascript" src="https://igv.org/web/test/multilocus/igv-multilocus.js"></script>
+
+    <!-- Biocircos.js -->
+    <script src="../d3/biocircos-1.1.0.js"></script>
+
+    <script src="CNV01.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CNVisualization</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Select File<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"
+                               onclick="igv.browser.loadTrack({
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/control.bam',
+                            name: 'Control BAM'})">Control BAM</a></li>
+                        <li><a href="#"
+                               onclick="igv.browser.loadTrack({
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/sample.bam',
+                            name: 'Sample BAM'})">Sample BAM</a></li>
+                        <li><a href="#"
+                               onclick="igv.browser.loadTrack({
+                            type: 'annotation',
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/control.bed',
+                            name: 'Control bed',
+                            indexed: false})">Control bed</a></li>
+                        <li><a href="#"
+                               onclick="igv.browser.loadTrack({
+                            type: 'annotation',
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/sample.bed',
+                            name: 'Sample bed',
+                            indexed: false})">Sample bed</a></li>
+                        <li><a href="#"
+                               onclick="igv.browser.loadTrack({
+                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/cnv.seg.gz',
+                            name: 'CNV'})">CNV segment (multi-sample)</a></li>
+                        <li><a href="#"
+                               onclick="displayPlotly()">CNV log R ratios</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" action="http://nabavilab.uconn.edu/cnvvis/upload" method=POST
+                  target="hidden-iframe" enctype=multipart/form-data>
+                <div class="form-group">
+                    <label class="btn btn-primary">
+                        Select File to Upload... <input type=file name=bam id="upload" style="display: none;">
+                    </label>
+                </div>
+                <input type=submit class="btn btn-default" value=Upload>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<iframe name="hidden-iframe" style="display: none;"></iframe>
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-4 col-lg-4">
+            <div id="bioCircosDiv" style="margin-top:12px; margin-left: 12px"></div>
+
+            <script>
+                var BioCircosGenome = [   // human hg19, data tag is BioCircosGenome
+                    ["1", 249250621],
+                    ["2", 243199373],
+                    ["3", 198022430],
+                    ["4", 191154276],
+                    ["5", 180915260],
+                    ["6", 171115067],
+                    ["7", 159138663],
+                    ["8", 146364022],
+                    ["9", 141213431],
+                    ["10", 135534747],
+                    ["11", 135006516],
+                    ["12", 133851895],
+                    ["13", 115169878],
+                    ["14", 107349540],
+                    ["15", 102531392],
+                    ["16", 90354753],
+                    ["17", 81195210],
+                    ["18", 78077248],
+                    ["19", 59128983],
+                    ["20", 63025520],
+                    ["21", 48129895],
+                    ["22", 51304566],
+                    ["X", 155270560],
+                    ["Y", 59373566]
+                ];
+                BioCircos01 = new BioCircos(BACKGROUND01, CNV01, BioCircosGenome, {  // Initialize BioCircos.js with "BioCircosGenome" and Main configuration
+                    //Main configuration
+                    target: "bioCircosDiv",                       // Main configuration "target"
+                    svgWidth: 387,                             // Main configuration "svgWidth"
+                    svgHeight: 387,                            // Main configuration "svgHeight"
+                    chrPad: 0.04,                              // Main configuration "chrPad"
+                    innerRadius: 150,                           // Main configuration "innerRadius"
+                    outerRadius: 165                           // Main configuration "outerRadius"
+                });
+                BioCircos01.draw_genome(BioCircos01.genomeLength); // BioCircos.js callback
+            </script>
+        </div>
+        <div class="col-md-8 col-lg-8">
+            <div class="row">
+                <div id="igvDiv"></div>
+            </div>
+            <div class="row">
+                <div id="plotly-ratios" style="visibility: hidden;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="LogRatioPlotly.js"></script>
+
+<script type="text/javascript">
+    var fullPath = document.getElementById('upload').value;
+    if (fullPath) {
+        var fileName = fullPath.split(/(\\|\/)/g).pop();
+        alert(fileName);
+    }
+
+    function displayPlotly() {
+        document.getElementById('plotly-ratios').style.visibility = "visible";
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var HASH_PREFIX = "#/locus/";
+        var currentHash = window.location.hash;
+        var locus = currentHash && currentHash.indexOf(HASH_PREFIX) === 0
+            ? currentHash.substr(HASH_PREFIX.length)
+            : "chr1:155,160,475-155,184,282";   // default location
+
+        var div = $("#igvDiv")[0],
+            options = {
+                showNavigation: true,
+                showRuler: true,
+                genome: "hg19",
+                locus: "chr1:10,000-20,000",
+                reference: {
+                    fastaURL: "http://nabavilab.uconn.edu/cnvvis/uploads/chr1.fa",
+                    indexURL: "http://nabavilab.uconn.edu/cnvvis/uploads/chr1.fa.fai"
+                },
+                tracks: [
+                    {
+                        name: "Genes",
+                        url: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
+                        index: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
+                        displayMode: "EXPANDED",
+                        order: Number.MAX_VALUE
+                    }
+                ]
+            };
+
+        var myBrowser = igv.createBrowser(div, options);
+
+
+        myBrowser.on('locuschange', function (referenceFrame, label) {
+            var locusString = label.split(":");
+            var range = locusString[1].split("-");
+            drawLogRatios(range[0].replace(/,/g, ""), range[1].replace(/,/g, ""));
+            window.location.replace(HASH_PREFIX + label);
+        });
+
+    });
+
+
+</script>
+</body>
 </html>
