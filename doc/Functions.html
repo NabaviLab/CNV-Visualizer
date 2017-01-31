@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Contents" class="toc"><h1 id="Contents">Contents</h1></div>
+<ul>
+<li>
+<a href="Functions.html#igv">igv</a>
+
+<ul>
+<li>
+<a href="Functions.html#igv-Browser">Browser</a>
+
+<ul>
+<li>
+<a href="Functions.html#igv-Browser-disableZoomWidget()">disableZoomWidget()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-enableZoomWidget(zoomHandlers)">enableZoomWidget(zoomHandlers)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-toggletCursorGuide(genomicStateList)">toggletCursorGuide(genomicStateList)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-toggleCenterGuide(genomicStateList)">toggleCenterGuide(genomicStateList)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-getFormat(name)">getFormat(name)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-loadTracksWithConfigList(configList)">loadTracksWithConfigList(configList)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-loadTrack(config)">loadTrack(config)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-addTrack(track)">addTrack(track)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-reorderTracks()">reorderTracks()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-removeTrack(track)">removeTrack(track)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-findTracks(property, value)">findTracks(property, value)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-reduceTrackOrder(trackView)">reduceTrackOrder(trackView)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-increaseTrackOrder(trackView)">increaseTrackOrder(trackView)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-setTrackHeight(newHeight)">setTrackHeight(newHeight)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-resize()">resize()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-repaint()">repaint()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-repaintWithLocusIndex(locusIndex)">repaintWithLocusIndex(locusIndex)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-update()">update()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-updateWithLocusIndex(locusIndex)">updateWithLocusIndex(locusIndex)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-loadInProgress()">loadInProgress()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-updateLocusSearchWithGenomicState()">updateLocusSearchWithGenomicState()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-syntheticViewportContainerBBox()">syntheticViewportContainerBBox()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-syntheticViewportContainerWidth()">syntheticViewportContainerWidth()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-viewportContainerWidth()">viewportContainerWidth()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-minimumBasesExtent()">minimumBasesExtent()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-goto(chrName, start, end)">goto(chrName, start, end)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-zoomIn()">zoomIn()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-zoomOut()">zoomOut()</a>
+
+<li>
+<a href="Functions.html#igv-Browser-selectMultiLocusPanelWithGenomicState(genomicState)">selectMultiLocusPanelWithGenomicState(genomicState)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-closeMultiLocusPanelWithGenomicState(genomicState)">closeMultiLocusPanelWithGenomicState(genomicState)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-multiLocusPanelLayoutWithTruthFunction(filterFunction)">multiLocusPanelLayoutWithTruthFunction(filterFunction)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-emptyViewportContainers(trackContainer)">emptyViewportContainers(trackContainer)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-buildViewportsWithGenomicStateList(genomicStateList)">buildViewportsWithGenomicStateList(genomicStateList)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-parseSearchInput(string)">parseSearchInput(string)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-getGenomicStateList(loci, viewportContainerWidth, continuation)">getGenomicStateList(loci, viewportContainerWidth, continuation)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-on(eventName, fn)">on(eventName, fn)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-un(eventName, fn)">un(eventName, fn)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-fireEvent(eventName, args, thisObj)">fireEvent(eventName, args, thisObj)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-isLocusChrNameStartEnd(locus, genome, locusObject)">isLocusChrNameStartEnd(locus, genome, locusObject)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-validateLocusExtent(chromosome, extent)">validateLocusExtent(chromosome, extent)</a>
+
+<li>
+<a href="Functions.html#igv-Browser-parseSearchResults(data)">parseSearchResults(data)</a>
+
+</ul>
+<li>
+<a href="Functions.html#igv-initialize(options)">initialize(options)</a>
+
+<li>
+<a href="Functions.html#igv-graphics">graphics</a>
+
+<ul>
+<li>
+<a href="Functions.html#igv-graphics-setProperties(ctx, properties)">setProperties(ctx, properties)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-strokeLine(ctx, x1, y1, x2, y2, properties)">strokeLine(ctx, x1, y1, x2, y2, properties)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-fillRect(ctx, x, y, w, h, properties)">fillRect(ctx, x, y, w, h, properties)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-fillPolygon(ctx, x, y, properties)">fillPolygon(ctx, x, y, properties)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-strokePolygon(ctx, x, y, properties)">strokePolygon(ctx, x, y, properties)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-fillText(ctx, text, x, y, properties, transforms)">fillText(ctx, text, x, y, properties, transforms)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-strokeText(ctx, text, x, y, properties, transforms)">strokeText(ctx, text, x, y, properties, transforms)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-strokeCircle(ctx, x, y, radius)">strokeCircle(ctx, x, y, radius)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-fillCircle(ctx, x, y, radius)">fillCircle(ctx, x, y, radius)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-drawArrowhead(ctx, x, y, size, lineWidth)">drawArrowhead(ctx, x, y, size, lineWidth)</a>
+
+<li>
+<a href="Functions.html#igv-graphics-dashedLine(ctx, x1, y1, x2, y2, dashLen, properties)">dashedLine(ctx, x1, y1, x2, y2, dashLen, properties)</a>
+
+</ul>
+</ul>
+</ul>
+
+<div id="igv"><h1 id="igv">igv</h1></div>
+
+<div id="igv-Browser"><h2 id="Browser">Browser</h2></div>
+
+<p>
+Initializes the basic values for the browser itself, as well as setting up
+mouse events and other handlers.
+</p>
+
+<dl>
+<dt>options           </dt>
+<dd>Set up initially</dd>
+<dt>trackContainerDiv </dt>
+<dd>Div that is meant to contain the tracks themselves</dd>
+</dl>
+
+<div id="igv-Browser-disableZoomWidget()"><h3 id="disableZoomWidget()">disableZoomWidget()</h3></div>
+
+<p>
+Turns off the widget that allows zooming in and out
+</p>
+
+<div id="igv-Browser-enableZoomWidget(zoomHandlers)"><h3 id="enableZoomWidget(zoomHandlers)">enableZoomWidget(zoomHandlers)</h3></div>
+
+<p>
+Turns on the widget that allows zooming in and out
+</p>
+
+<dl>
+<dt>zoomHandlers </dt>
+<dd>All pieces that need to be capable of zooming in/out</dd>
+</dl>
+
+<div id="igv-Browser-toggletCursorGuide(genomicStateList)"><h3 id="toggletCursorGuide(genomicStateList)">toggletCursorGuide(genomicStateList)</h3></div>
+
+<p>
+Enable/Disable cursor guides
+</p>
+
+<dl>
+<dt>genomicStateList </dt>
+<dd>All pieces with loci to show a line through the cursor</dd>
+</dl>
+
+<div id="igv-Browser-toggleCenterGuide(genomicStateList)"><h3 id="toggleCenterGuide(genomicStateList)">toggleCenterGuide(genomicStateList)</h3></div>
+
+<p>
+Enable/Disable guide through the center of the track
+</p>
+
+<dl>
+<dt>genomicStateList </dt>
+<dd>All pieces with loci to be split</dd>
+</dl>
+
+<div id="igv-Browser-getFormat(name)"><h3 id="getFormat(name)">getFormat(name)</h3></div>
+
+<p>
+Returns a format as long as it was supplied from the options list.
+</p>
+
+<dl>
+<dt>name </dt>
+<dd>the format that is requested</dd>
+<dt>return -&gt; </dt>
+<dd>the format</dd>
+</dl>
+
+<div id="igv-Browser-loadTracksWithConfigList(configList)"><h3 id="loadTracksWithConfigList(configList)">loadTracksWithConfigList(configList)</h3></div>
+
+<p>
+Load several tracks that are passed in as a list of configurations for each
+individual track. Calls <a href="Functions.html#igv-Browser-loadTrack(config)">igv.Browser.loadTrack(config)</a>
+</p>
+
+<dl>
+<dt>configList </dt>
+<dd>An array of configurations for each respective track</dd>
+<dt>return -&gt;  </dt>
+<dd>all of the tracks that have been loaded</dd>
+</dl>
+
+<div id="igv-Browser-loadTrack(config)"><h3 id="loadTrack(config)">loadTrack(config)</h3></div>
+
+<p>
+Loads a specific track with a given configuration, requires a case added to the
+config types
+</p>
+
+<dl>
+<dt>config </dt>
+<dd>the configuration passed in for the track</dd>
+<dt>return -&gt; </dt>
+<dd>the track that's been loaded</dd>
+</dl>
+
+<div id="igv-Browser-addTrack(track)"><h3 id="addTrack(track)">addTrack(track)</h3></div>
+
+<p>
+Add a track to the igv viewer, and ensure it fits properly into the containing
+div element. Calls <a href="Functions.html#igv-Browser-reorderTracks()">igv.Browser.reorderTracks()</a>
+</p>
+
+<dl>
+<dt>track </dt>
+<dd>the track that has been completely built to be added</dd>
+</dl>
+
+<div id="igv-Browser-reorderTracks()"><h3 id="reorderTracks()">reorderTracks()</h3></div>
+
+<p>
+Sort the tracks and ensure that they are in said order in the containing div
+</p>
+
+<div id="igv-Browser-removeTrack(track)"><h3 id="removeTrack(track)">removeTrack(track)</h3></div>
+
+<p>
+Remove a selected track, and take it out of the container div.
+</p>
+
+<dl>
+<dt>track </dt>
+<dd>track to remove; should be in the </dd>
+</dl>
+
+<div id="igv-Browser-findTracks(property, value)"><h3 id="findTracks(property, value)">findTracks(property, value)</h3></div>
+
+<p>
+Search for tracks that contain a particular value
+</p>
+
+<dl>
+<dt>property </dt>
+<dd>property to search for</dd>
+<dt>value    </dt>
+<dd>expected value for the property</dd>
+<dt>return -&gt; </dt>
+<dd>the tracks with the requested value</dd>
+</dl>
+
+<div id="igv-Browser-reduceTrackOrder(trackView)"><h3 id="reduceTrackOrder(trackView)">reduceTrackOrder(trackView)</h3></div>
+
+<p>
+Move a track up the view to be higher up (lower order?)
+Calls <a href="Functions.html#igv-Browser-reorderTracks()">igv.Browser.reorderTracks()</a>
+</p>
+
+<dl>
+<dt>trackView </dt>
+<dd>the track to be moved</dd>
+</dl>
+
+<div id="igv-Browser-increaseTrackOrder(trackView)"><h3 id="increaseTrackOrder(trackView)">increaseTrackOrder(trackView)</h3></div>
+
+<p>
+Move a track down the view to be lower (higher order?)
+Calls <a href="Functions.html#igv-Browser-reorderTracks()">igv.Browser.reorderTracks()</a>
+</p>
+
+<dl>
+<dt>trackView </dt>
+<dd>the track to be moved</dd>
+</dl>
+
+<div id="igv-Browser-setTrackHeight(newHeight)"><h3 id="setTrackHeight(newHeight)">setTrackHeight(newHeight)</h3></div>
+
+<p>
+Set a new uniform height for the tracks
+</p>
+
+<dl>
+<dt>newHeight </dt>
+<dd>pixel? height of the tracks</dd>
+</dl>
+
+<div id="igv-Browser-resize()"><h3 id="resize()">resize()</h3></div>
+
+<p>
+Calls a resize on everything renderable in the browser
+</p>
+
+<div id="igv-Browser-repaint()"><h3 id="repaint()">repaint()</h3></div>
+
+<p>
+Calls a repaint on everything renderable in the browser
+</p>
+
+<div id="igv-Browser-repaintWithLocusIndex(locusIndex)"><h3 id="repaintWithLocusIndex(locusIndex)">repaintWithLocusIndex(locusIndex)</h3></div>
+
+<p>
+Calls a repaint on Karyo, Ideo, and Viewports with a locus index
+</p>
+
+<dl>
+<dt>locusIndex </dt>
+<dd>the index that needs to be repainted</dd>
+</dl>
+
+<div id="igv-Browser-update()"><h3 id="update()">update()</h3></div>
+
+<p>
+Updates the Locus Search, then updates the Genomic State, then renderables and
+finally each of the individual tracks
+</p>
+
+<div id="igv-Browser-updateWithLocusIndex(locusIndex)"><h3 id="updateWithLocusIndex(locusIndex)">updateWithLocusIndex(locusIndex)</h3></div>
+
+<p>
+Update the <a href="Functions.html#genomicState">genomicState</a>, then a specific locus of the <a href="Functions.html#genomicState">genomicState</a>, then
+Ideo, Karyo, and Viewports. Update the center guide as well
+</p>
+
+<dl>
+<dt>locusIndex </dt>
+<dd>the index of the genome</dd>
+</dl>
+
+<div id="igv-Browser-loadInProgress()"><h3 id="loadInProgress()">loadInProgress()</h3></div>
+
+<p>
+Check if any tracks are still trying to load and return that
+</p>
+
+<dl>
+<dt>return -&gt; </dt>
+<dd>boolean whether loading or not</dd>
+</dl>
+
+<div id="igv-Browser-updateLocusSearchWithGenomicState()"><h3 id="updateLocusSearchWithGenomicState()">updateLocusSearchWithGenomicState()</h3></div>
+
+<p>
+Updates the current locus being searched for data, and fire the event
+</p>
+
+<div id="igv-Browser-syntheticViewportContainerBBox()"><h3 id="syntheticViewportContainerBBox()">syntheticViewportContainerBBox()</h3></div>
+
+<p>
+Object that describes the position and size of the div containing the genome
+viewport.
+</p>
+
+<dl>
+<dt>return -&gt; </dt>
+<dd>rect with { position, width, height }</dd>
+</dl>
+
+<div id="igv-Browser-syntheticViewportContainerWidth()"><h3 id="syntheticViewportContainerWidth()">syntheticViewportContainerWidth()</h3></div>
+
+<p>
+Get the width of the viewport containing the tracks
+</p>
+
+<dl>
+<dt>return -&gt; </dt>
+<dd>number with width</dd>
+</dl>
+
+<div id="igv-Browser-viewportContainerWidth()"><h3 id="viewportContainerWidth()">viewportContainerWidth()</h3></div>
+
+<p>
+Get the visible width of a track (should be the same for all of them)
+</p>
+
+<dl>
+<dt>return -&gt; </dt>
+<dd>number width of the viewport</dd>
+</dl>
+
+<div id="igv-Browser-minimumBasesExtent()"><h3 id="minimumBasesExtent()">minimumBasesExtent()</h3></div>
+
+<dl>
+<dt>return -&gt; </dt>
+<dd>40...?</dd>
+</dl>
+
+<div id="igv-Browser-goto(chrName, start, end)"><h3 id="goto(chrName, start, end)">goto(chrName, start, end)</h3></div>
+
+<p>
+Updates the <a href="Functions.html#genomicState">genomicState</a> to go straight to a specified location given by the
+chromosome, start base pair and end base pair. Ends by running
+<a href="Functions.html#igv-Browser-update()">igv.Browser.update()</a>.
+</p>
+
+<dl>
+<dt>chrName </dt>
+<dd>name of the chromosome</dd>
+<dt>start   </dt>
+<dd>start base pair</dd>
+<dt>end     </dt>
+<dd>end base pair</dd>
+</dl>
+
+<div id="igv-Browser-zoomIn()"><h3 id="zoomIn()">zoomIn()</h3></div>
+
+<p>
+Zoom into the tracks, only if all tracks have already finished loading
+</p>
+
+<div id="igv-Browser-zoomOut()"><h3 id="zoomOut()">zoomOut()</h3></div>
+
+<p>
+Zoom out of the tracks, only if all tracks have finished loading
+</p>
+
+<div id="igv-Browser-selectMultiLocusPanelWithGenomicState(genomicState)"><h3 id="selectMultiLocusPanelWithGenomicState(genomicState)">selectMultiLocusPanelWithGenomicState(genomicState)</h3></div>
+
+<p>
+Create a panel of locuses that match the given Genomic State. Calls
+<a href="Functions.html#igv-Browser-multiLocusPanelLayoutWithTruthFunction(filterFunction)">igv.Browser.multiLocusPanelLayoutWithTruthFunction(fn)</a>.
+</p>
+
+<dl>
+<dt>genomicState </dt>
+<dd>state variable to try matching</dd>
+</dl>
+
+<div id="igv-Browser-closeMultiLocusPanelWithGenomicState(genomicState)"><h3 id="closeMultiLocusPanelWithGenomicState(genomicState)">closeMultiLocusPanelWithGenomicState(genomicState)</h3></div>
+
+<p>
+Close the panel of viewports that match the <a href="Functions.html#genomicState">genomicState</a>. Do this by only
+leaving all of the other <a href="Functions.html#genomicState">genomicState</a>s open. Calls
+<a href="Functions.html#igv-Browser-multiLocusPanelLayoutWithTruthFunction(filterFunction)">igv.Browser.multiLocusPanelLayoutWithTruthFunction(fn)</a>.
+</p>
+
+<dl>
+<dt>genomicState </dt>
+<dd>state variable to try matching</dd>
+</dl>
+
+<div id="igv-Browser-multiLocusPanelLayoutWithTruthFunction(filterFunction)"><h3 id="multiLocusPanelLayoutWithTruthFunction(filterFunction)">multiLocusPanelLayoutWithTruthFunction(filterFunction)</h3></div>
+
+<p>
+Filter <a href="Functions.html#genomicState">genomicState</a>s possible using the given function. Build the relevant
+viewport. Calls
+<a href="Functions.html#igv-Browser-emptyViewportContainers(trackContainer)">igv.Browser.emptyViewportContainers(trackContainer)</a>.
+Then calls
+<a href="Functions.html#igv-Browser-buildViewportsWithGenomicStateList(genomicStateList)">igv.Browser.buildViewportsWithGenomicStateList(gsList)</a>
+</p>
+
+<dl>
+<dt>filterFunction </dt>
+<dd>function used to filter the <a href="Functions.html#genomicState">genomicState</a>s</dd>
+</dl>
+
+<div id="igv-Browser-emptyViewportContainers(trackContainer)"><h3 id="emptyViewportContainers(trackContainer)">emptyViewportContainers(trackContainer)</h3></div>
+
+<p>
+Remove everything from a specific track container.
+</p>
+
+<dl>
+<dt>trackContainer </dt>
+<dd>container to empty</dd>
+</dl>
+
+<div id="igv-Browser-buildViewportsWithGenomicStateList(genomicStateList)"><h3 id="buildViewportsWithGenomicStateList(genomicStateList)">buildViewportsWithGenomicStateList(genomicStateList)</h3></div>
+
+<p>
+For each of the track views, update the relevant <a href="Functions.html#genomicState">genomicState</a>s.
+</p>
+
+<dl>
+<dt>genomicStateList </dt>
+<dd>Array of <a href="Functions.html#genomicState">genomicState</a> objects that define what should be</dd>
+</dl>
+<p>
+placed in the viewport
+</p>
+
+<div id="igv-Browser-parseSearchInput(string)"><h3 id="parseSearchInput(string)">parseSearchInput(string)</h3></div>
+
+<p>
+Calls <a href="Functions.html#igv-Browser-getGenomicStateList(loci, viewportContainerWidth, continuation)">igv.Browser.getGenomicStateList(loci, viewportContainerWidth, continuation)</a>
+to fill the track containers with anything from the passed in string of loci.
+</p>
+
+<dl>
+<dt>string </dt>
+<dd>Loci used in the search</dd>
+</dl>
+
+<div id="igv-Browser-getGenomicStateList(loci, viewportContainerWidth, continuation)"><h3 id="getGenomicStateList(loci, viewportContainerWidth, continuation)">getGenomicStateList(loci, viewportContainerWidth, continuation)</h3></div>
+
+<p>
+Takes the loci and maps it to a list of relevant <a href="Functions.html#genomicState">genomicState</a>s.
+</p>
+
+<dl>
+<dt>loci </dt>
+<dd>array of locus strings (e.g. <code>'chr1:1-100'</code>, <code>'egfr'</code>)</dd>
+<dt>viewportContainerWidth </dt>
+<dd>width of the viewport in pixels</dd>
+<dt>continuation </dt>
+<dd>callback to receive the <a href="Functions.html#genomicState">genomicState</a>s list.</dd>
+</dl>
+
+<div id="igv-Browser-on(eventName, fn)"><h3 id="on(eventName, fn)">on(eventName, fn)</h3></div>
+
+<p>
+Set up a callback under an event name
+</p>
+
+<dl>
+<dt>eventName </dt>
+<dd>evnt to be fired on</dd>
+<dt>fn </dt>
+<dd>function to fire with the event</dd>
+</dl>
+
+<div id="igv-Browser-un(eventName, fn)"><h3 id="un(eventName, fn)">un(eventName, fn)</h3></div>
+
+<p>
+Unsubscribe a function from an event
+</p>
+
+<dl>
+<dt>eventName </dt>
+<dd>Event to unsubscribe from</dd>
+<dt>fn </dt>
+<dd>Function to remove from firing</dd>
+</dl>
+
+<div id="igv-Browser-fireEvent(eventName, args, thisObj)"><h3 id="fireEvent(eventName, args, thisObj)">fireEvent(eventName, args, thisObj)</h3></div>
+
+<p>
+Set off an event with the object and any relevant arguments
+</p>
+
+<dl>
+<dt>eventName </dt>
+<dd>event to fire</dd>
+<dt>args </dt>
+<dd>arguemnts to fire the event into</dd>
+<dt>thisObj </dt>
+<dd>object to set as the scope for the event handler</dd>
+</dl>
+
+<div id="igv-Browser-isLocusChrNameStartEnd(locus, genome, locusObject)"><h3 id="isLocusChrNameStartEnd(locus, genome, locusObject)">isLocusChrNameStartEnd(locus, genome, locusObject)</h3></div>
+
+<p>
+Create a <a href="Functions.html#locusObject">#locusObject</a> out of a passed in locus string with a given genome.
+</p>
+
+<dl>
+<dt>locus </dt>
+<dd>string for the locus (e.g. <code>'chr1:1-100'</code>, <code>'chr2'</code>)</dd>
+<dt>genome </dt>
+<dd>relevant genome to search into</dd>
+<dt>locusObject </dt>
+<dd>where to return into</dd>
+</dl>
+
+<div id="igv-Browser-validateLocusExtent(chromosome, extent)"><h3 id="validateLocusExtent(chromosome, extent)">validateLocusExtent(chromosome, extent)</h3></div>
+
+<p>
+Ensure that the extent (start, end) of the chromosome is valid in the browser's
+<a href="Functions.html#igv-Browser-minimumBasesExtent()">igv.Browser.minimumBasesExtent()</a>. Fix the
+extent to be valid once the function finishes.
+</p>
+
+<dl>
+<dt>chromosome </dt>
+<dd>the chromosome we're checking</dd>
+<dt>extent </dt>
+<dd>start, end range to check</dd>
+</dl>
+
+<div id="igv-Browser-parseSearchResults(data)"><h3 id="parseSearchResults(data)">parseSearchResults(data)</h3></div>
+
+<p>
+Parse the line-oriented search results
+</p>
+
+<dl>
+<dt>data </dt>
+<dd>the line-oriented search results</dd>
+<dd>ex: <code>EGFR    chr7:55,086,409-55,123,543    refseq</code></dd>
+</dl>
+
+<div id="igv-initialize(options)"><h2 id="initialize(options)">initialize(options)</h2></div>
+
+<p>
+Works through the config and sets up igv variables
+</p>
+
+<p>
+Called from <a href="Functions.html#Browser">igv.Browser()</a>
+</p>
+
+<dl>
+<dt>options </dt>
+<dd>initial config for setting up</dd>
+</dl>
+
+<div id="igv-graphics"><h2 id="graphics">graphics</h2></div>
+
+<p>
+Handles Canvas graphics via function calls. Everything requires a context
+(usually denoted <code>ctx</code>).
+</p>
+
+<div id="igv-graphics-setProperties(ctx, properties)"><h3 id="setProperties(ctx, properties)">setProperties(ctx, properties)</h3></div>
+
+<p>
+Set properties of the context itself
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for drawing on the canvas</dd>
+<dt>properties </dt>
+<dd>{ key: value } objects for the properties</dd>
+</dl>
+
+<div id="igv-graphics-strokeLine(ctx, x1, y1, x2, y2, properties)"><h3 id="strokeLine(ctx, x1, y1, x2, y2, properties)">strokeLine(ctx, x1, y1, x2, y2, properties)</h3></div>
+
+<p>
+Draw a line on the screen from (x1, y1) to (x2, y2) using any properties passed
+as well.
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>x1, y1, x2, y2 </dt>
+<dd>integer values for coordinates</dd>
+<dt>properties </dt>
+<dd>properties of the lines themselves</dd>
+</dl>
+
+<div id="igv-graphics-fillRect(ctx, x, y, w, h, properties)"><h3 id="fillRect(ctx, x, y, w, h, properties)">fillRect(ctx, x, y, w, h, properties)</h3></div>
+
+<p>
+Draw a filled in rectangle on the screen, from (x,y) as the top left and (w,h)
+as the dimensions of the rectangle.
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context of the canvas</dd>
+<dt>x, y </dt>
+<dd>coordinates on the canvas</dd>
+<dt>w, h </dt>
+<dd>dimensions of the rectangle</dd>
+<dt>properties </dt>
+<dd>relevant properties to use for drawing</dd>
+</dl>
+
+<div id="igv-graphics-fillPolygon(ctx, x, y, properties)"><h3 id="fillPolygon(ctx, x, y, properties)">fillPolygon(ctx, x, y, properties)</h3></div>
+
+<p>
+Draw a filled in polygon on the screen.
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>x </dt>
+<dd>array of X coordinates for drawing</dd>
+<dt>y </dt>
+<dd>array of Y coordinates for drawing</dd>
+<dt>properties </dt>
+<dd>relevant properties to use for drawing</dd>
+</dl>
+
+<div id="igv-graphics-strokePolygon(ctx, x, y, properties)"><h3 id="strokePolygon(ctx, x, y, properties)">strokePolygon(ctx, x, y, properties)</h3></div>
+
+<p>
+Draw an outlined Polygon on the screen.
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context of the canvas</dd>
+<dt>x </dt>
+<dd>array of X coordinates for drawing</dd>
+<dt>y </dt>
+<dd>array of Y coordinates for drawing</dd>
+<dt>properties </dt>
+<dd>relevant properties to use for drawing</dd>
+</dl>
+
+<div id="igv-graphics-fillText(ctx, text, x, y, properties, transforms)"><h3 id="fillText(ctx, text, x, y, properties, transforms)">fillText(ctx, text, x, y, properties, transforms)</h3></div>
+
+<p>
+Normal text drawing on the canvas?
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>text </dt>
+<dd>what to write onto the canvas</dd>
+<dt>x, y </dt>
+<dd>coordinates of the bottom left of the text on the canvas</dd>
+<dt>properties </dt>
+<dd>how to draw the text</dd>
+<dt>transforms </dt>
+<dd>how to adjust the text</dd>
+</dl>
+
+<div id="igv-graphics-strokeText(ctx, text, x, y, properties, transforms)"><h3 id="strokeText(ctx, text, x, y, properties, transforms)">strokeText(ctx, text, x, y, properties, transforms)</h3></div>
+
+<p>
+Outline the text on the canvas
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>text </dt>
+<dd>what to write onto the canvas</dd>
+<dt>x, y </dt>
+<dd>coordinates of the bottom left of the text on the canvas</dd>
+<dt>properties </dt>
+<dd>how to draw the text</dd>
+<dt>transforms </dt>
+<dd>how to adjust the text</dd>
+</dl>
+
+<div id="igv-graphics-strokeCircle(ctx, x, y, radius)"><h3 id="strokeCircle(ctx, x, y, radius)">strokeCircle(ctx, x, y, radius)</h3></div>
+
+<p>
+Outline a circle on the canvas
+</p>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>x, y </dt>
+<dd>coordinates of the center</dd>
+<dt>radius </dt>
+<dd>radius out of the center</dd>
+</dl>
+
+<div id="igv-graphics-fillCircle(ctx, x, y, radius)"><h3 id="fillCircle(ctx, x, y, radius)">fillCircle(ctx, x, y, radius)</h3></div>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>x, y </dt>
+<dd>coordinates of the center</dd>
+<dt>radius </dt>
+<dd>radius out of the center</dd>
+</dl>
+
+<div id="igv-graphics-drawArrowhead(ctx, x, y, size, lineWidth)"><h3 id="drawArrowhead(ctx, x, y, size, lineWidth)">drawArrowhead(ctx, x, y, size, lineWidth)</h3></div>
+
+<dl>
+<dt>ctx </dt>
+<dd>context for the canvas</dd>
+<dt>x, y </dt>
+<dd>left center of the arrowhead</dd>
+<dt>size </dt>
+<dd>height/width of the arrowhead</dd>
+<dt>lineWidth </dt>
+<dd>width of the stroking line</dd>
+</dl>
+
+<div id="igv-graphics-dashedLine(ctx, x1, y1, x2, y2, dashLen, properties)"><h3 id="dashedLine(ctx, x1, y1, x2, y2, dashLen, properties)">dashedLine(ctx, x1, y1, x2, y2, dashLen, properties)</h3></div>
+
+<dl>
+<dt>ctx </dt>
+<dd>context of the canvas</dd>
+<dt>x1, y1, x2, y2 </dt>
+<dd>coordinates of the beginning and end of the line</dd>
+<dt>dashLen </dt>
+<dd>length of individual dashes</dd>
+<dt>properties </dt>
+<dd>properties of the lines</dd>
+</dl>
+
+</body>
+</html>
