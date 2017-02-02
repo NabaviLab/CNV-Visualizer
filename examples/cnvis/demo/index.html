@@ -30,10 +30,13 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
 
     <!-- IGV CSS -->
-    <link rel="stylesheet" type="text/css" href="https://igv.org/web/test/multilocus/igv-multilocus.css">
+    <link rel="stylesheet" type="text/css" href="../../../dist/css/igv.css">
+
+    <!-- OUR IGV JS-->
+
+    <script type="text/javascript" src="../../../dist/igv.min.js"></script>
 
     <!-- IGV JS-->
-    <script type="text/javascript" src="https://igv.org/web/test/multilocus/igv-multilocus.js"></script>
 
     <!-- Biocircos.js -->
     <script src="../d3/biocircos-1.1.0.js"></script>
@@ -87,7 +90,7 @@
                             indexed: false})">Sample bed</a></li>
                         <li><a href="#"
                                onclick="igv.browser.loadTrack({
-                            url: 'http://nabavilab.uconn.edu/cnvvis/uploads/cnv.seg.gz',
+                            url: 'https://data.broadinstitute.org/igvdata/test/igv-web/segmented_data_080520.seg.gz',
                             name: 'CNV'})">CNV segment (multi-sample)</a></li>
                         <li><a href="#"
                                onclick="displayPlotly()">CNV log R ratios</a></li>
@@ -149,7 +152,8 @@
                     svgHeight: 387,                            // Main configuration "svgHeight"
                     chrPad: 0.04,                              // Main configuration "chrPad"
                     innerRadius: 150,                           // Main configuration "innerRadius"
-                    outerRadius: 165                           // Main configuration "outerRadius"
+                    outerRadius: 165,                          // Main configuration "outerRadius"
+                    CNVMouseOverDisplay: true
                 });
                 BioCircos01.draw_genome(BioCircos01.genomeLength); // BioCircos.js callback
             </script>
