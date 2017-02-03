@@ -23,7 +23,7 @@ var igv = (function (igv) {
 
         return [
             {
-                name: ("BAR" === this.displayMode) ? "Show Dots" : "Show Bars";
+                name: ("BAR" === this.displayMode) ? "Show Dots" : "Show Bars",
                 click: function () {
                     popover.hide();
                     _this.toggleBarDots();
@@ -117,6 +117,7 @@ var igv = (function (igv) {
                     igv.graphics.fillCircle(ctx, x1, y, 5, {'fillStyle': 'rgb(0, 0, 255)'});
                 }
             }
+        }
     };
 
     return igv;
