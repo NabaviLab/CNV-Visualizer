@@ -148,8 +148,9 @@ var igv = (function (igv) {
             return
         }
 
-        // dataList = track.popupData(trackLocationState.genomicLocation, trackLocationState.x, trackLocationState.y, referenceFrame);
+        dataList = track.popupData(trackLocationState.genomicLocation, trackLocationState.x, trackLocationState.y, referenceFrame);
 
+        /*
         config =
             {
                 popover: this,
@@ -159,6 +160,7 @@ var igv = (function (igv) {
                 y: trackLocationState.y
             };
         dataList = track.popupDataWithConfiguration(config);
+        */
 
         popupClickHandlerResult = igv.browser.fireEvent('trackclick', [track, dataList]);
 
