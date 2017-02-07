@@ -55,7 +55,7 @@ var igv = (function (igv) {
 
         this.parser = getParser.call(this, this.format, config.decode);
         
-        this.supportsWholeGenome = (this.format === "seg");  // TODO -- move this up to track level
+        this.supportsWholeGenome = (this.format === "seg" || this.format === "cnv");  // TODO -- move this up to track level
     };
 
 
@@ -65,6 +65,8 @@ var igv = (function (igv) {
                 return new igv.VcfParser();
             case "seg" :
                 return new igv.SegParser();
+            case "cnv" :
+                return new igv.CNVParser();
             default:
                 return new igv.FeatureParser(format, decode, this.config);
         }
@@ -72,7 +74,7 @@ var igv = (function (igv) {
     }
     
     function isIndexable() {
-        return this.config.indexURL || (this.type !== "wig" && this.type !== "seg" && this.config.indexed != false);
+        return this.config.indexURL || (this.type !== "wig" && this.type !== "seg" && this.type !== "cnv" && this.config.indexed != false);
     }
 
 

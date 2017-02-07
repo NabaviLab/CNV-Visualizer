@@ -26,7 +26,7 @@
 var igv = (function (igv) {
 
     var knownFileExtensions = new Set(["narrowpeak", "broadpeak", "peaks", "bedgraph", "wig", "gff3", "gff",
-        "gtf", "aneu", "fusionjuncspan", "refflat", "seg", "bed", "vcf", "bb", "bigbed", "bw", "bigwig", "bam", "tdf"]);
+        "gtf", "aneu", "fusionjuncspan", "refflat", "seg", "called", "bed", "vcf", "bb", "bigbed", "bw", "bigwig", "bam", "tdf"]);
 
     igv.Browser = function (options, trackContainerDiv) {
 
@@ -287,6 +287,10 @@ var igv = (function (igv) {
                     return new igv.SegTrack(conf);
                     break;
 
+                case "cnv":
+                    return new igv.CNVTrack(conf);
+                    break;
+
                 case "aneu":
                     return new igv.AneuTrack(conf);
                     break;
@@ -398,6 +402,9 @@ var igv = (function (igv) {
                             break;
                         case "seg":
                             config.type = "seg";
+                            break;
+                        case "cnv":
+                            config.type = "cnv";
                             break;
                         case "bam":
                             config.type = "alignment";

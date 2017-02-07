@@ -19,14 +19,14 @@ var igv = (function (igv) {
 
     /* Get a list of items to be included in the menu (gear icon) next to the track */
     igv.CNVTrack.prototype.menuItemList = function (popover) {
-        var _this = this;
+        var myself = this;
 
         return [
             {
                 name: ("BAR" === this.displayMode) ? "Show Dots" : "Show Bars",
                 click: function () {
                     popover.hide();
-                    _this.toggleBarDots();
+                    myself.toggleBarDots();
                 }
             }
         ];
@@ -40,7 +40,7 @@ var igv = (function (igv) {
 
     /* grab the features for the current view */
     igv.CNVTrack.prototype.getFeatures = function (chr, bpStart, bpEnd) {
-        var _this = this;
+        var myself = this;
 
         return new Promise(function (fulfill, reject) {
             // have to grab features if there are no samples
@@ -53,7 +53,7 @@ var igv = (function (igv) {
 
     /* draw the track */
     igv.CNVTrack.prototype.draw = function (options) {
-        var _this = this,
+        var myself = this,
             featureList,
             ctx,
             bpStart,
@@ -103,11 +103,11 @@ var igv = (function (igv) {
                 if (cnv.end < bpStart) continue;
                 if (cnv.start > bpEnd) break;
 
-                if (Math.abs(cnv.log2val) < _this.tolerance) continue;
+                if (Math.abs(cnv.log2val) < myself.tolerance) continue;
 
                 y = yCenter + Math.round(cnv.log2val / yScale);
 
-                if (_this.displayMode === "BAR") {
+                if (myself.displayMode === "BAR") {
                     x1 = Math.round((cnv.start - bpStart) / xScale);
                     x2 = Math.round((cnv.end - bpstart) / xScale);
                     igv.graphics.strokeLine(ctx, x1, y, x2, y, {'fillStyle': 'rgb(0, 0, 255)'});
