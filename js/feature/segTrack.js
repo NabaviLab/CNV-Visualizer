@@ -34,8 +34,8 @@ var igv = (function (igv) {
         this.displayMode = config.displayMode || "SQUISHED"; // EXPANDED | SQUISHED
 
         this.maxHeight = config.maxHeight || 500;
-        this.sampleSquishHeight = config.sampleSquishHeight || 2;
-        this.sampleExpandHeight = config.sampleExpandHeight || 12;
+        this.sampleSquishHeight = config.sampleSquishHeight || 10;
+        this.sampleExpandHeight = config.sampleExpandHeight || 30;
 
         this.posColorScale = config.posColorScale ||
             new igv.GradientColorScale(
@@ -172,6 +172,21 @@ var igv = (function (igv) {
 
             checkForLog(featureList);
 
+            // add for loop here to find min/max value
+
+            var valueMin = Number.MAX_VALUE;
+            var valueMax = Number.MIN_VALUE;
+
+            for (i = 0, len = featureList.length; i < len; i++) {
+              segment = featureList[i];
+              if (segment.value < valueMin) {
+                valueMin = segment.value;
+              }
+              if (segment.value > valueMax) {
+                valueMax = segment.value;
+              }
+            }
+
             for (i = 0, len = featureList.length; i < len; i++) {
 
                 segment = featureList[i];
@@ -179,28 +194,41 @@ var igv = (function (igv) {
                 if (segment.end < bpStart) continue;
                 if (segment.start > bpEnd) break;
 
-                y = myself.samples[segment.sample] * sampleHeight + border;
-
                 value = segment.value;
                 if (!myself.isLog) {
                     value = Math.log2(value / 2);
                 }
 
+                var trackCenter = myself.samples[segment.sample] * sampleHeight + sampleHeight/2;
+                igv.graphics.strokeLine(ctx, 0, trackCenter, pixelWidth, trackCenter, {'strokeStyle': "rgb(200, 200, 200)"});
+
                 if (value < -0.1) {
-                    color = myself.negColorScale.getColor(value);
+                    color = "rgb(255,0,0)";
+                    y = trackCenter - segment.value/valueMin * sampleHeight/2;
                 }
                 else if (value > 0.1) {
-                    color = myself.posColorScale.getColor(value);
+                    color = "rgb(0,0,255)";
+                    y = trackCenter + segment.value/valueMax * sampleHeight/2;
                 }
                 else {
-                    color = "white";
+                    continue;
                 }
 
                 px = Math.round((segment.start - bpStart) / xScale);
                 px1 = Math.round((segment.end - bpStart) / xScale);
                 pw = Math.max(1, px1 - px);
 
-                igv.graphics.fillRect(ctx, px, y, pw, sampleHeight - 2 * border, {fillStyle: color});
+                // For lines, we need to decide how to scale the Y things.
+                // Need a 0 line, and have to use some scale for the decimal values...
+                // idea1: Find way of keeping track of min/max, adjust Y values to min/max
+                // idea2: Have even spacing above/below
+
+                // Scaling to min/max -- y is where the min will be aligned.
+                // y + sampleHeight is the max. y + sampleHeight/2 is exact center.
+
+                //igv.graphics.fillRect(ctx, px, y, pw, sampleHeight - 2 * border, {fillStyle: color});
+
+                igv.graphics.strokeLine(ctx, px, y, px1, y, {'strokeStyle': color});
 
             }
         }
@@ -245,6 +273,8 @@ var igv = (function (igv) {
 
         return this.sampleCount * sampleHeight;
     };
+
+    //// *** worried this impacts how our visualization works *** ////
 
     /**
      * Sort samples by the average value over the genomic range in the direction indicated (1 = ascending, -1 descending)
