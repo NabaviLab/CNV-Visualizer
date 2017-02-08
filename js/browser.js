@@ -403,7 +403,7 @@ var igv = (function (igv) {
                         case "seg":
                             config.type = "seg";
                             break;
-                        case "cnv":
+                        case "called":
                             config.type = "cnv";
                             break;
                         case "bam":
