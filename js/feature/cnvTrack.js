@@ -44,10 +44,10 @@ var igv = (function (igv) {
 
         return new Promise(function (fulfill, reject) {
             // have to grab features if there are no samples
-            self.featureSource
-                .getFeatures(chr, bpStart, bpEnd)
-                .then(fulfill)
-                .catch(reject);
+            myself.featureSource
+                  .getFeatures(chr, bpStart, bpEnd)
+                  .then(fulfill)
+                  .catch(reject);
         });
     };
 
@@ -108,12 +108,12 @@ var igv = (function (igv) {
                 y = yCenter + Math.round(cnv.log2val / yScale);
 
                 if (myself.displayMode === "BAR") {
-                    x1 = Math.round((cnv.start - bpStart) / xScale);
-                    x2 = Math.round((cnv.end - bpstart) / xScale);
-                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'fillStyle': 'rgb(0, 0, 255)'});
+                    x1 = Math.round((cnv.start - bpStart) / bpPerPixel);
+                    x2 = Math.round((cnv.end - bpStart) / bpPerPixel);
+                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': 'rgb(0, 0, 255)'});
                 }
                 else {
-                    x1 = Math.round((cnv.end + cnv.start) / (2 * xScale));
+                    x1 = Math.round((cnv.end + cnv.start) / (2 * bpPerPixel));
                     igv.graphics.fillCircle(ctx, x1, y, 5, {'fillStyle': 'rgb(0, 0, 255)'});
                 }
             }
