@@ -64,7 +64,7 @@ var igv = (function (igv) {
             }
         },
 
-        strokeLine: function (ctx, x1, y1, x2, y2, properties) {
+        strokeLine: function (ctx, x1, y1, x2, y2, properties, linewidth) {
 
             x1 = Math.floor(x1) + 0.5;
             y1 = Math.floor(y1) + 0.5;
@@ -79,6 +79,7 @@ var igv = (function (igv) {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
+            if (linewidth) ctx.lineWidth = linewidth;
             ctx.stroke();
             ctx.restore();
         },

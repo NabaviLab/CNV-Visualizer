@@ -66,6 +66,7 @@ var igv = (function (igv) {
             case "seg" :
                 return new igv.SegParser();
             case "cnv" :
+            case "called" :
                 return new igv.CNVParser();
             default:
                 return new igv.FeatureParser(format, decode, this.config);

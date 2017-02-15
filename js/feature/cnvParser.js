@@ -52,9 +52,9 @@ var igv = (function (igv) {
             if (tokens.length > dataColumns) {
                 allFeatures.push({
                     chr: tokens[0],
-                    start: tokens[1],
-                    end: tokens[2],
-                    log2val: tokens[6]
+                    start: parseInt(tokens[1]),
+                    end: parseInt(tokens[2]),
+                    log2val: parseFloat(tokens[6])
                 });
             }
         }
