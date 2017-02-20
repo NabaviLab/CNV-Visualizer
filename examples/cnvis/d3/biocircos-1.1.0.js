@@ -1,20 +1,20 @@
 /**
-* BioCircos.js is an open source interactive Javascript library which 
+* BioCircos.js is an open source interactive Javascript library which
 * provides an easy way to interactive display biological data on the web.
-* It implements a raster-based SVG visualization using the open source 
-* Javascript framework jquery.js. BioCircos.js is multiplatform and works 
-* in all major internet browsers (Internet Explorer, Mozilla Firefox, 
-* Google Chrome, Safari, Opera). Its speed is determined by the client's 
-* hardware and internet browser. For smoothest user experience, we recommend 
+* It implements a raster-based SVG visualization using the open source
+* Javascript framework jquery.js. BioCircos.js is multiplatform and works
+* in all major internet browsers (Internet Explorer, Mozilla Firefox,
+* Google Chrome, Safari, Opera). Its speed is determined by the client's
+* hardware and internet browser. For smoothest user experience, we recommend
 * Google Chrome.
 *
 * Source code, tutorial, documentation, and example data are freely available
 * from BioCircos.js website "http://bioinfo.ibp.ac.cn/biocircos/".
-* 
+*
 * @author <a href="cui_ya@163.com">Ya Cui</a>, <a href="chenxiaowei@moon.ibp.ac.cn">Xiaowei Chen</a>
 * @version 1.1.0
 *
-* @example 
+* @example
 *      var BioCircosGenome = [
 *         ["chr1" , 249250621],
 *         ["chr2" , 243199373]
@@ -974,7 +974,7 @@ var BioCircos;
       var i=genomeLength.length;
       var p=genomeLength.length;
       var genome = new Array();
-      for(var k=0;k<i;k++){ 
+      for(var k=0;k<i;k++){
          genome[k]=new Array();
            for(var j=0;j<p;j++){
               genome[k][j]=0;
@@ -1124,8 +1124,8 @@ var BioCircos;
         function zoom() {
             a=d3.event.translate[0]+width / 2
             b=d3.event.translate[1]+height / 2
-            svg.attr("transform", "translate(" 
-                + a +","+ b 
+            svg.attr("transform", "translate("
+                + a +","+ b
                 + ")scale(" + d3.event.scale + ")");
         }
 
@@ -1162,7 +1162,7 @@ var BioCircos;
           .enter().append("text")
             .style("fill", self.genomeTextColor)
             .style("font-size", self.genomeTextSize)
-	    .each( function(d,i) { 
+	    .each( function(d,i) {
                d.angle = (d.startAngle + d.endAngle) / 2 - self.genomeTextDx;
                d.name = self.genomeLabel[i];
             })
@@ -1909,12 +1909,13 @@ var BioCircos;
                        .style("opacity",  function(d,i) { if(self.settings.CNVMouseClickArcOpacity=="none"){return "";}else{return self.settings.CNVMouseClickArcOpacity;} })
                        .style("stroke", function(d,i) { if(self.settings.CNVMouseClickArcStrokeColor=="none"){return "";}else{return self.settings.CNVMouseClickArcStrokeColor;} })
                        .style("stroke-width", function(d,i) { if(self.settings.CNVMouseClickArcStrokeWidth=="none"){return "";}else{return self.settings.CNVMouseClickArcStrokeWidth;} });
-                    d3.select("#"+d.cnv_click_label)
-                        .style("opacity", self.settings.CNVMouseClickTextOpacity)
-                        .style("fill", self.settings.CNVMouseClickTextColor)
-                        .style("font-size", self.settings.CNVMouseClickTextSize)
-                        .attr("x", d3.event.x - self.svgWidth/2 + self.settings.ARCMouseClickTextPostionX)
-                        .attr("y", d3.event.y - self.svgHeight/2 + self.settings.ARCMouseClickTextPostionY);
+                    // d3.select("#"+d.cnv_click_label)
+                    //     .style("opacity", self.settings.CNVMouseClickTextOpacity)
+                    //     .style("fill", self.settings.CNVMouseClickTextColor)
+                    //     .style("font-size", self.settings.CNVMouseClickTextSize)
+                    //     .attr("x", d3.event.x - self.svgWidth/2 + self.settings.ARCMouseClickTextPostionX)
+                    //     .attr("y", d3.event.y - self.svgHeight/2 + self.settings.ARCMouseClickTextPostionY);
+                    igv.browser.goto(d.cnv_chr, d.cnv_start, d.cnv_end);
                 })
             }
 
@@ -1942,6 +1943,7 @@ var BioCircos;
             if(self.settings.CNVMouseLeaveDisplay==true){
                CNVMouseOn.on("mouseleave",function(d){
                    CNVMouseOnTooltip.style("opacity",0.0);
+                   document.getElementById('BioCircosCNVTooltip').style.display = "none";
                    d3.select(this)
                        .style("fill",  function(d,i) { if(self.settings.CNVMouseLeaveColor=="none"){return "";}else{return self.settings.CNVMouseLeaveColor;} })
                        .style("opacity",  function(d,i) { if(self.settings.CNVMouseLeaveCircleOpacity=="none"){return "";}else{return self.settings.CNVMouseLeaveCircleOpacity;} })
