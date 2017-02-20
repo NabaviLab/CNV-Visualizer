@@ -34,8 +34,8 @@ var igv = (function (igv) {
         this.displayMode = config.displayMode || "SQUISHED"; // EXPANDED | SQUISHED
 
         this.maxHeight = config.maxHeight || 500;
-        this.sampleSquishHeight = config.sampleSquishHeight || 10;
-        this.sampleExpandHeight = config.sampleExpandHeight || 30;
+        this.sampleSquishHeight = config.sampleSquishHeight || 20;
+        this.sampleExpandHeight = config.sampleExpandHeight || 50;
 
         this.posColorScale = config.posColorScale ||
             new igv.GradientColorScale(
@@ -185,6 +185,10 @@ var igv = (function (igv) {
               if (segment.value > valueMax) {
                 valueMax = segment.value;
               }
+              if(!myself.isLog) {
+                valueMin = Math.log2(valueMin/2);
+                valueMax = Math.log2(valieMax/2);
+              }
             }
 
             for (i = 0, len = featureList.length; i < len; i++) {
@@ -204,11 +208,11 @@ var igv = (function (igv) {
 
                 if (value < -0.1) {
                     color = "rgb(255,0,0)";
-                    y = trackCenter - segment.value/valueMin * sampleHeight/2;
+                    y = trackCenter + segment.value/valueMin * sampleHeight/2;
                 }
                 else if (value > 0.1) {
                     color = "rgb(0,0,255)";
-                    y = trackCenter + segment.value/valueMax * sampleHeight/2;
+                    y = trackCenter - segment.value/valueMax * sampleHeight/2;
                 }
                 else {
                     continue;
