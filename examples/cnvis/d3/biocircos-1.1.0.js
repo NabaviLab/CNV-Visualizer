@@ -1973,7 +1973,9 @@ var BioCircos;
             }
             if(self.settings.CNVMouseOutDisplay==true){
                CNVMouseOn.on("mouseout",function(d){
-                   CNVMouseOnTooltip.style("opacity",0.0);
+                   CNVMouseOnTooltip.style("opacity",0.0)
+                                    .style("left", 0 + "px")
+                                    .style("top", 0 + "px");
                    d3.select(this)
                        .transition()
                        .duration(self.settings.CNVMouseOutAnimationTime)
