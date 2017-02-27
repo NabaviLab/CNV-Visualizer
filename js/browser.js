@@ -291,6 +291,10 @@ var igv = (function (igv) {
                     return new igv.CNVTrack(conf);
                     break;
 
+                case "cnvaccum":
+                    return new igv.CNVAccumTrack(conf);
+                    break;
+
                 case "aneu":
                     return new igv.AneuTrack(conf);
                     break;
@@ -462,6 +466,8 @@ var igv = (function (igv) {
         this.trackViews.push(trackView);
         this.reorderTracks();
         trackView.resize();
+        this.fireEvent('addtrack', [trackView.track])
+        console.log('added track' + trackView.track.type);
     };
 
     igv.Browser.prototype.reorderTracks = function () {
