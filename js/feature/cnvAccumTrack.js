@@ -151,7 +151,7 @@ var igv = (function (igv) {
                         if ((cnv.start - lineMaps[k].end) < (3 * bpPerPixel)
                                 && (lineMaps[k].start - cnv.end) < (3 * bpPerPixel)) {
                             // We're within reasonable estimates of the average
-                            if (Math.abs(mean - cnv.log2val) < 0.5) {
+                            if (Math.abs(mean - cnv.log2val) < 2.5) {
                                 lineMaps[k].start  = Math.min(lineMaps[k].start, cnv.start);
                                 lineMaps[k].end    = Math.max(lineMaps[k].end,   cnv.end);
                                 lineMaps[k].sum   += cnv.log2val;
