@@ -41,7 +41,7 @@ var igv = (function (igv) {
 
     /**
      *
-     * @param requestedRange - byte rangeas {start, size}
+     * @param requestedRange - byte range as \{start, size\} 
      * @param fulfill - function to receive result
      * @param asUint8 - optional flag to return result as an UInt8Array
      */

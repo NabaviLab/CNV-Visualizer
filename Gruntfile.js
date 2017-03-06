@@ -54,6 +54,16 @@ module.exports = function (grunt) {
                 src: '**',
                 dest: 'dist/img/'
             }
+        },
+
+        jsdoc : {
+            dist : {
+                src : ['js/*'],
+                options: {
+                    recurse: true,
+                    destination: 'jsdoc'
+                }
+            }
         }
     });
 
@@ -64,6 +74,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-jsdoc');
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
     //grunt.registerTask('default', ['concat:igvexp', 'uglify:igvexp']);

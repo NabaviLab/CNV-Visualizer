@@ -27,6 +27,14 @@ var igv = (function (igv) {
 
     var sortDirection = "DESC";
 
+    /**
+     * Constructs a segment track, parsing and modifying the options for each.
+     * @param {Config} config - Configuration which sets general track options as
+     *                          well as any color scales.
+     *
+     * @class
+     * @classdesc Segment Track for viewing `*.seg` and `*.seg.gz` files.
+     */
     igv.SegTrack = function (config) {
 
         igv.configTrack(this, config);
@@ -77,6 +85,13 @@ var igv = (function (igv) {
 
     };
 
+    /**
+     * Generate and return a list of Menu items to display in the popover
+     * displayed when the gear icon is pressed.
+     *
+     * @param {DOM} popover - the popover being displayed
+     * @return {array} - JSON objects with `name` and `click` events.
+     */
     igv.SegTrack.prototype.menuItemList = function (popover) {
 
         var self = this;
@@ -93,6 +108,9 @@ var igv = (function (igv) {
 
     };
 
+    /**
+     * Change the display mode and update the track
+     */
     igv.SegTrack.prototype.toggleSampleHeight = function () {
 
         this.displayMode = ("SQUISHED" === this.displayMode) ? "EXPANDED" : "SQUISHED";
@@ -100,6 +118,15 @@ var igv = (function (igv) {
         this.trackView.update();
     };
 
+    /**
+     * Get the list of all features within the requested bounds, wrapped in a
+     * promise. Handles the samples as well from BigQuery files.
+     *
+     * @param {string} chr - chromosome value
+     * @param {number} bpStart - first base pair value
+     * @param {number} bpEnd - last base pair value
+     * @return {Promise} - Promise which gets the features for everything
+     */
     igv.SegTrack.prototype.getFeatures = function (chr, bpStart, bpEnd) {
 
         var self = this;
@@ -121,6 +148,13 @@ var igv = (function (igv) {
         });
     };
 
+    /**
+     * Draw onto the track itself. Ensures that options which contain base
+     * pair bounds and pixel dimensions are upheld.
+     *
+     * @param {options} options - holds feature list, context, base pair
+     *                            bounds and dimensions of the track.
+     */
     igv.SegTrack.prototype.draw = function (options) {
 
         var myself = this,
@@ -256,8 +290,9 @@ var igv = (function (igv) {
     };
 
     /**
-     * Optional method to compute pixel height to accomodate the list of features.  The implementation below
-     * has side effects (modifiying the samples hash).  This is unfortunate, but harmless.
+     * Optional method to compute pixel height to accomodate the list of
+     * features.  The implementation below has side effects (modifiying the
+     * samples hash).  This is unfortunate, but harmless.
      *
      * @param features
      * @returns {number}
@@ -281,7 +316,13 @@ var igv = (function (igv) {
     //// *** worried this impacts how our visualization works *** ////
 
     /**
-     * Sort samples by the average value over the genomic range in the direction indicated (1 = ascending, -1 descending)
+     * Sort samples by the average value over the genomic range in the
+     * direction indicated
+     *
+     * @param chr - chromosome location
+     * @param bpStart - first base pair
+     * @param bpEnd - last base pair
+     * @param direction - 1 for ascending, -1 for descending
      */
     igv.SegTrack.prototype.sortSamples = function (chr, bpStart, bpEnd, direction) {
 
@@ -351,9 +392,9 @@ var igv = (function (igv) {
     /**
      * Handle an alt-click.   TODO perhaps generalize this for all tracks (optional).
      *
-     * @param genomicLocation
-     * @param referenceFrame
-     * @param event
+     * @param genomicLocation - current location for the base pairs
+     * @param referenceFrame - total frame of the current view
+     * @param event - event that was fired
      */
     igv.SegTrack.prototype.altClick = function (genomicLocation, referenceFrame, event) {
 
@@ -365,6 +406,14 @@ var igv = (function (igv) {
         sortDirection = (sortDirection === "ASC" ? "DESC" : "ASC");
     };
 
+    /**
+     * Information to show on the popup when left clicking on the track.
+     *
+     * @param genomicLocation - location data for the click
+     * @param {number} xOffset - x position on the track
+     * @param {number} yOffset - y position on the track
+     * @param referenceFrame - reference for the base pairs
+     */
     igv.SegTrack.prototype.popupData = function (genomicLocation, xOffset, yOffset, referenceFrame) {
 
         var sampleHeight = ("SQUISHED" === this.displayMode) ? this.sampleSquishHeight : this.sampleExpandHeight,
@@ -400,6 +449,11 @@ var igv = (function (igv) {
         return null;
     };
 
+    /**
+     * Items to place on the popup menu when right-clicked in the track
+     *
+     * @param {Config} config - holds configuration info for the menu
+     */
     igv.SegTrack.prototype.popupMenuItemList = function (config) {
 
         var self = this,

@@ -3,9 +3,22 @@
 
 var igv = (function (igv) {
 
+    /**
+     * Parser for the Varscan output files (.copynumber.called) files. A
+     * noisy version of the copynumber data, before they are turned into
+     * .seg files
+     *
+     * @class
+     */
     igv.CNVParser = function () {
     }
 
+    /**
+     * Gets a list of tokens related to the headers
+     * 
+     * @param {string} data - columnized input data
+     * @return {Object} header list
+     */
     igv.CNVParser.prototype.parseHeader = function (data) {
         var lines = data.splitLines(),
             len   = lines.length,
@@ -31,6 +44,12 @@ var igv = (function (igv) {
         return this.header;
     }
 
+    /**
+     * Gets a list of the features out of the input data
+     *
+     * @param {string} data - columnized input data
+     * @return {list} feature list
+     */
     igv.CNVParser.prototype.parseFeatures = function (data) {
         var lines = data ? data.splitLines() : [],
             len   = lines.length,

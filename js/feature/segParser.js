@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-/**
+/*
  *  Define parser for seg files  (.bed, .gff, .vcf, etc).  A parser should implement 2 methods
  *
  *     parseHeader(data) - return an object representing a header.  Details are format specific
@@ -42,9 +42,25 @@ var igv = (function (igv) {
         endColumn = 3;
 
 
+    /**
+     * Parser for seg files (.seg, .bed, .gff, .vcf, etc). Implements a
+     * 
+     *    parseHeader(data) - object header for the format
+     *
+     *    parseFeatures(data) - list of features
+     *
+     * @class
+     */
     igv.SegParser = function () {
-   }
+    }
 
+    /**
+     * Parse and create a header object for the data. Creates a list of tokens
+     * for each of the headers.
+     *
+     * @param {string} data - the data to be parsed
+     * @return {Object}
+     */
     igv.SegParser.prototype.parseHeader = function (data) {
 
         var lines = data.splitLines(),
@@ -69,7 +85,13 @@ var igv = (function (igv) {
         return this.header;
     }
 
-
+    /**
+     * Parse the features, to get a list of all of them out of the data. Will
+     * encode the samples for each one as well as location information.
+     *
+     * @param {string} data - columnized data input
+     * @return {list} - feature list
+     */
     igv.SegParser.prototype.parseFeatures = function (data) {
 
         var lines = data ? data.splitLines() : [] ,

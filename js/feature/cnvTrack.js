@@ -2,7 +2,14 @@
  */
 
 var igv = (function (igv) {
-    /* Configure the CNVTrack, initializing the reader, samples and display */
+    /**
+     * Configure the CNVTrack, initializing the reader, samples and display 
+     *
+     * @param config - configuration for generalized track
+     *
+     * @class
+     * @classdesc Track for the Varscan output as a .copynumber.called file.
+     */
     igv.CNVTrack = function (config) {
         igv.configTrack(this, config);
 
@@ -15,7 +22,13 @@ var igv = (function (igv) {
         this.supportsWholeGenome = true;
     };
 
-    /* Get a list of items to be included in the menu (gear icon) next to the track */
+    /**
+     * Get a list of items to be included in the menu (gear icon) next to the
+     * track.
+     *
+     * @param popover - element that comes up with the menu
+     * @return {list} list of \{name, click\} pairs.
+     */
     igv.CNVTrack.prototype.menuItemList = function (popover) {
         var myself = this;
 
@@ -23,7 +36,15 @@ var igv = (function (igv) {
         ];
     };
 
-    /* grab the features for the current view */
+    /**
+     * grab the features for the current view 
+     *
+     * @param {string} chr - chromosome being viewed
+     * @param {number} bpStart - first base pair
+     * @param {number} bpEnd - last base pair
+     *
+     * @return {Promise}
+     */
     igv.CNVTrack.prototype.getFeatures = function (chr, bpStart, bpEnd) {
         var myself = this;
 
@@ -36,7 +57,12 @@ var igv = (function (igv) {
         });
     };
 
-    /* draw the track */
+    /** 
+     * Draw the track 
+     *
+     * @param options - options holding reference frame with pixel boundaries
+     * and base pair values.
+     */
     igv.CNVTrack.prototype.draw = function (options) {
         var myself = this,
             featureList,

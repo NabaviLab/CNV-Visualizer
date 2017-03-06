@@ -74,3 +74,5 @@ local
 .idea/jsLibraryMappings.xml
 .idea/libraries
 /.idea/misc.xml
+
+jsdoc/
