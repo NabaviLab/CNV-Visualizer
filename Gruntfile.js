@@ -53,6 +53,24 @@ module.exports = function (grunt) {
                 cwd: 'css/img',
                 src: '**',
                 dest: 'dist/img/'
+            },
+            appcss: {
+                expand: true,
+                cwd: 'dist',
+                src: 'css/igv.css',
+                dest: 'app'
+            },
+            appjs: {
+                expand: true,
+                cwd: 'dist',
+                src: '*.js',
+                dest: 'app/js/'
+            },
+            biocircos: {
+                expand: true,
+                cwd: 'examples/cnvis/d3',
+                src: 'biocircos-1.1.0.js',
+                dest: 'app/js/'
             }
         },
 
@@ -62,6 +80,20 @@ module.exports = function (grunt) {
                 options: {
                     recurse: true,
                     destination: 'jsdoc'
+                }
+            }
+        },
+
+        electron : {
+            linuxBuild : {
+                options : {
+                    name: "CNVisualizer",
+                    dir: "app",
+                    out: "electron-dist",
+                    appVersion: "0.0.1",
+                    electronVersion: "1.6.1",
+                    all: true,
+                    overwrite: true
                 }
             }
         }
@@ -75,6 +107,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-electron');
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
     //grunt.registerTask('default', ['concat:igvexp', 'uglify:igvexp']);
