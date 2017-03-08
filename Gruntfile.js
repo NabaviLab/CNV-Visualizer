@@ -65,12 +65,6 @@ module.exports = function (grunt) {
                 cwd: 'dist',
                 src: '*.js',
                 dest: 'app/js/'
-            },
-            biocircos: {
-                expand: true,
-                cwd: 'examples/cnvis/d3',
-                src: 'biocircos-1.1.0.js',
-                dest: 'app/js/'
             }
         },
 

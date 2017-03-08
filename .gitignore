@@ -6,8 +6,8 @@ __pycache__/
 *.so
 
 # Electron
-app/js
-app/css
+app/js/igv*
+app/css/igv*
 electron-dist/
 
 # Distribution / packaging
