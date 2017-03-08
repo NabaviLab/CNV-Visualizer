@@ -5,6 +5,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Electron
+app/js
+app/css
+electron-dist/
+
 # Distribution / packaging
 data/
 .Python
@@ -12,7 +17,6 @@ env/
 build/
 develop-eggs/
 dist/
-electron-dist/
 downloads/
 eggs/
 .eggs/
