@@ -81,8 +81,6 @@ var igv = (function (igv) {
         this.featureSource = new igv.FeatureSource(this.config);
 
         this.supportsWholeGenome = true;
-
-
     };
 
     /**
@@ -93,7 +91,6 @@ var igv = (function (igv) {
      * @return {array} - JSON objects with `name` and `click` events.
      */
     igv.SegTrack.prototype.menuItemList = function (popover) {
-
         var self = this;
 
         return [
@@ -105,7 +102,6 @@ var igv = (function (igv) {
                 }
             }
         ];
-
     };
 
     /**
@@ -128,7 +124,6 @@ var igv = (function (igv) {
      * @return {Promise} - Promise which gets the features for everything
      */
     igv.SegTrack.prototype.getFeatures = function (chr, bpStart, bpEnd) {
-
         var self = this;
         return new Promise(function (fulfill, reject) {
             // If no samples are defined, optionally query feature source.  This step was added to support the TCGA BigQuery
@@ -156,7 +151,6 @@ var igv = (function (igv) {
      *                            bounds and dimensions of the track.
      */
     igv.SegTrack.prototype.draw = function (options) {
-
         var myself = this,
             featureList,
             ctx,
