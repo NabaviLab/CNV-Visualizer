@@ -16,7 +16,6 @@ var igv = (function (igv) {
         this.sampleName = null;
         this.samples = {};
 
-        // TODO(david): create a parser for this
         this.featureSource = new igv.FeatureSource(this.config);
 
         this.supportsWholeGenome = true;
@@ -75,6 +74,7 @@ var igv = (function (igv) {
             yCenter,
             yMin = 0.0,
             yMax = 0.0,
+            color,
             yScale,
             cnv,
             val,
@@ -116,15 +116,17 @@ var igv = (function (igv) {
 
                 if (Math.abs(cnv.log2val) < myself.tolerance) continue;
 
-                y = yCenter + Math.round(cnv.log2val / yScale);
+                y = yCenter - Math.round(cnv.log2val / yScale);
 
                 x1 = Math.round((cnv.start - bpStart) / bpPerPixel);
                 x2 = Math.round((cnv.end - bpStart) / bpPerPixel);
 
+                color = (cnv.log2val < 0.0) ? "rgb(255, 0, 0)" : "rgb(0, 0, 255)";
+
                 if ((x2 - x1) > 5) {
-                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': 'rgb(0, 0, 255)'}, 2);
+                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': color}, 2);
                 } else {
-                    igv.graphics.fillCircle(ctx, x1, y, 2, {'fillStyle': 'rgb(0, 0, 255)'});
+                    igv.graphics.fillCircle(ctx, x1, y, 2, {'fillStyle': color});
                 }
             }
         }

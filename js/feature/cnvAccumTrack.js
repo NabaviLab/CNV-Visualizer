@@ -140,7 +140,7 @@ var igv = (function (igv) {
 
                 if (Math.abs(cnv.value) < myself.tolerance) continue;
 
-                y = yCenter + Math.round(cnv.value / yScale);
+                y = yCenter - Math.round(cnv.value / yScale);
 
                 x1 = Math.round((cnv.start - bpStart) / bpPerPixel);
                 x2 = Math.round((cnv.end - bpStart) / bpPerPixel);
