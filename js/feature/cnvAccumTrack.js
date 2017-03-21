@@ -111,7 +111,8 @@ var igv = (function (igv) {
             mean,
             x1,
             x2,
-            y;
+            y,
+            color;
 
         ctx = options.context;
         pixelWidth = options.pixelWidth;
@@ -156,14 +157,12 @@ var igv = (function (igv) {
                 x1 = Math.round((cnv.start - bpStart) / bpPerPixel);
                 x2 = Math.round((cnv.end - bpStart) / bpPerPixel);
 
-//                if ((x2 - x1) > 3) {
-                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'fillStyle': 'rgb(0, 0, 255)'}, 2);
-//                }
-//                else {
-//                    igv.graphics.fillCircle(ctx, x1, y, 2, {'fillStyle': 'rgb(0, 0, 255)'});
-//                }
+                if (cnv.value < 0.0)
+                    color = "rgb(255, 0, 0)";
+                else
+                    color = "rgb(0, 0, 255)";
 
-                igv.graphics.fillRect(ctx, x1, y, x2 - x1, yCenter - y, {'fillStyle': 'rgb(125, 125, 125)'});
+                igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': color}, 2);
             }
         }
     };
