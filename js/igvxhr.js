@@ -299,11 +299,11 @@ var igvxhr = (function (igvxhr) {
             plain = new Uint8Array(arraybuffer);
         }
 
-        var result = "";
+        var result = [];
         for (var i = 0, len = plain.length; i < len; i++) {
-            result = result + String.fromCharCode(plain[i]);
+            result.push(String.fromCharCode(plain[i]));
         }
-        return result;
+        return result.join("");
     };
 
 
