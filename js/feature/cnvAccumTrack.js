@@ -156,12 +156,12 @@ var igv = (function (igv) {
                 x1 = Math.round((cnv.start - bpStart) / bpPerPixel);
                 x2 = Math.round((cnv.end - bpStart) / bpPerPixel);
 
-                if ((x2 - x1) > 3) {
-                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'fillStyle': 'rgb(0, 0 255)'}, 2);
-                }
-                else {
-                    igv.graphics.fillCircle(ctx, x1, y, 2, {'fillStyle': 'rgb(0, 0, 255)'});
-                }
+//                if ((x2 - x1) > 3) {
+                    igv.graphics.strokeLine(ctx, x1, y, x2, y, {'fillStyle': 'rgb(0, 0, 255)'}, 2);
+//                }
+//                else {
+//                    igv.graphics.fillCircle(ctx, x1, y, 2, {'fillStyle': 'rgb(0, 0, 255)'});
+//                }
 
                 igv.graphics.fillRect(ctx, x1, y, x2 - x1, yCenter - y, {'fillStyle': 'rgb(125, 125, 125)'});
             }
@@ -175,74 +175,86 @@ var igv = (function (igv) {
             yMin = 0.0,
             yMax = 0.0,
             lineMaps = [ { start  : bpStart ,
-                           end    : bpStart ,
+                           end    : bpEnd   ,
                            sum    : 0.0     ,
-                           count  : 0       ,
+                           count  : 1       ,
                            value  : 0.0     ,
-                           data   : []      } ] ;
+                           data   : []      } ],
+            newMaps, newMap,
+            adjust;
 
-        var k = 0;
-        for (var j = 0; j < featureList.length; j++) {
+        for (j = 0; j < featureList.length; j++) {
             cnv = featureList[j];
             if (cnv.end < bpStart || bpEnd < cnv.start)
                 continue; // skip everything outside of the view
 
-            yMin = Math.min(yMin, cnv.value);
-            yMax = Math.max(yMax, cnv.value);
+            function find(list, start, end) {
+                var len = list.length,
+                    a0 = 0, a1 = len - 1,
+                    b0 = 0, b1 = len - 1,
+                    mid;
 
-            // Ensure the CNV is within reasonable bounds of the current features
-            while (k < lineMaps.length) {
-                if ((cnv.start - lineMaps[k].end) < (3 * bpPerPixel)
-                        && (lineMaps[k].start - cnv.end) < (3 * bpPerPixel)) {
-                    // We're within reasonable estimates of the average
-                    if (Math.abs(lineMaps[k].value - cnv.value) < 2.5) {
-                        lineMaps[k].start  = Math.min(lineMaps[k].start, cnv.start);
-                        lineMaps[k].end    = Math.max(lineMaps[k].end,   cnv.end);
-                        lineMaps[k].sum   += cnv.value;
-                        lineMaps[k].count += 1;
-                        lineMaps[k].value  = lineMaps[k].sum / lineMaps[k].count;
-                        lineMaps[k].data.push(cnv);
-                    }
-                    // Outside of the average, need to create a new line from here
-                    else {
-                        // ensure that we can split somewhere along the list
-                        lineMaps[k].data.sort(function (a, b) { return a.start - b.start });
-                        newLine = {};
-                        newLine.data  = lineMaps[k].data
-                                                   .splice(lineMaps[k].data
-                                                                      .findIndex(function (a) { 
-                                                                          return a.start > cnv.start 
-                                                                      }));
-                        lineMaps[k].sum = lineMaps[k].data.reduce(function (a,b) { return a + b.value }, 0)
-                        console.log(lineMaps[k].data.length);
-                        lineMaps[k].count = lineMaps[k].data.length
-                        lineMaps[k].value = lineMaps[k].sum / lineMaps[k].count
-                        newLine.start = cnv.start;
-                        newLine.end   = Math.max(lineMaps[k].end, cnv.end);
-                        newLine.sum   = newLine.data.reduce(function (a,b) { return a + b.value }, 0) + cnv.value;
-                        console.log(newLine.data.length)
-                        newLine.count = newLine.data.length + 1;
-                        newLine.data.push(cnv);
-                        lineMaps.splice(k+1, 0, newLine);
-                        k += 1;
-                    }
+                while (a1 - a0 > 1) {
+                    mid = Math.floor((a0 + a1) / 2);
+                    if (list[mid].start <= start)
+                        a0 = mid;
+                    else
+                        a1 = mid;
                 }
-                else if (k + 1 < lineMaps.length) {
-                    k += 1;
-                    continue;
+                while (b1 - b0 > 1) {
+                    mid = Math.floor((b0 + b1) / 2);
+                    if (list[mid].end <= end)
+                        b0 = mid;
+                    else
+                        b1 = mid;
                 }
-                else {
-                    newLine = {};
-                    newLine.start = cnv.start;
-                    newLine.end   = cnv.end;
-                    newLine.sum   = cnv.value;
-                    newLine.count = 1;
-                    newLine.value = newLine.sum / newLine.count
-                    newLine.data  = [cnv];
-                    lineMaps.push(newLine);
-                }
-                break;
+
+                return { index: a0, count: b1 - a0 + 1, data: list.slice(a0, b1 + 1) };
             }
+
+            adjust = find(lineMaps, cnv.start, cnv.end);
+            newMaps = [];
+
+            if (adjust.data.length === 0) {
+                console.log("create average error: " + cnv);
+                return [];
+            }
+
+            newMap = {};
+            newMap.start = adjust.data[0].start;
+            newMap.end   = cnv.start;
+            newMap.sum   = adjust.data[0].sum;
+            newMap.count = adjust.data[0].count;
+            newMap.value = newMap.sum / newMap.count;
+            newMaps.push(newMap);
+
+            for (i = 0; i < adjust.data.length; i++) {
+                newMap = {};
+                newMap.start = Math.max(cnv.start, adjust.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjust.data[i].end);
+                newMap.count = adjust.data[i].count + 1;
+                newMap.sum   = adjust.data[i].sum + cnv.value;
+                newMap.value = newMap.sum / newMap.count;
+                newMaps.push(newMap);
+            }
+
+            newMap = {};
+            newMap.start = cnv.end;
+            newMap.end   = adjust.data[adjust.data.length - 1].end;
+            newMap.count = adjust.data[adjust.data.length - 1].count;
+            newMap.sum   = adjust.data[adjust.data.length - 1].sum;
+            newMap.value = newMap.sum / newMap.count;
+            newMaps.push(newMap);
+
+            newMaps = newMaps.filter(function (a) { return (a.start !== a.end) })
+
+            newMaps = [adjust.index, adjust.count].concat(newMaps);
+            lineMaps["splice"].apply(lineMaps, newMaps);
+        }
+
+        for (i = 0; i < lineMaps.length; i++) {
+            yMin = Math.min(yMin, lineMaps[i].value);
+            yMax = Math.max(yMax, lineMaps[i].value);
         }
 
         return {
