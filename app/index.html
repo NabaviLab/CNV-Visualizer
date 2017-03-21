@@ -32,7 +32,8 @@
 
     <!-- OUR IGV JS-->
 
-    <script type="text/javascript" src="js/igv.min.js"></script>
+    <script type="text/javascript" src="js/igv.js"></script>
+    <script type="text/javascript" src="WindowHandling.js"></script>
 
     <!-- IGV JS-->
 
@@ -95,9 +96,8 @@
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <label class="btn btn-primary">
-                        Load a Track <button data-toggle="modal" data-target="#uploadModal" class="btn btn-primary" style="display: none;"/>
-                    </label>
+                    <input type="button" data-toggle="modal" data-target="#uploadURLModal" class="btn btn-primary" value="Load Data from URL"></input>
+                    <input type="button" data-toggle="modal" data-target="#uploadLocalModal" class="btn btn-primary" value="Load Data from Local"></input>
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -107,13 +107,12 @@
 </nav>
 
 <div class="col-lg-12">
-    <div id="uploadModal" class="modal fade" role="dialog">
+    <div id="uploadURLModal" class="modal" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Add a new Track</h4>
           </div>
           <div class="modal-body">
@@ -135,6 +134,39 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="constructTrack(document.getElementById('urlInput').value, document.getElementById('indexedInput').value,
               document.getElementById('nameInput').value)">Load Track</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="uploadLocalModal" class="modal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add a new Track</h4>
+          </div>
+          <div class="modal-body">
+            <form id="uploadLocalData">
+              <div class="form-group">
+                <label>File URL: </label>
+                <input type="file" class="form-control" id="localInput" placeholder="Please select the data.">
+              </div>
+              <div class="form-group">
+                <label>Is the file indexed?</label>
+                <input type="text" class="form-control" id="localIndexed" placeholder="true if yes, false if no.">
+              </div>
+              <div class="form-group">
+                <label>Track name:</label>
+                <input type="text" class="form-control" id="localName" placeholder="Please enter the desired track name.">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="constructLocalTrack(document.getElementById('localInput').files[0], document.getElementById('localIndexed').value,
+              document.getElementById('localName').value)">Load Track</button>
           </div>
         </div>
 
@@ -237,16 +269,24 @@
                 ]
             };
 
-        var myBrowser = igv.createBrowser(div, options);
+        igv.createBrowser(div, options);
     });
 
-    function constructTrack(url_, indexed_, name_){
+    function constructTrack(url_, indexed_, name_) {
        igv.browser.loadTrack( {
          url: url_,
          indexed: indexed_,
          name: name_
        } );
      };
+
+     function constructLocalTrack(local_, indexed_, name_) {
+        igv.browser.loadTrack( {
+          localFile: local_,
+          indexed: indexed_,
+          name: name_
+        } );
+      };
 
 </script>
 </body>
