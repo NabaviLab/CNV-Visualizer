@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <!-- jQuery JS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"/>
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+
+    <!-- IGV CSS -->
+    <link rel="stylesheet" type="text/css" href="css/igv.css">
+
+    <!-- OUR IGV JS-->
+
+    <script type="text/javascript" src="js/igv.js"></script>
+
+    <!-- IGV JS-->
+
+    <!-- Biocircos.js -->
+    <script src="js/biocircos-1.1.0.js"></script>
+    <script src="js/CNV01.js"></script>
+
+</head>
+
+<body>
+
+  <div id="igvDiv"></div>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+
+          var HASH_PREFIX = "#/locus/";
+          var currentHash = window.location.hash;
+          var locus = currentHash && currentHash.indexOf(HASH_PREFIX) === 0
+              ? currentHash.substr(HASH_PREFIX.length)
+              : "chr1:155,160,475-155,184,282";   // default location
+
+          var div = $("#igvDiv")[0],
+              options = {
+                  showNavigation: true,
+                  showRuler: true,
+                  genome: "hg19",
+                  locus: "chr1",
+                  tracks: [
+                    {
+                        name: "Genes",
+                        url: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
+                        index: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
+                        displayMode: "SQUISHED",
+                        order: Number.MAX_VALUE
+                    }
+                  ]
+              };
+
+          igv.createBrowser(div, options);
+      });
+
+
+      constructTrack = function (url_, name_, indexed_) {
+         igv.browser.loadTrack( {
+           url: url_,
+           name: name_,
+           indexed: indexed_
+         } );
+       };
+
+       constructLocalTrack = function (localfile_, name_, indexed_) {
+          igv.browser.loadTrack( {
+            localFile: localfile_,
+            name: name_,
+            indexed: indexed_
+          } );
+        };
+
+  </script>
+  </body>
+</html>

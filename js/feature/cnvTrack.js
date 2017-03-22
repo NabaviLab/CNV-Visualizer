@@ -3,7 +3,7 @@
 
 var igv = (function (igv) {
     /**
-     * Configure the CNVTrack, initializing the reader, samples and display 
+     * Configure the CNVTrack, initializing the reader, samples and display
      *
      * @param config - configuration for generalized track
      *
@@ -36,7 +36,7 @@ var igv = (function (igv) {
     };
 
     /**
-     * grab the features for the current view 
+     * grab the features for the current view
      *
      * @param {string} chr - chromosome being viewed
      * @param {number} bpStart - first base pair
@@ -56,8 +56,8 @@ var igv = (function (igv) {
         });
     };
 
-    /** 
-     * Draw the track 
+    /**
+     * Draw the track
      *
      * @param options - options holding reference frame with pixel boundaries
      * and base pair values.
@@ -85,7 +85,7 @@ var igv = (function (igv) {
         ctx = options.context;
         pixelWidth = options.pixelWidth;
         pixelHeight = options.pixelHeight;
-        
+
         igv.graphics.fillRect(ctx,
             0, 0, pixelWidth, pixelHeight,
             {'fillStyle': 'rgb(255, 255, 255)'});

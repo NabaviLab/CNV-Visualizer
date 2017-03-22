@@ -26,6 +26,7 @@
 var igv = (function (igv) {
 
     var sortDirection = "DESC";
+    var url, name, indexed;
 
     /**
      * Constructs a segment track, parsing and modifying the options for each.
@@ -42,8 +43,8 @@ var igv = (function (igv) {
         this.displayMode = config.displayMode || "SQUISHED"; // EXPANDED | SQUISHED
 
         this.maxHeight = config.maxHeight || 500;
-        this.sampleSquishHeight = config.sampleSquishHeight || 20;
-        this.sampleExpandHeight = config.sampleExpandHeight || 50;
+        this.sampleSquishHeight = config.sampleSquishHeight || 40;
+        this.sampleExpandHeight = config.sampleExpandHeight || 80;
 
         this.posColorScale = config.posColorScale ||
             new igv.GradientColorScale(
@@ -236,11 +237,11 @@ var igv = (function (igv) {
 
                 if (value < -0.1) {
                     color = "rgb(255,0,0)";
-                    y = trackCenter + segment.value/valueMin * sampleHeight/2;
+                    y = trackCenter + segment.value/valueMin * sampleHeight/2 * 2;
                 }
                 else if (value > 0.1) {
                     color = "rgb(0,0,255)";
-                    y = trackCenter - segment.value/valueMax * sampleHeight/2;
+                    y = trackCenter - segment.value/valueMax * sampleHeight/2 * 2;
                 }
                 else {
                     continue;
@@ -452,7 +453,9 @@ var igv = (function (igv) {
 
         var self = this,
             $e,
-            clickHandler;
+            $e2,
+            clickHandler,
+            clickHandler2;
 
         $e = $('<div class="igv-track-menu-item">');
         $e.text('Sort by value');
@@ -465,9 +468,19 @@ var igv = (function (igv) {
 
         };
 
-        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }];
+        $e2 = $('<div class="igv-track-menu-item">');
+        $e2.text('Open in own browser');
+
+        clickHandler2 = function () {
+          self.newWindow(url, name, indexed);
+          config.popover.hide();
+        }
+
+        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }, {name: undefined, object: $e2, click: clickHandler2, init: undefined}];
 
     };
+
+
 
     return igv;
 
