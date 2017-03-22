@@ -6,6 +6,8 @@ var igv = (function (igv) {
     igv.CNVAccumTrack = function (config) {
         igv.configTrack(this, config);
 
+        this.tolerance = config.tolerance || 0.01;
+
         this.selected = [];
         this.selectFrom = [];
 
@@ -130,6 +132,7 @@ var igv = (function (igv) {
                            });
                            return result;
                        });
+        featureLists = ensureLog(featureLists);
         if (featureLists) {
             bpPerPixel = options.bpPerPixel;
             bpStart    = options.bpStart;
@@ -154,18 +157,41 @@ var igv = (function (igv) {
 
                 y = yCenter - Math.round(cnv.value / yScale);
 
-                x1 = Math.round((cnv.start - bpStart) / bpPerPixel);
-                x2 = Math.round((cnv.end - bpStart) / bpPerPixel);
+                x1 = Math.floor((cnv.start - bpStart) / bpPerPixel);
+                x2 = Math.floor((cnv.end - bpStart) / bpPerPixel);
+                xw = Math.ceil((cnv.end - cnv.start) / bpPerPixel);
+                yh = y - yCenter;
 
                 if (cnv.value < 0.0)
                     color = "rgb(255, 0, 0)";
                 else
                     color = "rgb(0, 0, 255)";
 
-                igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': color}, 2);
+                igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': color}, 1);
+                igv.graphics.fillRect(ctx, x1, yCenter, xw, yh, {'fillStyle': color});
             }
         }
     };
+
+    ensureLog = function (featureList) {
+        var i,
+            isLog = {},
+            result = featureList;
+
+        for (i = 0; i < featureList.length; i++) {
+            if (isLog[featureList.sample] === undefined && featureList[i].value < 0.0) {
+                isLog[featureList.sample] = true;
+            }
+        }
+
+        for (i = 0; i < featureList.length; i++) {
+            if (isLog[featureList.sample] === undefined) {
+                result.value = Math.log2(result.value / 2);
+            }
+        }
+
+        return result;
+    }
 
     createAverage = function (featureList, bpStart, bpEnd, bpPerPixel) {
         var i, j, k,
@@ -245,7 +271,7 @@ var igv = (function (igv) {
             newMap.value = newMap.sum / newMap.count;
             newMaps.push(newMap);
 
-            newMaps = newMaps.filter(function (a) { return (a.start !== a.end) })
+            newMaps = newMaps.filter(function (a) { return (a.end - a.start >= bpPerPixel) })
 
             newMaps = [adjust.index, adjust.count].concat(newMaps);
             lineMaps["splice"].apply(lineMaps, newMaps);
