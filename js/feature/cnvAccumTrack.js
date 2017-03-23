@@ -7,6 +7,7 @@ var igv = (function (igv) {
         igv.configTrack(this, config);
 
         this.tolerance = config.tolerance || 0.01;
+        this.accumulated = []
 
         this.selected = [];
         this.selectFrom = [];
@@ -43,6 +44,14 @@ var igv = (function (igv) {
                 thisObj.selected.splice(thisObj.selected.indexOf(track), 1);
         };
         */
+    };
+
+    igv.CNVAccumTrack.prototype.popupData = function (genomicLocation, xOffset, yOffset, referenceFrame) {
+        var data = find(this.accumulated, genomicLocation);
+        if (data > 0) {
+            return [{name: "Value", value: this.accumulated[data].value}];
+        }
+        return null;
     };
 
     igv.CNVAccumTrack.prototype.menuItemList = function (popover) {
@@ -144,7 +153,8 @@ var igv = (function (igv) {
                 pixelWidth, yCenter,
                 { 'color' : 'rgb(100, 100, 100)' });
 
-            parsedLines = createAverage(featureLists, bpStart, bpEnd, bpPerPixel);
+            parsedLines = createAverage.call(this, featureLists, bpStart, bpEnd, bpPerPixel);
+            this.accumulated = parsedLines.lines;
             yScale = Math.max(-parsedLines.min, parsedLines.max) / yCenter;
 
             for (i = 0; i < parsedLines.lines.length; i++) {
@@ -152,6 +162,7 @@ var igv = (function (igv) {
 
                 if (cnv.end < bpStart) continue;
                 if (cnv.start > bpEnd) break;
+                if (cnv.end - cnv.start < bpPerPixel) continue;
 
                 if (Math.abs(cnv.value) < myself.tolerance) continue;
 
@@ -191,6 +202,26 @@ var igv = (function (igv) {
         }
 
         return result;
+    };
+
+    find = function (list, genomicLocation) {
+        var len = list.length,
+            l = 0, r = len, m;
+
+        while (l <= r) {
+            m = Math.floor((l + r) / 2);
+            if (0 <= m && m < len) {
+                if (list[m].end < genomicLocation)
+                    l = m + 1;
+                else if (list[m].start > genomicLocation)
+                    r = m - 1;
+                else
+                    return m;
+            } else {
+                break;
+            }
+        }
+        return -1;
     }
 
     createAverage = function (featureList, bpStart, bpEnd, bpPerPixel) {
@@ -199,12 +230,11 @@ var igv = (function (igv) {
             mean,
             yMin = 0.0,
             yMax = 0.0,
-            lineMaps = [ { start  : bpStart ,
-                           end    : bpEnd   ,
-                           sum    : 0.0     ,
-                           count  : 1       ,
-                           value  : 0.0     ,
-                           data   : []      } ],
+            lineMaps = [ { start  : Number.MIN_VALUE ,
+                           end    : Number.MAX_VALUE ,
+                           sum    : 0.0              ,
+                           value  : 0.0              ,
+                           data   : []               } ],
             newMaps, newMap,
             adjust;
 
@@ -213,34 +243,23 @@ var igv = (function (igv) {
             if (cnv.end < bpStart || bpEnd < cnv.start)
                 continue; // skip everything outside of the view
 
-            function find(list, start, end) {
-                var len = list.length,
-                    a0 = 0, a1 = len - 1,
-                    b0 = 0, b1 = len - 1,
-                    mid;
+            getAdjust = function (list, start, end) {
+                var left  = find(list, start),
+                    right = find(list, end);
 
-                while (a1 - a0 > 1) {
-                    mid = Math.floor((a0 + a1) / 2);
-                    if (list[mid].start <= start)
-                        a0 = mid;
-                    else
-                        a1 = mid;
-                }
-                while (b1 - b0 > 1) {
-                    mid = Math.floor((b0 + b1) / 2);
-                    if (list[mid].end <= end)
-                        b0 = mid;
-                    else
-                        b1 = mid;
-                }
+                if (left >= 0 && right >= 0)
+                    return { index: left, count: right - left + 1, data: list.slice(left, right + 1) };
+                else
+                    return null;
+            };
 
-                return { index: a0, count: b1 - a0 + 1, data: list.slice(a0, b1 + 1) };
-            }
+            adjust = getAdjust(lineMaps, cnv.start, cnv.end);
+            if (adjust === null)
+                console.log("adjust error");
 
-            adjust = find(lineMaps, cnv.start, cnv.end);
             newMaps = [];
 
-            if (adjust.data.length === 0) {
+            if (adjust.count < 1) {
                 console.log("create average error: " + cnv);
                 return [];
             }
@@ -249,29 +268,24 @@ var igv = (function (igv) {
             newMap.start = adjust.data[0].start;
             newMap.end   = cnv.start;
             newMap.sum   = adjust.data[0].sum;
-            newMap.count = adjust.data[0].count;
-            newMap.value = newMap.sum / newMap.count;
+            newMap.value = newMap.sum / this.selected.length;
             newMaps.push(newMap);
 
-            for (i = 0; i < adjust.data.length; i++) {
+            for (i = 0; i < adjust.count; i++) {
                 newMap = {};
                 newMap.start = Math.max(cnv.start, adjust.data[i].start);
                 newMap.end   = Math.min(cnv.end,   adjust.data[i].end);
-                newMap.count = adjust.data[i].count + 1;
                 newMap.sum   = adjust.data[i].sum + cnv.value;
-                newMap.value = newMap.sum / newMap.count;
+                newMap.value = newMap.sum / this.selected.length;
                 newMaps.push(newMap);
             }
 
             newMap = {};
             newMap.start = cnv.end;
-            newMap.end   = adjust.data[adjust.data.length - 1].end;
-            newMap.count = adjust.data[adjust.data.length - 1].count;
-            newMap.sum   = adjust.data[adjust.data.length - 1].sum;
-            newMap.value = newMap.sum / newMap.count;
+            newMap.end   = adjust.data[adjust.count - 1].end;
+            newMap.sum   = adjust.data[adjust.count - 1].sum;
+            newMap.value = newMap.sum / this.selected.length;
             newMaps.push(newMap);
-
-            newMaps = newMaps.filter(function (a) { return (a.end - a.start >= bpPerPixel) })
 
             newMaps = [adjust.index, adjust.count].concat(newMaps);
             lineMaps["splice"].apply(lineMaps, newMaps);

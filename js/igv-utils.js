@@ -67,6 +67,8 @@ var igv = (function (igv) {
         igv.alert.$dialogLabel.text(string);
         igv.alert.show(undefined);
 
+        console.log(string);
+
         igv.popover.hide();
 
     };
