@@ -12,6 +12,12 @@ var igv = (function (igv) {
         this.selected = [];
         this.selectFrom = [];
 
+        this.avgType = createAverage;
+
+        this.avgName = "X Average",
+        this.perName = "Percent",
+        this.sumName = "Sum";
+
         var myself = this;
         if (igv.trackViews !== undefined) {
             igv.trackViews.filter(function (trackview) {
@@ -47,9 +53,9 @@ var igv = (function (igv) {
     };
 
     igv.CNVAccumTrack.prototype.popupData = function (genomicLocation, xOffset, yOffset, referenceFrame) {
-        var data = find(this.accumulated, genomicLocation);
+        var data = find(this.accumulated[0], genomicLocation);
         if (data > 0) {
-            return [{name: "Value", value: this.accumulated[data].value}];
+            return [{name: "Value Positive", value: this.accumulated[0][data].value}, {name: "Value Negative", value: this.accumulated[1][data].value}];
         }
         return null;
     };
@@ -74,6 +80,48 @@ var igv = (function (igv) {
                     }(name)
                 });
             }
+        });
+
+        toggleList.push({
+            name: myself.avgName,
+            click: function (name) {
+                return function () {
+                    popover.hide();
+                    myself.avgName = "X Average",
+                    myself.perName = "Percent",
+                    myself.sumName = "Sum";
+                    myself.avgType = createAverage;
+                    myself.trackView.update();
+                }
+            }(name)
+        });
+
+        toggleList.push({
+            name: myself.perName,
+            click: function (name) {
+                return function () {
+                    popover.hide();
+                    myself.avgName = "Average",
+                    myself.perName = "X Percent",
+                    myself.sumName = "Sum";
+                    myself.avgType = createPercent;
+                    myself.trackView.update();
+                }
+            }(name)
+        });
+
+        toggleList.push({
+            name: myself.sumName,
+            click: function (name) {
+                return function () {
+                    popover.hide();
+                    myself.avgName = "Average",
+                    myself.perName = "Percent",
+                    myself.sumName = "X Sum";
+                    myself.avgType = createSum;
+                    myself.trackView.update();
+                }
+            }(name)
         });
 
         return toggleList;
@@ -153,12 +201,13 @@ var igv = (function (igv) {
                 pixelWidth, yCenter,
                 { 'color' : 'rgb(100, 100, 100)' });
 
-            parsedLines = createAverage.call(this, featureLists, bpStart, bpEnd, bpPerPixel);
+            parsedLines = this.avgType.call(this, featureLists, bpStart, bpEnd, bpPerPixel);
             this.accumulated = parsedLines.lines;
             yScale = Math.max(-parsedLines.min, parsedLines.max) / yCenter;
 
-            for (i = 0; i < parsedLines.lines.length; i++) {
-                cnv = parsedLines.lines[i];
+            for (j = 0; j < 2; j++){
+            for (i = 0; i < parsedLines.lines[j].length; i++) {
+                cnv = parsedLines.lines[j][i];
 
                 if (cnv.end < bpStart) continue;
                 if (cnv.start > bpEnd) break;
@@ -181,6 +230,7 @@ var igv = (function (igv) {
                 igv.graphics.strokeLine(ctx, x1, y, x2, y, {'strokeStyle': color}, 1);
                 igv.graphics.fillRect(ctx, x1, yCenter, xw, yh, {'fillStyle': color});
             }
+          }
         }
     };
 
@@ -230,12 +280,17 @@ var igv = (function (igv) {
             mean,
             yMin = 0.0,
             yMax = 0.0,
-            lineMaps = [ { start  : Number.MIN_VALUE ,
+            lineMapsP = [ { start  : Number.MIN_VALUE ,
                            end    : Number.MAX_VALUE ,
                            sum    : 0.0              ,
                            value  : 0.0              ,
                            data   : []               } ],
-            newMaps, newMap,
+           lineMapsN = [ { start  : Number.MIN_VALUE ,
+                          end    : Number.MAX_VALUE ,
+                          sum    : 0.0              ,
+                          value  : 0.0              ,
+                          data   : []               } ],
+            newMapsP, newMapsN, newMap, lineMaps,
             adjust;
 
         for (j = 0; j < featureList.length; j++) {
@@ -253,48 +308,333 @@ var igv = (function (igv) {
                     return null;
             };
 
-            adjust = getAdjust(lineMaps, cnv.start, cnv.end);
+            adjustP = getAdjust(lineMapsP, cnv.start, cnv.end);
             if (adjust === null)
                 console.log("adjust error");
 
-            newMaps = [];
+            adjustN = getAdjust(lineMapsN, cnv.start, cnv.end);
+            if (adjust === null)
+                console.log("adjust error");
 
-            if (adjust.count < 1) {
+            newMapsP = [];
+            newMapsN = [];
+
+            if (adjustP.count < 1 || adjustN.count < 1) {
                 console.log("create average error: " + cnv);
                 return [];
             }
 
             newMap = {};
-            newMap.start = adjust.data[0].start;
+            newMap.start = adjustP.data[0].start;
             newMap.end   = cnv.start;
-            newMap.sum   = adjust.data[0].sum;
+            newMap.sum   = adjustP.data[0].sum;
             newMap.value = newMap.sum / this.selected.length;
-            newMaps.push(newMap);
+            newMapsP.push(newMap);
 
-            for (i = 0; i < adjust.count; i++) {
+            newMap = {};
+            newMap.start = adjustN.data[0].start;
+            newMap.end   = cnv.start;
+            newMap.sum   = adjustN.data[0].sum;
+            newMap.value = newMap.sum / this.selected.length;
+            newMapsN.push(newMap);
+
+            for (i = 0; i < adjustP.count; i++) {
                 newMap = {};
-                newMap.start = Math.max(cnv.start, adjust.data[i].start);
-                newMap.end   = Math.min(cnv.end,   adjust.data[i].end);
-                newMap.sum   = adjust.data[i].sum + cnv.value;
+                newMap.start = Math.max(cnv.start, adjustP.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjustP.data[i].end);
+                newMap.sum   = adjustP.data[i].sum;
+                if (cnv.value > 0)
+                  newMap.sum   = newMap.sum + cnv.value;
                 newMap.value = newMap.sum / this.selected.length;
-                newMaps.push(newMap);
+                newMapsP.push(newMap);
+            }
+
+            for (i = 0; i < adjustN.count; i++) {
+                newMap = {};
+                newMap.start = Math.max(cnv.start, adjustN.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjustN.data[i].end);
+                newMap.sum   = adjustN.data[i].sum;
+                if (cnv.value < 0)
+                  newMap.sum   = newMap.sum +cnv.value;
+                newMap.value = newMap.sum / this.selected.length;
+                newMapsN.push(newMap);
             }
 
             newMap = {};
             newMap.start = cnv.end;
-            newMap.end   = adjust.data[adjust.count - 1].end;
-            newMap.sum   = adjust.data[adjust.count - 1].sum;
+            newMap.end   = adjustP.data[adjustP.count - 1].end;
+            newMap.sum   = adjustP.data[adjustP.count - 1].sum;
             newMap.value = newMap.sum / this.selected.length;
-            newMaps.push(newMap);
+            newMapsP.push(newMap);
 
-            newMaps = [adjust.index, adjust.count].concat(newMaps);
-            lineMaps["splice"].apply(lineMaps, newMaps);
+            newMap = {};
+            newMap.start = cnv.end;
+            newMap.end   = adjustN.data[adjustN.count - 1].end;
+            newMap.sum   = adjustN.data[adjustN.count - 1].sum;
+            newMap.value = newMap.sum / this.selected.length;
+            newMapsN.push(newMap);
+
+            newMapsP = [adjustP.index, adjustP.count].concat(newMapsP);
+            newMapsN = [adjustN.index, adjustN.count].concat(newMapsN);
+            lineMapsP["splice"].apply(lineMapsP, newMapsP);
+            lineMapsN["splice"].apply(lineMapsN, newMapsN);
         }
 
-        for (i = 0; i < lineMaps.length; i++) {
-            yMin = Math.min(yMin, lineMaps[i].value);
-            yMax = Math.max(yMax, lineMaps[i].value);
+        for (i = 0; i < lineMapsN.length; i++) {
+            yMin = Math.min(yMin, lineMapsN[i].value);
         }
+
+        for (i = 0; i < lineMapsP.length; i++) {
+            yMax = Math.max(yMax, lineMapsP[i].value);
+        }
+
+        lineMaps = [lineMapsP, lineMapsN];
+
+        return {
+            min: yMin,
+            max: yMax,
+            lines: lineMaps
+        };
+    };
+
+    createPercent = function (featureList, bpStart, bpEnd, bpPerPixel) {
+        var i, j, k,
+            cnv,
+            mean,
+            yMin = 0.0,
+            yMax = 0.0,
+            lineMapsP = [ { start  : Number.MIN_VALUE ,
+                           end    : Number.MAX_VALUE ,
+                           sum    : 0.0              ,
+                           value  : 0.0              ,
+                           data   : []               } ],
+           lineMapsN = [ { start  : Number.MIN_VALUE ,
+                          end    : Number.MAX_VALUE ,
+                          sum    : 0.0              ,
+                          value  : 0.0              ,
+                          data   : []               } ],
+            newMapsP, newMapsN, newMap, lineMaps,
+            adjust;
+
+        for (j = 0; j < featureList.length; j++) {
+            cnv = featureList[j];
+            if (cnv.end < bpStart || bpEnd < cnv.start)
+                continue; // skip everything outside of the view
+
+            getAdjust = function (list, start, end) {
+                var left  = find(list, start),
+                    right = find(list, end);
+
+                if (left >= 0 && right >= 0)
+                    return { index: left, count: right - left + 1, data: list.slice(left, right + 1) };
+                else
+                    return null;
+            };
+
+            adjustP = getAdjust(lineMapsP, cnv.start, cnv.end);
+            if (adjust === null)
+                console.log("adjust error");
+
+            adjustN = getAdjust(lineMapsN, cnv.start, cnv.end);
+            if (adjust === null)
+                console.log("adjust error");
+
+            newMapsP = [];
+            newMapsN = [];
+
+            if (adjustP.count < 1 || adjustN.count < 1) {
+                console.log("create average error: " + cnv);
+                return [];
+            }
+
+            newMap = {};
+            newMap.start = adjustP.data[0].start;
+            newMap.end   = cnv.start;
+            newMap.sum   = adjustP.data[0].sum;
+            newMap.value = newMap.sum / this.selected.length;
+            newMapsP.push(newMap);
+
+            newMap = {};
+            newMap.start = adjustN.data[0].start;
+            newMap.end   = cnv.start;
+            newMap.sum   = adjustN.data[0].sum;
+            newMap.value = newMap.sum / this.selected.length;
+            newMapsN.push(newMap);
+
+            for (i = 0; i < adjustP.count; i++) {
+                newMap = {};
+                newMap.start = Math.max(cnv.start, adjustP.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjustP.data[i].end);
+                newMap.sum   = adjustP.data[i].sum;
+                if (cnv.value > 0)
+                  newMap.sum   = newMap.sum + 1;
+                newMap.value = newMap.sum / this.selected.length;
+                newMapsP.push(newMap);
+            }
+
+            for (i = 0; i < adjustN.count; i++) {
+                newMap = {};
+                newMap.start = Math.max(cnv.start, adjustN.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjustN.data[i].end);
+                newMap.sum   = adjustN.data[i].sum;
+                if (cnv.value < 0)
+                  newMap.sum   = newMap.sum - 1;
+                newMap.value = newMap.sum / this.selected.length;
+                newMapsN.push(newMap);
+            }
+
+            newMap = {};
+            newMap.start = cnv.end;
+            newMap.end   = adjustP.data[adjustP.count - 1].end;
+            newMap.sum   = adjustP.data[adjustP.count - 1].sum;
+            newMap.value = newMap.sum / this.selected.length;
+            newMapsP.push(newMap);
+
+            newMap = {};
+            newMap.start = cnv.end;
+            newMap.end   = adjustN.data[adjustN.count - 1].end;
+            newMap.sum   = adjustN.data[adjustN.count - 1].sum;
+            newMap.value = newMap.sum / this.selected.length;
+            newMapsN.push(newMap);
+
+            newMapsP = [adjustP.index, adjustP.count].concat(newMapsP);
+            newMapsN = [adjustN.index, adjustN.count].concat(newMapsN);
+            lineMapsP["splice"].apply(lineMapsP, newMapsP);
+            lineMapsN["splice"].apply(lineMapsN, newMapsN);
+        }
+
+        for (i = 0; i < lineMapsN.length; i++) {
+            yMin = Math.min(yMin, lineMapsN[i].value);
+        }
+
+        for (i = 0; i < lineMapsP.length; i++) {
+            yMax = Math.max(yMax, lineMapsP[i].value);
+        }
+
+        lineMaps = [lineMapsP, lineMapsN];
+
+        return {
+            min: yMin,
+            max: yMax,
+            lines: lineMaps
+        };
+    };
+
+    createSum = function (featureList, bpStart, bpEnd, bpPerPixel) {
+        var i, j, k,
+            cnv,
+            mean,
+            yMin = 0.0,
+            yMax = 0.0,
+            lineMapsP = [ { start  : Number.MIN_VALUE ,
+                           end    : Number.MAX_VALUE ,
+                           sum    : 0.0              ,
+                           value  : 0.0              ,
+                           data   : []               } ],
+           lineMapsN = [ { start  : Number.MIN_VALUE ,
+                          end    : Number.MAX_VALUE ,
+                          sum    : 0.0              ,
+                          value  : 0.0              ,
+                          data   : []               } ],
+            newMapsP, newMapsN, newMap, lineMaps,
+            adjust;
+
+        for (j = 0; j < featureList.length; j++) {
+            cnv = featureList[j];
+            if (cnv.end < bpStart || bpEnd < cnv.start)
+                continue; // skip everything outside of the view
+
+            getAdjust = function (list, start, end) {
+                var left  = find(list, start),
+                    right = find(list, end);
+
+                if (left >= 0 && right >= 0)
+                    return { index: left, count: right - left + 1, data: list.slice(left, right + 1) };
+                else
+                    return null;
+            };
+
+            adjustP = getAdjust(lineMapsP, cnv.start, cnv.end);
+            if (adjust === null)
+                console.log("adjust error");
+
+            adjustN = getAdjust(lineMapsN, cnv.start, cnv.end);
+            if (adjust === null)
+                console.log("adjust error");
+
+            newMapsP = [];
+            newMapsN = [];
+
+            if (adjustP.count < 1 || adjustN.count < 1) {
+                console.log("create average error: " + cnv);
+                return [];
+            }
+
+            newMap = {};
+            newMap.start = adjustP.data[0].start;
+            newMap.end   = cnv.start;
+            newMap.sum   = adjustP.data[0].sum;
+            newMap.value = newMap.sum;
+            newMapsP.push(newMap);
+
+            newMap = {};
+            newMap.start = adjustN.data[0].start;
+            newMap.end   = cnv.start;
+            newMap.sum   = adjustN.data[0].sum;
+            newMap.value = newMap.sum;
+            newMapsN.push(newMap);
+
+            for (i = 0; i < adjustP.count; i++) {
+                newMap = {};
+                newMap.start = Math.max(cnv.start, adjustP.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjustP.data[i].end);
+                newMap.sum   = adjustP.data[i].sum;
+                if (cnv.value > 0)
+                  newMap.sum   = newMap.sum + cnv.value;
+                newMap.value = newMap.sum;
+                newMapsP.push(newMap);
+            }
+
+            for (i = 0; i < adjustN.count; i++) {
+                newMap = {};
+                newMap.start = Math.max(cnv.start, adjustN.data[i].start);
+                newMap.end   = Math.min(cnv.end,   adjustN.data[i].end);
+                newMap.sum   = adjustN.data[i].sum;
+                if (cnv.value < 0)
+                  newMap.sum   = newMap.sum + cnv.value;
+                newMap.value = newMap.sum;
+                newMapsN.push(newMap);
+            }
+
+            newMap = {};
+            newMap.start = cnv.end;
+            newMap.end   = adjustP.data[adjustP.count - 1].end;
+            newMap.sum   = adjustP.data[adjustP.count - 1].sum;
+            newMap.value = newMap.sum;
+            newMapsP.push(newMap);
+
+            newMap = {};
+            newMap.start = cnv.end;
+            newMap.end   = adjustN.data[adjustN.count - 1].end;
+            newMap.sum   = adjustN.data[adjustN.count - 1].sum;
+            newMap.value = newMap.sum;
+            newMapsN.push(newMap);
+
+            newMapsP = [adjustP.index, adjustP.count].concat(newMapsP);
+            newMapsN = [adjustN.index, adjustN.count].concat(newMapsN);
+            lineMapsP["splice"].apply(lineMapsP, newMapsP);
+            lineMapsN["splice"].apply(lineMapsN, newMapsN);
+        }
+
+        for (i = 0; i < lineMapsN.length; i++) {
+            yMin = Math.min(yMin, lineMapsN[i].value);
+        }
+
+        for (i = 0; i < lineMapsP.length; i++) {
+            yMax = Math.max(yMax, lineMapsP[i].value);
+        }
+
+        lineMaps = [lineMapsP, lineMapsN];
 
         return {
             min: yMin,
