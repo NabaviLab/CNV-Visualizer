@@ -1,42 +1,42 @@
 BigWig Helper Classes
 =====================
 
-.. class:: igv.BWTotalSummary(byteBuffer)
+.. class:: BWTotalSummary(byteBuffer)
 
    bigwig/bwTotalSummary.js
 
-   .. function:: igv.BWTotalSummary.prototype.updateStats(stats)
+   .. function:: BWTotalSummary.prototype.updateStats(stats)
 
       bigwig/bwTotalSummary.js
 
 
-.. class:: igv.BPTree(binaryParser, treeOffset)
+.. class:: BPTree(binaryParser, treeOffset)
 
    bigwig/bwBPTree.js
 
 
-.. class:: igv.BWSource(config)
+.. class:: BWSource(config)
 
    bigwig/bwSource.js
 
-   .. function:: igv.BWSource.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+   .. function:: BWSource.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
 
       bigwig/bwSource.js
 
 
-.. class:: igv.RPTree(fileOffset, contentLength, config, littleEndian)
+.. class:: RPTree(fileOffset, contentLength, config, littleEndian)
 
    bigwig/bwRPTree.js
 
-   .. function:: igv.RPTree.prototype.load()
+   .. function:: RPTree.prototype.load()
 
       bigwig/bwRPTree.js
 
-   .. function:: igv.RPTree.prototype.readNode(filePosition, bufferedReader)
+   .. function:: RPTree.prototype.readNode(filePosition, bufferedReader)
 
       bigwig/bwRPTree.js
 
-   .. function:: igv.RPTree.prototype.findLeafItemsOverlapping(chrIdx, startBase, endBase)
+   .. function:: RPTree.prototype.findLeafItemsOverlapping(chrIdx, startBase, endBase)
 
       bigwig/bwRPTree.js
 

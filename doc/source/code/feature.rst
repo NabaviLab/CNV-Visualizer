@@ -1,82 +1,71 @@
 Feature Sourcing Classes
 ========================
 
-.. class:: igv.FeatureCache(featureList, range)
+.. class:: FeatureCache(featureList, range)
 
    feature/featureCache.js
 
-   .. function:: igv.FeatureCache.prototype.queryFeatures(chr, start, end)
+   .. function:: FeatureCache.prototype.queryFeatures(chr, start, end)
 
       feature/featureCache.js
 
-   .. function:: igv.FeatureCache.prototype.allFeatures()
+   .. function:: FeatureCache.prototype.allFeatures()
 
       feature/featureCache.js
 
-.. class:: igv.FeatureSource(config)
+.. class:: FeatureSource(config)
 
    feature/featureSource.js
 
-   .. function:: igv.FeatureSource.prototype.getFileHeader()
+   .. function:: FeatureSource.prototype.getFileHeader()
 
       feature/featureSource.js
 
-   .. function:: igv.FeatureSource.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+   .. function:: FeatureSource.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
 
       feature/featureSource.js
 
-.. class:: igv.AneuFeatureSource(config, thefilename)
+.. class:: AneuFeatureSource(config, thefilename)
 
    feature/aneuSource.js
 
-   .. function:: igv.AneuFeatureSource.prototype.getFeatures(chr, bpStart, bpEnd, success)
+   .. function:: AneuFeatureSource.prototype.getFeatures(chr, bpStart, bpEnd, success)
 
       feature/aneuSource.js
 
-   .. function:: igv.AneuFeatureSource.prototype.getFeatureCache(success)
+   .. function:: AneuFeatureSource.prototype.getFeatureCache(success)
 
       feature/aneuSource.js
 
-   .. function:: igv.AneuFeatureSource.prototype.loadFeatures(continuation, range)
+   .. function:: AneuFeatureSource.prototype.loadFeatures(continuation, range)
 
       feature/aneuSource.js
 
-   .. function:: igv.AneuFeatureSource.prototype.getFeatures(chr, bpStart, bpEnd, success)
-
-      feature/aneuSource.js
-
-   .. function:: igv.AneuFeatureSource.prototype.getFeatureCache(success)
-
-      feature/aneuSource.js
-
-   .. function:: igv.AneuFeatureSource.prototype.loadFeatures(continuation, range)
-
-      feature/aneuSource.js
-
-.. class:: igv.T2DVariantSource(config)
+.. class:: T2DVariantSource(config)
 
    gwas/t2dVariantSource.js
 
-   .. function:: igv.T2DVariantSource.prototype.getFeatures(chr, bpStart, bpEnd)
+   .. function:: T2DVariantSource.prototype.getFeatures(chr, bpStart, bpEnd)
 
       gwas/t2dVariantSource.js
 
-.. class:: igv.TDFSource(config)
+.. class:: TDFSource(config)
 
    tdf/tdfSource.js
-   .. function:: igv.TDFSource.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+
+   .. function:: TDFSource.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
 
       tdf/tdfSource.js
 
-.. class:: igv.BamSource(config)
+.. class:: BamSource(config)
 
    bam/bamSource.js
 
-   .. function:: igv.BamSource.prototype.setViewAsPairs(bool)
+   .. function:: BamSource.prototype.setViewAsPairs(bool)
 
       bam/bamSource.js
 
-   .. function:: igv.BamSource.prototype.getAlignments(chr, bpStart, bpEnd)
+   .. function:: BamSource.prototype.getAlignments(chr, bpStart, bpEnd)
 
       bam/bamSource.js
 

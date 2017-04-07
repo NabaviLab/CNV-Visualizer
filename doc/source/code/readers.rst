@@ -1,156 +1,156 @@
 File Reader Classes
 ===================
 
-.. class:: igv.CustomServiceReader(config)
+.. class:: CustomServiceReader(config)
 
    feature/customServiceReader.js
 
-   .. function:: igv.CustomServiceReader.prototype.readFeatures(chr, start, end)
+   .. function:: CustomServiceReader.prototype.readFeatures(chr, start, end)
 
       feature/customServiceReader.js
 
-.. class:: igv.FeatureFileReader(config)
+.. class:: FeatureFileReader(config)
 
    feature/featureFileReader.js
 
-   .. function:: igv.FeatureFileReader.prototype.readHeader()
+   .. function:: FeatureFileReader.prototype.readHeader()
 
       feature/featureFileReader.js
 
-   .. function:: igv.FeatureFileReader.prototype.readFeatures(chr, start, end)
+   .. function:: FeatureFileReader.prototype.readFeatures(chr, start, end)
 
       feature/featureFileReader.js
 
-.. class:: igv.Ga4ghVariantReader(config)
+.. class:: Ga4ghVariantReader(config)
 
    ga4gh/ga4ghVariantReader.js
 
-   .. function:: igv.Ga4ghVariantReader.prototype.readHeader()
+   .. function:: Ga4ghVariantReader.prototype.readHeader()
 
       ga4gh/ga4ghVariantReader.js
 
-   .. function:: igv.Ga4ghVariantReader.prototype.readFeatures(chr, bpStart, bpEnd)
+   .. function:: Ga4ghVariantReader.prototype.readFeatures(chr, bpStart, bpEnd)
 
       ga4gh/ga4ghVariantReader.js
 
-   .. function:: igv.Ga4ghVariantReader.prototype.readMetadata()
+   .. function:: Ga4ghVariantReader.prototype.readMetadata()
 
       ga4gh/ga4ghVariantReader.js
 
-.. class:: igv.Ga4ghAlignmentReader(config)
+.. class:: Ga4ghAlignmentReader(config)
 
    ga4gh/ga4ghAlignmentReader.js
 
-   .. function:: igv.Ga4ghAlignmentReader.prototype.readAlignments(chr, bpStart, bpEnd)
+   .. function:: Ga4ghAlignmentReader.prototype.readAlignments(chr, bpStart, bpEnd)
 
       ga4gh/ga4ghAlignmentReader.js
 
-   .. function:: igv.Ga4ghAlignmentReader.prototype.readMetadata()
+   .. function:: Ga4ghAlignmentReader.prototype.readMetadata()
 
       ga4gh/ga4ghAlignmentReader.js
 
-.. class:: igv.ImmVarReader(config)
+.. class:: ImmVarReader(config)
 
    gtex/immvarReader.js
 
-   .. function:: igv.ImmVarReader.prototype.readFeatures(queryChr, queryStart, queryEnd)
+   .. function:: ImmVarReader.prototype.readFeatures(queryChr, queryStart, queryEnd)
 
       gtex/immvarReader.js
 
-.. class:: igv.GtexFileReader(config)
+.. class:: GtexFileReader(config)
 
    gtex/gtexFileReader.js
 
-   .. function:: igv.GtexFileReader.prototype.readFeatures(chr, bpStart, bpEnd)
+   .. function:: GtexFileReader.prototype.readFeatures(chr, bpStart, bpEnd)
 
       gtex/gtexFileReader.js
 
-.. class:: igv.GtexReader(config)
+.. class:: GtexReader(config)
 
    gtex/gtexReader.js
 
-   .. function:: igv.GtexReader.prototype.readFeatures(chr, bpStart, bpEnd)
+   .. function:: GtexReader.prototype.readFeatures(chr, bpStart, bpEnd)
 
       gtex/gtexReader.js
 
-.. class:: igv.HiCReader(config)
+.. class:: HiCReader(config)
 
    hic/hicReader.js
 
-   .. function:: igv.HiCReader.prototype.readHeader()
+   .. function:: HiCReader.prototype.readHeader()
 
       hic/hicReader.js
 
-   .. function:: igv.HiCReader.prototype.readFooter(key)
+   .. function:: HiCReader.prototype.readFooter(key)
 
       hic/hicReader.js
 
-   .. function:: igv.HiCReader.prototype.readMatrix(key)
+   .. function:: HiCReader.prototype.readMatrix(key)
 
       hic/hicReader.js
 
-   .. function:: igv.HiCReader.prototype.readBlock(blockNumber, zd)
+   .. function:: HiCReader.prototype.readBlock(blockNumber, zd)
 
       hic/hicReader.js
 
-.. class:: igv.TDFReader(config)
+.. class:: TDFReader(config)
 
    tdf/tdfReader.js
 
-   .. function:: igv.TDFReader.prototype.readHeader()
+   .. function:: TDFReader.prototype.readHeader()
 
       tdf/tdfReader.js
 
-   .. function:: igv.TDFReader.prototype.readDataset(chr, windowFunction,  zoom)
+   .. function:: TDFReader.prototype.readDataset(chr, windowFunction,  zoom)
 
       tdf/tdfReader.js
 
-   .. function:: igv.TDFReader.prototype.readRootGroup()
+   .. function:: TDFReader.prototype.readRootGroup()
 
       tdf/tdfReader.js
 
-   .. function:: igv.TDFReader.prototype.readGroup(name)
+   .. function:: TDFReader.prototype.readGroup(name)
 
       tdf/tdfReader.js
 
-   .. function:: igv.TDFReader.prototype.readTile(indexEntry, nTracks)
+   .. function:: TDFReader.prototype.readTile(indexEntry, nTracks)
 
       tdf/tdfReader.js
 
-.. class:: igv.BamReader(config)
+.. class:: BamReader(config)
 
    bam/bamReader.js
 
-   .. function:: igv.BamReader.prototype.readAlignments(chr, bpStart, bpEnd)
+   .. function:: BamReader.prototype.readAlignments(chr, bpStart, bpEnd)
 
       bam/bamReader.js
 
-   .. function:: igv.BamReader.prototype.readHeader()
+   .. function:: BamReader.prototype.readHeader()
 
       bam/bamReader.js
 
-.. class:: igv.BWReader(config)
+.. class:: BWReader(config)
 
    bigwig/bwReader.js
 
-   .. function:: igv.BWReader.prototype.getZoomHeaders()
+   .. function:: BWReader.prototype.getZoomHeaders()
 
       bigwig/bwReader.js
 
-   .. function:: igv.BWReader.prototype.loadHeader()
+   .. function:: BWReader.prototype.loadHeader()
 
       bigwig/bwReader.js
 
-   .. function:: igv.BWReader.prototype.loadRPTree(offset)
+   .. function:: BWReader.prototype.loadRPTree(offset)
 
       bigwig/bwReader.js
 
 
-.. class:: igv.BufferedReader(config, contentLength, bufferSize)
+.. class:: BufferedReader(config, contentLength, bufferSize)
 
    bigwig/bufferedReader.js
 
-   .. function:: igv.BufferedReader.prototype.dataViewForRange(requestedRange, asUint8)
+   .. function:: BufferedReader.prototype.dataViewForRange(requestedRange, asUint8)
 
       bigwig/bufferedReader.js
 

@@ -1,50 +1,50 @@
 Parser Classes
 ==============
 
-.. class:: igv.FeatureParser(format, decode, config)
+.. class:: FeatureParser(format, decode, config)
 
    feature/featureParsers.js
 
-   .. function:: igv.FeatureParser.prototype.parseHeader(data)
+   .. function:: FeatureParser.prototype.parseHeader(data)
 
       feature/featureParsers.js
 
-   .. function:: igv.FeatureParser.prototype.parseFeatures(data)
+   .. function:: FeatureParser.prototype.parseFeatures(data)
 
       feature/featureParsers.js
 
-.. class:: igv.SegParser()
+.. class:: SegParser()
 
    feature/segParser.js
 
-   .. function:: igv.SegParser.prototype.parseHeader(data)
+   .. function:: SegParser.prototype.parseHeader(data)
 
       feature/segParser.js
 
-   .. function:: igv.SegParser.prototype.parseFeatures(data)
+   .. function:: SegParser.prototype.parseFeatures(data)
 
       feature/segParser.js
 
-.. class:: igv.CNVParser()
+.. class:: CNVParser()
 
    feature/cnvParser.js
-   .. function:: igv.CNVParser.prototype.parseHeader(data)
+   .. function:: CNVParser.prototype.parseHeader(data)
 
       feature/cnvParser.js
 
-   .. function:: igv.CNVParser.prototype.parseFeatures(data)
+   .. function:: CNVParser.prototype.parseFeatures(data)
 
       feature/cnvParser.js
 
-.. class:: igv.VcfParser()
+.. class:: VcfParser()
 
    variant/vcfParser.js
 
-   .. function:: igv.VcfParser.prototype.parseHeader(data)
+   .. function:: VcfParser.prototype.parseHeader(data)
 
       variant/vcfParser.js
 
-   .. function:: igv.VcfParser.prototype.parseFeatures(data)
+   .. function:: VcfParser.prototype.parseFeatures(data)
 
       variant/vcfParser.js
 
@@ -52,59 +52,59 @@ Parser Classes
 
       variant/vcfParser.js
 
-.. class:: igv.BinaryParser(dataView, littleEndian)
+.. class:: BinaryParser(dataView, littleEndian)
 
    binary.js
 
-   .. function:: igv.BinaryParser.prototype.remLength()
+   .. function:: BinaryParser.prototype.remLength()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.hasNext()
+   .. function:: BinaryParser.prototype.hasNext()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getByte()
+   .. function:: BinaryParser.prototype.getByte()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getShort()
+   .. function:: BinaryParser.prototype.getShort()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getInt()
+   .. function:: BinaryParser.prototype.getInt()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getUInt()
+   .. function:: BinaryParser.prototype.getUInt()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getLong()
+   .. function:: BinaryParser.prototype.getLong()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getString(len)
+   .. function:: BinaryParser.prototype.getString(len)
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getFixedLengthString(len)
+   .. function:: BinaryParser.prototype.getFixedLengthString(len)
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getFloat()
+   .. function:: BinaryParser.prototype.getFloat()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getDouble()
+   .. function:: BinaryParser.prototype.getDouble()
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.skip(n)
+   .. function:: BinaryParser.prototype.skip(n)
 
       binary.js
 
-   .. function:: igv.BinaryParser.prototype.getVPointer()
+   .. function:: BinaryParser.prototype.getVPointer()
 
       binary.js
 

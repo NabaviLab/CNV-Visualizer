@@ -1,443 +1,443 @@
 IGV Classes
 ===========
 
-.. class:: igv.Browser(options, trackContainerDiv)
+.. class:: Browser(options, trackContainerDiv)
 
    browser.js
 
-   .. function:: igv.Browser.prototype.disableZoomWidget()
+   .. function:: Browser.prototype.disableZoomWidget()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.enableZoomWidget(zoomHandlers)
+   .. function:: Browser.prototype.enableZoomWidget(zoomHandlers)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.toggleCursorGuide(genomicStateList)
+   .. function:: Browser.prototype.toggleCursorGuide(genomicStateList)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.toggleCenterGuide(genomicStateList)
+   .. function:: Browser.prototype.toggleCenterGuide(genomicStateList)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.getFormat(name)
+   .. function:: Browser.prototype.getFormat(name)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.loadTracksWithConfigList(configList)
+   .. function:: Browser.prototype.loadTracksWithConfigList(configList)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.loadTrack(config)
+   .. function:: Browser.prototype.loadTrack(config)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.addTrack(track)
+   .. function:: Browser.prototype.addTrack(track)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.reorderTracks()
+   .. function:: Browser.prototype.reorderTracks()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.removeTrack(track)
+   .. function:: Browser.prototype.removeTrack(track)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.findTracks(property, value)
+   .. function:: Browser.prototype.findTracks(property, value)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.reduceTrackOrder(trackView)
+   .. function:: Browser.prototype.reduceTrackOrder(trackView)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.increaseTrackOrder(trackView)
+   .. function:: Browser.prototype.increaseTrackOrder(trackView)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.setTrackHeight(newHeight)
+   .. function:: Browser.prototype.setTrackHeight(newHeight)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.resize()
+   .. function:: Browser.prototype.resize()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.repaint()
+   .. function:: Browser.prototype.repaint()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.repaintWithLocusIndex(locusIndex)
+   .. function:: Browser.prototype.repaintWithLocusIndex(locusIndex)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.update()
+   .. function:: Browser.prototype.update()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.updateWithLocusIndex(locusIndex)
+   .. function:: Browser.prototype.updateWithLocusIndex(locusIndex)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.loadInProgress()
+   .. function:: Browser.prototype.loadInProgress()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.updateLocusSearchWithGenomicState(genomicState)
+   .. function:: Browser.prototype.updateLocusSearchWithGenomicState(genomicState)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.syntheticViewportContainerBBox()
+   .. function:: Browser.prototype.syntheticViewportContainerBBox()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.syntheticViewportContainerWidth()
+   .. function:: Browser.prototype.syntheticViewportContainerWidth()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.viewportContainerWidth()
+   .. function:: Browser.prototype.viewportContainerWidth()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.minimumBasesExtent()
+   .. function:: Browser.prototype.minimumBasesExtent()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.goto(chrName, start, end)
+   .. function:: Browser.prototype.goto(chrName, start, end)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.zoomIn()
+   .. function:: Browser.prototype.zoomIn()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.zoomOut()
+   .. function:: Browser.prototype.zoomOut()
 
       browser.js
 
-   .. function:: igv.Browser.prototype.selectMultiLocusPanelWithGenomicState(genomicState)
+   .. function:: Browser.prototype.selectMultiLocusPanelWithGenomicState(genomicState)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.closeMultiLocusPanelWithGenomicState(genomicState)
+   .. function:: Browser.prototype.closeMultiLocusPanelWithGenomicState(genomicState)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.multiLocusPanelLayoutWithTruthFunction(filterFunction)
+   .. function:: Browser.prototype.multiLocusPanelLayoutWithTruthFunction(filterFunction)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.emptyViewportContainers($trackContainer)
+   .. function:: Browser.prototype.emptyViewportContainers($trackContainer)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.buildViewportsWithGenomicStateList(genomicStateList)
+   .. function:: Browser.prototype.buildViewportsWithGenomicStateList(genomicStateList)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.parseSearchInput(string)
+   .. function:: Browser.prototype.parseSearchInput(string)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.getGenomicStateList(loci, viewportContainerWidth, continuation)
+   .. function:: Browser.prototype.getGenomicStateList(loci, viewportContainerWidth, continuation)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.on(eventName, fn)
+   .. function:: Browser.prototype.on(eventName, fn)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.un(eventName, fn)
+   .. function:: Browser.prototype.un(eventName, fn)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.fireEvent(eventName, args, thisObj)
+   .. function:: Browser.prototype.fireEvent(eventName, args, thisObj)
 
       browser.js
 
-   .. function:: igv.Browser.prototype.search(feature, callback, force)
+   .. function:: Browser.prototype.search(feature, callback, force)
 
       browser.js
 
-.. class:: igv.EncodeTable(parentModalBodyObject, continuation)
+.. class:: EncodeTable(parentModalBodyObject, continuation)
 
    encode/encode.js
 
-   .. function:: igv.EncodeTable.prototype.loadWithDataSource(dataSource)
+   .. function:: EncodeTable.prototype.loadWithDataSource(dataSource)
 
       encode/encode.js
 
-   .. function:: igv.EncodeTable.prototype.encodeTrackLabel(record)
+   .. function:: EncodeTable.prototype.encodeTrackLabel(record)
 
       encode/encode.js
 
-.. class:: igv.EncodeDataSource(config)
+.. class:: EncodeDataSource(config)
 
    encode/encode.js
 
-   .. function:: igv.EncodeDataSource.prototype.loadJSON(continuation)
+   .. function:: EncodeDataSource.prototype.loadJSON(continuation)
 
       encode/encode.js
 
-   .. function:: igv.EncodeDataSource.prototype.ingestJSON(json, continuation)
+   .. function:: EncodeDataSource.prototype.ingestJSON(json, continuation)
 
       encode/encode.js
 
-   .. function:: igv.EncodeDataSource.prototype.ingestFile(file, continuation)
+   .. function:: EncodeDataSource.prototype.ingestFile(file, continuation)
 
       encode/encode.js
 
-   .. function:: igv.EncodeDataSource.prototype.dataTablesData()
+   .. function:: EncodeDataSource.prototype.dataTablesData()
 
       encode/encode.js
 
-   .. function:: igv.EncodeDataSource.prototype.columnHeadings()
+   .. function:: EncodeDataSource.prototype.columnHeadings()
 
       encode/encode.js
 
-.. class:: igv.FastaSequence(reference)
+.. class:: FastaSequence(reference)
 
    fasta.js
 
-   .. function:: igv.FastaSequence.prototype.init()
+   .. function:: FastaSequence.prototype.init()
 
       fasta.js
 
-   .. function:: igv.FastaSequence.prototype.getSequence(chr, start, end)
+   .. function:: FastaSequence.prototype.getSequence(chr, start, end)
 
       fasta.js
 
-   .. function:: igv.FastaSequence.prototype.getIndex()
+   .. function:: FastaSequence.prototype.getIndex()
 
       fasta.js
 
-   .. function:: igv.FastaSequence.prototype.loadAll()
+   .. function:: FastaSequence.prototype.loadAll()
 
       fasta.js
 
-   .. function:: igv.FastaSequence.prototype.readSequence(chr, qstart, qend)
+   .. function:: FastaSequence.prototype.readSequence(chr, qstart, qend)
 
       fasta.js
 
-.. class:: igv.TribbleIndex(chrIndexTable)
+.. class:: TribbleIndex(chrIndexTable)
 
    feature/tribble.js
 
-   .. function:: igv.TribbleIndex.prototype.blocksForRange(queryChr, min, max)
+   .. function:: TribbleIndex.prototype.blocksForRange(queryChr, min, max)
 
       feature/tribble.js
 
-.. class:: igv.IdeoPanel($content_header)
+.. class:: IdeoPanel($content_header)
 
    ideogram.js
 
-   .. function:: igv.IdeoPanel.prototype.buildPanels($content_header)
+   .. function:: IdeoPanel.prototype.buildPanels($content_header)
 
       ideogram.js
 
-   .. function:: igv.IdeoPanel.prototype.panelWithLocusIndex(locusIndex)
+   .. function:: IdeoPanel.prototype.panelWithLocusIndex(locusIndex)
 
       ideogram.js
 
-   .. function:: igv.IdeoPanel.prototype.resize()
+   .. function:: IdeoPanel.prototype.resize()
 
       ideogram.js
 
-   .. function:: igv.IdeoPanel.prototype.repaint()
+   .. function:: IdeoPanel.prototype.repaint()
 
       ideogram.js
 
-.. class:: igv.AbortLoad()
+.. class:: AbortLoad()
 
    igvxhr.js
 
-.. class:: igv.IntervalTree()
+.. class:: IntervalTree()
 
    intervalTree.js
 
-   .. function:: igv.IntervalTree.prototype.insert(start, end, value)
+   .. function:: IntervalTree.prototype.insert(start, end, value)
 
       intervalTree.js
 
-   .. function:: igv.IntervalTree.prototype.findOverlapping(start, end)
+   .. function:: IntervalTree.prototype.findOverlapping(start, end)
 
       intervalTree.js
 
-   .. function:: igv.IntervalTree.prototype.logIntervals()
+   .. function:: IntervalTree.prototype.logIntervals()
 
       intervalTree.js
 
-   .. function:: igv.IntervalTree.prototype.mapIntervals(func)
+   .. function:: IntervalTree.prototype.mapIntervals(func)
 
       intervalTree.js
 
-   .. function:: igv.IntervalTree.prototype.treeInsert(x)
+   .. function:: IntervalTree.prototype.treeInsert(x)
 
       intervalTree.js
 
-.. class:: igv.KaryoPanel($parent, config)
+.. class:: KaryoPanel($parent, config)
 
    karyo/karyo.js
 
-   .. function:: igv.KaryoPanel.prototype.resize()
+   .. function:: KaryoPanel.prototype.resize()
 
       karyo/karyo.js
 
-   .. function:: igv.KaryoPanel.prototype.repaint()
+   .. function:: KaryoPanel.prototype.repaint()
 
       karyo/karyo.js
 
-.. class:: igv.ReferenceFrame(chrName, start, bpPerPixel)
+.. class:: ReferenceFrame(chrName, start, bpPerPixel)
 
    referenceFrame.js
 
-   .. function:: igv.ReferenceFrame.prototype.toPixels(bp)
+   .. function:: ReferenceFrame.prototype.toPixels(bp)
 
       referenceFrame.js
 
-   .. function:: igv.ReferenceFrame.prototype.toBP(pixels)
+   .. function:: ReferenceFrame.prototype.toBP(pixels)
 
       referenceFrame.js
 
-   .. function:: igv.ReferenceFrame.prototype.shiftPixels(pixels)
+   .. function:: ReferenceFrame.prototype.shiftPixels(pixels)
 
       referenceFrame.js
 
-   .. function:: igv.ReferenceFrame.prototype.description()
+   .. function:: ReferenceFrame.prototype.description()
 
       referenceFrame.js
 
-.. class:: igv.SVG()
+.. class:: SVG()
 
    svg.js
 
-   .. function:: igv.SVG.prototype.setProperties(properties)
+   .. function:: SVG.prototype.setProperties(properties)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.setTransforms(transforms, x, y)
+   .. function:: SVG.prototype.setTransforms(transforms, x, y)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.clearRect(x, y, w, h)
+   .. function:: SVG.prototype.clearRect(x, y, w, h)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.strokeLine(x1, y1, x2, y2, properties, transforms)
+   .. function:: SVG.prototype.strokeLine(x1, y1, x2, y2, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.fillRect(x, y, w, h, properties, transforms)
+   .. function:: SVG.prototype.fillRect(x, y, w, h, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.fillRectWithCenter(centerX, centerY, width, height, properties, transforms)
+   .. function:: SVG.prototype.fillRectWithCenter(centerX, centerY, width, height, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.fillPolygon(x, y, properties, transforms)
+   .. function:: SVG.prototype.fillPolygon(x, y, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.fillText(text, x, y, properties, transforms)
+   .. function:: SVG.prototype.fillText(text, x, y, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.strokeText(text, x, y, properties, transforms)
+   .. function:: SVG.prototype.strokeText(text, x, y, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.strokeCircle(x, y, radius, properties, transforms)
+   .. function:: SVG.prototype.strokeCircle(x, y, radius, properties, transforms)
 
       svg.js
 
-   .. function:: igv.SVG.prototype.string()
+   .. function:: SVG.prototype.string()
 
       svg.js
 
-   .. function:: igv.SVG.prototype.innerString()
+   .. function:: SVG.prototype.innerString()
 
       svg.js
 
-.. class:: igv.Viewport(trackView, locusIndex)
+.. class:: Viewport(trackView, locusIndex)
 
    viewport.js
 
-   .. function:: igv.Viewport.prototype.setWidth(width)
+   .. function:: Viewport.prototype.setWidth(width)
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.initializationHelper(trackView, locusIndex)
+   .. function:: Viewport.prototype.initializationHelper(trackView, locusIndex)
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.addMouseHandlers()
+   .. function:: Viewport.prototype.addMouseHandlers()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.addRulerMouseHandlers()
+   .. function:: Viewport.prototype.addRulerMouseHandlers()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.removeRulerMouseHandlers()
+   .. function:: Viewport.prototype.removeRulerMouseHandlers()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.goto(chr, start, end)
+   .. function:: Viewport.prototype.goto(chr, start, end)
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.startSpinner()
+   .. function:: Viewport.prototype.startSpinner()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.stopSpinner()
+   .. function:: Viewport.prototype.stopSpinner()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.resize()
+   .. function:: Viewport.prototype.resize()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.update()
+   .. function:: Viewport.prototype.update()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.repaint()
+   .. function:: Viewport.prototype.repaint()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.setContentHeight(newHeight)
+   .. function:: Viewport.prototype.setContentHeight(newHeight)
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.paintImageWithReferenceFrame(referenceFrame)
+   .. function:: Viewport.prototype.paintImageWithReferenceFrame(referenceFrame)
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.isLoading()
+   .. function:: Viewport.prototype.isLoading()
 
       viewport.js
 
-   .. function:: igv.Viewport.prototype.redrawTile(features)
+   .. function:: Viewport.prototype.redrawTile(features)
 
       viewport.js
 
-.. class:: igv.WindowSizePanel($parent)
+.. class:: WindowSizePanel($parent)
 
    windowSizePanel.js
 
-   .. function:: igv.WindowSizePanel.prototype.show()
+   .. function:: WindowSizePanel.prototype.show()
 
       windowSizePanel.js
 
-   .. function:: igv.WindowSizePanel.prototype.hide()
+   .. function:: WindowSizePanel.prototype.hide()
 
       windowSizePanel.js
 
-   .. function:: igv.WindowSizePanel.prototype.updateWithGenomicState(genomicState)
+   .. function:: WindowSizePanel.prototype.updateWithGenomicState(genomicState)
 
       windowSizePanel.js
 

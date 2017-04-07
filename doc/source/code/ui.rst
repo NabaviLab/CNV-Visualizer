@@ -1,203 +1,203 @@
 UI Helper Classes
 =================
 
-.. class:: igv.TrackView(track, browser)
+.. class:: TrackView(track, browser)
 
    trackView.js
 
-   .. function:: igv.TrackView.prototype.configureViewportContainer($viewportContainer, viewports)
+   .. function:: TrackView.prototype.configureViewportContainer($viewportContainer, viewports)
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.attachDragWidget()
+   .. function:: TrackView.prototype.attachDragWidget()
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.appendLeftHandGutterDivToTrackDiv($track)
+   .. function:: TrackView.prototype.appendLeftHandGutterDivToTrackDiv($track)
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.createRightHandGutter()
+   .. function:: TrackView.prototype.createRightHandGutter()
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.setContentHeightForViewport(viewport, height)
+   .. function:: TrackView.prototype.setContentHeightForViewport(viewport, height)
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.setTrackHeight(newHeight, update)
+   .. function:: TrackView.prototype.setTrackHeight(newHeight, update)
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.isLoading()
+   .. function:: TrackView.prototype.isLoading()
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.resize()
+   .. function:: TrackView.prototype.resize()
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.update()
+   .. function:: TrackView.prototype.update()
 
       trackView.js
 
-   .. function:: igv.TrackView.prototype.repaint()
+   .. function:: TrackView.prototype.repaint()
 
       trackView.js
 
-.. class:: igv.TrackScrollbar($viewportContainer, viewports)
+.. class:: TrackScrollbar($viewportContainer, viewports)
 
    trackView.js
 
-   .. function:: igv.TrackScrollbar.prototype.update()
+   .. function:: TrackScrollbar.prototype.update()
 
       trackView.js
 
-.. class:: igv.ColorPicker($parent, userPalette)
+.. class:: ColorPicker($parent, userPalette)
 
    ui/colorpicker.js
 
-   .. function:: igv.ColorPicker.prototype.configure(trackView)
+   .. function:: ColorPicker.prototype.configure(trackView)
 
       ui/colorpicker.js
 
-   .. function:: igv.ColorPicker.prototype.hide()
+   .. function:: ColorPicker.prototype.hide()
 
       ui/colorpicker.js
 
-   .. function:: igv.ColorPicker.prototype.show()
+   .. function:: ColorPicker.prototype.show()
 
       ui/colorpicker.js
 
-.. class:: igv.DataRangeDialog($parent)
+.. class:: DataRangeDialog($parent)
 
    ui/dataRangeDialog.js
 
-   .. function:: igv.DataRangeDialog.prototype.configureWithTrackView(trackView)
+   .. function:: DataRangeDialog.prototype.configureWithTrackView(trackView)
 
       ui/dataRangeDialog.js
 
-   .. function:: igv.DataRangeDialog.prototype.hide()
+   .. function:: DataRangeDialog.prototype.hide()
 
       ui/dataRangeDialog.js
 
-   .. function:: igv.DataRangeDialog.prototype.show()
+   .. function:: DataRangeDialog.prototype.show()
 
       ui/dataRangeDialog.js
 
-.. class:: igv.CenterGuide($parent, config)
+.. class:: CenterGuide($parent, config)
 
    ui/centerGuide.js
 
-   .. function:: igv.CenterGuide.prototype.repaint()
+   .. function:: CenterGuide.prototype.repaint()
 
       ui/centerGuide.js
 
-   .. function:: igv.CenterGuide.prototype.resize()
+   .. function:: CenterGuide.prototype.resize()
 
       ui/centerGuide.js
 
-.. class:: igv.AlertDialog($parent, id)
+.. class:: AlertDialog($parent, id)
 
    ui/alertDialog.js
 
-   .. function:: igv.AlertDialog.prototype.alertTextContainer()
+   .. function:: AlertDialog.prototype.alertTextContainer()
 
       ui/alertDialog.js
 
-   .. function:: igv.AlertDialog.prototype.rowOfOk()
+   .. function:: AlertDialog.prototype.rowOfOk()
 
       ui/alertDialog.js
 
-   .. function:: igv.AlertDialog.prototype.hide()
+   .. function:: AlertDialog.prototype.hide()
 
       ui/alertDialog.js
 
-   .. function:: igv.AlertDialog.prototype.show($host)
+   .. function:: AlertDialog.prototype.show($host)
 
       ui/alertDialog.js
 
-.. class:: igv.Popover($parent)
+.. class:: Popover($parent)
 
    ui/popover.js
 
-   .. function:: igv.Popover.prototype.initializationHelper($parent)
+   .. function:: Popover.prototype.initializationHelper($parent)
 
       ui/popover.js
 
-   .. function:: igv.Popover.prototype.hide()
+   .. function:: Popover.prototype.hide()
 
       ui/popover.js
 
-   .. function:: igv.Popover.prototype.presentTrackGearMenu(pageX, pageY, trackView)
+   .. function:: Popover.prototype.presentTrackGearMenu(pageX, pageY, trackView)
 
       ui/popover.js
 
-   .. function:: igv.Popover.prototype.presentTrackPopupMenu(e, viewport)
+   .. function:: Popover.prototype.presentTrackPopupMenu(e, viewport)
 
       ui/popover.js
 
-   .. function:: igv.Popover.prototype.presentTrackPopup(e, viewport)
+   .. function:: Popover.prototype.presentTrackPopup(e, viewport)
 
       ui/popover.js
 
-   .. function:: igv.Popover.prototype.presentContent(pageX, pageY, content)
+   .. function:: Popover.prototype.presentContent(pageX, pageY, content)
 
       ui/popover.js
 
-.. class:: igv.TrackMenuPopupDialog(trackMenu, dialogLabel, inputValue, ok, width, height)
+.. class:: TrackMenuPopupDialog(trackMenu, dialogLabel, inputValue, ok, width, height)
 
    ui/trackMenuPopupDialog.js
 
-   .. function:: igv.TrackMenuPopupDialog.prototype.updateTips( t )
+   .. function:: TrackMenuPopupDialog.prototype.updateTips( t )
 
       ui/trackMenuPopupDialog.js
 
-.. class:: igv.Dialog($parent, constructorHelper)
+.. class:: Dialog($parent, constructorHelper)
 
    ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.rowOfOk()
+   .. function:: Dialog.prototype.rowOfOk()
 
       ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.rowOfOkCancel()
+   .. function:: Dialog.prototype.rowOfOkCancel()
 
       ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.rowOfLabel()
+   .. function:: Dialog.prototype.rowOfLabel()
 
       ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.rowOfInput()
+   .. function:: Dialog.prototype.rowOfInput()
 
       ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.configure(labelHTMLFunction, inputValue, clickFunction)
+   .. function:: Dialog.prototype.configure(labelHTMLFunction, inputValue, clickFunction)
 
       ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.hide()
+   .. function:: Dialog.prototype.hide()
 
       ui/dialog.js
 
-   .. function:: igv.Dialog.prototype.show($host)
+   .. function:: Dialog.prototype.show($host)
 
       ui/dialog.js
 
-.. class:: igv.UserFeedback($parent)
+.. class:: UserFeedback($parent)
 
    ui/userFeedback.js
 
-   .. function:: igv.UserFeedback.prototype.show()
+   .. function:: UserFeedback.prototype.show()
 
       ui/userFeedback.js
 
-   .. function:: igv.UserFeedback.prototype.hide()
+   .. function:: UserFeedback.prototype.hide()
 
       ui/userFeedback.js
 
-   .. function:: igv.UserFeedback.prototype.bodyCopy(htmlString)
+   .. function:: UserFeedback.prototype.bodyCopy(htmlString)
 
       ui/userFeedback.js
 

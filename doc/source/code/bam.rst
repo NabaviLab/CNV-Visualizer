@@ -1,138 +1,138 @@
 BAM Helper Classes
 ==================
 
-.. class:: igv.BamAlignment()
+.. class:: BamAlignment()
 
    bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isMapped()
+   .. function:: BamAlignment.prototype.isMapped()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isPaired()
+   .. function:: BamAlignment.prototype.isPaired()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isProperPair()
+   .. function:: BamAlignment.prototype.isProperPair()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isFirstOfPair()
+   .. function:: BamAlignment.prototype.isFirstOfPair()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isSecondOfPair()
+   .. function:: BamAlignment.prototype.isSecondOfPair()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isSecondary()
+   .. function:: BamAlignment.prototype.isSecondary()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isSupplementary()
+   .. function:: BamAlignment.prototype.isSupplementary()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isFailsVendorQualityCheck()
+   .. function:: BamAlignment.prototype.isFailsVendorQualityCheck()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isDuplicate()
+   .. function:: BamAlignment.prototype.isDuplicate()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isMateMapped()
+   .. function:: BamAlignment.prototype.isMateMapped()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isNegativeStrand()
+   .. function:: BamAlignment.prototype.isNegativeStrand()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.isMateNegativeStrand()
+   .. function:: BamAlignment.prototype.isMateNegativeStrand()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.tags()
+   .. function:: BamAlignment.prototype.tags()
 
       bam/bamAlignment.js
 
-   .. function:: igv.BamAlignment.prototype.popupData(genomicLocation)
+   .. function:: BamAlignment.prototype.popupData(genomicLocation)
 
       bam/bamAlignment.js
 
-.. class:: igv.BamFilter(options)
+.. class:: BamFilter(options)
 
    bam/bamAlignment.js
 
-   .. function:: igv.BamFilter.prototype.pass(alignment)
+   .. function:: BamFilter.prototype.pass(alignment)
 
       bam/bamAlignment.js
 
 
-.. class:: igv.BAMTrack(config)
+.. class:: BAMTrack(config)
 
    bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.getFeatures(chr, bpStart, bpEnd)
+   .. function:: BAMTrack.prototype.getFeatures(chr, bpStart, bpEnd)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.altClick(genomicLocation, referenceFrame, event)
+   .. function:: BAMTrack.prototype.altClick(genomicLocation, referenceFrame, event)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.computePixelHeight(alignmentContainer)
+   .. function:: BAMTrack.prototype.computePixelHeight(alignmentContainer)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.draw(options)
+   .. function:: BAMTrack.prototype.draw(options)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.paintAxis(ctx, pixelWidth, pixelHeight)
+   .. function:: BAMTrack.prototype.paintAxis(ctx, pixelWidth, pixelHeight)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.popupMenuItemList(config)
+   .. function:: BAMTrack.prototype.popupMenuItemList(config)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
+   .. function:: BAMTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.popupDataWithConfiguration(config)
+   .. function:: BAMTrack.prototype.popupDataWithConfiguration(config)
 
       bam/bamTrack.js
 
-   .. function:: igv.BAMTrack.prototype.menuItemList(popover)
+   .. function:: BAMTrack.prototype.menuItemList(popover)
 
       bam/bamTrack.js
 
 
-.. class:: igv.AlignmentContainer(chr, start, end, samplingWindowSize, \
+.. class:: AlignmentContainer(chr, start, end, samplingWindowSize, \
                                      samplingDepth, pairsSupported)
 
    bam/alignmentContainer.js
 
-   .. function:: igv.AlignmentContainer.prototype.push(alignment)
+   .. function:: AlignmentContainer.prototype.push(alignment)
 
       bam/alignmentContainer.js
 
-   .. function:: igv.AlignmentContainer.prototype.forEach(callback)
+   .. function:: AlignmentContainer.prototype.forEach(callback)
 
       bam/alignmentContainer.js
 
-   .. function:: igv.AlignmentContainer.prototype.finish()
+   .. function:: AlignmentContainer.prototype.finish()
 
       bam/alignmentContainer.js
 
-   .. function:: igv.AlignmentContainer.prototype.contains(chr, start, end)
+   .. function:: AlignmentContainer.prototype.contains(chr, start, end)
 
       bam/alignmentContainer.js
 
-   .. function:: igv.AlignmentContainer.prototype.hasDownsampledIntervals()
+   .. function:: AlignmentContainer.prototype.hasDownsampledIntervals()
 
       bam/alignmentContainer.js
 
@@ -141,63 +141,63 @@ BAM Helper Classes
       bam/alignmentContainer.js
 
 
-.. class:: igv.CoverageMap(chr, start, end, alignments, refSeq)
+.. class:: CoverageMap(chr, start, end, alignments, refSeq)
 
    bam/coverageMap.js
 
-.. class:: igv.BamAlignmentRow()
+.. class:: BamAlignmentRow()
 
    bam/bamAlignmentRow.js
 
-   .. function:: igv.BamAlignmentRow.prototype.findCenterAlignment(bpStart, bpEnd)
+   .. function:: BamAlignmentRow.prototype.findCenterAlignment(bpStart, bpEnd)
 
       bam/bamAlignmentRow.js
 
-   .. function:: igv.BamAlignmentRow.prototype.updateScore(genomicLocation, genomicInterval, sortOption)
+   .. function:: BamAlignmentRow.prototype.updateScore(genomicLocation, genomicInterval, sortOption)
 
       bam/bamAlignmentRow.js
 
-   .. function:: igv.BamAlignmentRow.prototype.calculateScore(bpStart, bpEnd, interval, sortOption)
+   .. function:: BamAlignmentRow.prototype.calculateScore(bpStart, bpEnd, interval, sortOption)
 
       bam/bamAlignmentRow.js
 
 
-.. class:: igv.PairedAlignment(firstAlignment)
+.. class:: PairedAlignment(firstAlignment)
 
    bam/pairedAlignment.js
 
-   .. function:: igv.PairedAlignment.prototype.setSecondAlignment(alignment)
+   .. function:: PairedAlignment.prototype.setSecondAlignment(alignment)
 
       bam/pairedAlignment.js
 
-   .. function:: igv.PairedAlignment.prototype.popupData(genomicLocation)
+   .. function:: PairedAlignment.prototype.popupData(genomicLocation)
 
       bam/pairedAlignment.js
 
-   .. function:: igv.PairedAlignment.prototype.isPaired()
+   .. function:: PairedAlignment.prototype.isPaired()
 
       bam/pairedAlignment.js
 
-   .. function:: igv.PairedAlignment.prototype.firstOfPairStrand()
+   .. function:: PairedAlignment.prototype.firstOfPairStrand()
 
       bam/pairedAlignment.js
 
 
-.. class:: igv.BamIndex(indices, blockMin, blockMax, sequenceIndexMap, \
+.. class:: BamIndex(indices, blockMin, blockMax, sequenceIndexMap, \
                            tabix)
 
    bam/bamIndex.js
 
-   .. function:: igv.BamIndex.prototype.blocksForRange(refId, min, max)
+   .. function:: BamIndex.prototype.blocksForRange(refId, min, max)
 
       bam/bamIndex.js
 
 
-.. class:: igv.BGZFile(config)
+.. class:: BGZFile(config)
 
    bam/bgzf.js
 
-   .. function:: igv.BGZFile.prototype.nextBlock()
+   .. function:: BGZFile.prototype.nextBlock()
 
       bam/bgzf.js
 

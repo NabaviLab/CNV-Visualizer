@@ -1,27 +1,27 @@
 Color Helper Classes
 ====================
 
-.. class:: igv.BinnedColorScale(cs)
+.. class:: BinnedColorScale(cs)
 
    igv-color.js
 
-   .. function:: igv.BinnedColorScale.prototype.getColor(value)
+   .. function:: BinnedColorScale.prototype.getColor(value)
 
       igv-color.js
 
-.. class:: igv.GradientColorScale(scale)
+.. class:: GradientColorScale(scale)
 
    igv-color.js
 
-   .. function:: igv.GradientColorScale.prototype.getColor(value)
+   .. function:: GradientColorScale.prototype.getColor(value)
 
       igv-color.js
 
-.. class:: igv.PaletteColorTable(palette)
+.. class:: PaletteColorTable(palette)
 
    igv-color.js
 
-   .. function:: igv.PaletteColorTable.prototype.getColor(key)
+   .. function:: PaletteColorTable.prototype.getColor(key)
 
       igv-color.js
 
