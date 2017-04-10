@@ -28,6 +28,7 @@ Parser Classes
 .. class:: CNVParser()
 
    feature/cnvParser.js
+
    .. function:: CNVParser.prototype.parseHeader(data)
 
       feature/cnvParser.js
@@ -45,10 +46,6 @@ Parser Classes
       variant/vcfParser.js
 
    .. function:: VcfParser.prototype.parseFeatures(data)
-
-      variant/vcfParser.js
-
-   .. function:: Variant.prototype.popupData(genomicLocation)
 
       variant/vcfParser.js
 

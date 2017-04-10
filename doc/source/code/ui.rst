@@ -201,3 +201,51 @@ UI Helper Classes
 
       ui/userFeedback.js
 
+.. data:: graphics
+
+    igv-canvas.js
+
+   .. function:: graphics.setProperties(ctx, properties)
+
+      igv-canvas.js
+
+   .. function:: graphics.strokeLine(ctx, x1, y1, x2, y2, properties, linewidth)
+
+      igv-canvas.js
+
+   .. function:: graphics.fillRect(ctx, x, y, w, h, properties)
+
+      igv-canvas.js
+
+   .. function:: graphics.fillPolygon(ctx, x, y, properties)
+
+      igv-canvas.js
+
+   .. function:: graphics.strokePolygon(ctx, x, y, properties)
+
+      igv-canvas.js
+
+   .. function:: graphics.fillText(ctx, text, x, y, properties, transforms)
+
+      igv-canvas.js
+
+   .. function:: graphics.strokeText(ctx, text, x, y, properties, transforms)
+
+      igv-canvas.js
+
+   .. function:: graphics.strokeCircle(ctx, x, y, radius, properties)
+
+      igv-canvas.js
+
+   .. function:: graphics.fillCircle(ctx, x, y, radius, properties)
+
+      igv-canvas.js
+
+   .. function:: graphics.drawArrowhead(ctx, x, y, size, lineWidth)
+
+      igv-canvas.js
+
+   .. function:: graphics.dashedLine(ctx, x1, y1, x2, y2, dashLen, properties)
+
+      igv-canvas.js
+

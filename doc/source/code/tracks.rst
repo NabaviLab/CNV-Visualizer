@@ -1,93 +1,23 @@
 Track Classes
 =============
 
-.. class:: WIGTrack(config)
+Tracks are meant to be created with a few specifics demands in mind. Every
+track needs to implement the following functions::
 
-   feature/wigTrack.js
+   Track.prototype.getFeatures(chr, bpStart, bpEnd)
+   Track.prototype.draw(options)
 
-   .. function:: WIGTrack.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+Where :code:`getFeatures()` must return a :code:`Promise` for an array of the
+data. And :code:`draw()` doesn't return anything.
 
-      feature/wigTrack.js
+The other functions that are optional include (but not limited to)::
 
-   .. function:: WIGTrack.prototype.menuItemList(popover)
+   TrackName.prototype.menuItemList(popover)
+   TrackName.prototype.popupData(genomicLocation, x, y, referenceFrame)
+   TrackName.prototype.altClick(genomicLocation, referenceFrame, event)
+   TrackName.prototype.popupMenuItemList(config)
 
-      feature/wigTrack.js
-
-   .. function:: WIGTrack.prototype.draw(options)
-
-      feature/wigTrack.js
-
-.. class:: CNVAccumTrack(config)
-
-   feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.addToSelectFrom(thisObj)
-
-      feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.removeFromSelectFrom(thisObj)
-
-      feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
-
-      feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.menuItemList(popover)
-
-      feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.toggleTrack(sampleName)
-
-      feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.getFeatures(chr, bpStart, bpEnd)
-
-      feature/cnvAccumTrack.js
-
-   .. function:: CNVAccumTrack.prototype.draw(options)
-
-      feature/cnvAccumTrack.js
-
-.. class:: SegTrack(config)
-
-   feature/segTrack.js
-
-   .. function:: SegTrack.prototype.menuItemList(popover)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.toggleSampleHeight()
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.getFeatures(chr, bpStart, bpEnd)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.draw(options)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.computePixelHeight(features)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.sortSamples(chr, bpStart, bpEnd, direction)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.altClick(genomicLocation, referenceFrame, event)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
-
-      feature/segTrack.js
-
-   .. function:: SegTrack.prototype.popupMenuItemList(config)
-
-      feature/segTrack.js
+You can find examples of these functions below.
 
 .. class:: AneuTrack(config)
 
@@ -133,33 +63,38 @@ Track Classes
 
       feature/aneuTrack.js
 
-.. class:: FeatureTrack(config)
+.. class:: CNVAccumTrack(config)
 
-   feature/featureTrack.js
+   feature/cnvAccumTrack.js
 
-   .. function:: FeatureTrack.prototype.getFileHeader()
+   .. function:: CNVAccumTrack.prototype.addToSelectFrom(thisObj)
 
-      feature/featureTrack.js
+      feature/cnvAccumTrack.js
 
-   .. function:: FeatureTrack.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+   .. function:: CNVAccumTrack.prototype.removeFromSelectFrom(thisObj)
 
-      feature/featureTrack.js
+      feature/cnvAccumTrack.js
 
-   .. function:: FeatureTrack.prototype.computePixelHeight(features)
+   .. function:: CNVAccumTrack.prototype.popupData(genomicLocation, xOffset, \
+                                                   yOffset, referenceFrame)
 
-      feature/featureTrack.js
+      feature/cnvAccumTrack.js
 
-   .. function:: FeatureTrack.prototype.draw(options)
+   .. function:: CNVAccumTrack.prototype.menuItemList(popover)
 
-      feature/featureTrack.js
+      feature/cnvAccumTrack.js
 
-   .. function:: FeatureTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
+   .. function:: CNVAccumTrack.prototype.toggleTrack(sampleName)
 
-      feature/featureTrack.js
+      feature/cnvAccumTrack.js
 
-   .. function:: FeatureTrack.prototype.menuItemList(popover)
+   .. function:: CNVAccumTrack.prototype.getFeatures(chr, bpStart, bpEnd)
 
-      feature/featureTrack.js
+      feature/cnvAccumTrack.js
+
+   .. function:: CNVAccumTrack.prototype.draw(options)
+
+      feature/cnvAccumTrack.js
 
 .. class:: CNVTrack(config)
 
@@ -197,6 +132,34 @@ Track Classes
 
       gtex/eqtlTrack.js
 
+.. class:: FeatureTrack(config)
+
+   feature/featureTrack.js
+
+   .. function:: FeatureTrack.prototype.getFileHeader()
+
+      feature/featureTrack.js
+
+   .. function:: FeatureTrack.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+
+      feature/featureTrack.js
+
+   .. function:: FeatureTrack.prototype.computePixelHeight(features)
+
+      feature/featureTrack.js
+
+   .. function:: FeatureTrack.prototype.draw(options)
+
+      feature/featureTrack.js
+
+   .. function:: FeatureTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
+
+      feature/featureTrack.js
+
+   .. function:: FeatureTrack.prototype.menuItemList(popover)
+
+      feature/featureTrack.js
+
 .. class:: GWASTrack(config)
 
    gwas/gwasTrack.js
@@ -232,6 +195,46 @@ Track Classes
    .. function:: RulerTrack.prototype.draw(options)
 
       rulerTrack.js
+
+.. class:: SegTrack(config)
+
+   feature/segTrack.js
+
+   .. function:: SegTrack.prototype.menuItemList(popover)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.toggleSampleHeight()
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.getFeatures(chr, bpStart, bpEnd)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.draw(options)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.computePixelHeight(features)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.sortSamples(chr, bpStart, bpEnd, direction)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.altClick(genomicLocation, referenceFrame, event)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.popupData(genomicLocation, xOffset, yOffset, referenceFrame)
+
+      feature/segTrack.js
+
+   .. function:: SegTrack.prototype.popupMenuItemList(config)
+
+      feature/segTrack.js
 
 .. class:: SequenceTrack(config)
 
@@ -272,4 +275,20 @@ Track Classes
    .. function:: VariantTrack.prototype.menuItemList(popover)
 
       variant/variantTrack.js
+
+.. class:: WIGTrack(config)
+
+   feature/wigTrack.js
+
+   .. function:: WIGTrack.prototype.getFeatures(chr, bpStart, bpEnd, bpPerPixel)
+
+      feature/wigTrack.js
+
+   .. function:: WIGTrack.prototype.menuItemList(popover)
+
+      feature/wigTrack.js
+
+   .. function:: WIGTrack.prototype.draw(options)
+
+      feature/wigTrack.js
 
