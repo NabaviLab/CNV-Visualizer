@@ -79,19 +79,18 @@
       constructTrack = function (url_, name_, indexed_) {
          igv.browser.loadTrack( {
            url: url_,
-           name: name_,
-           indexed: indexed_
-         } );
+           indexed: indexed_,
+           name: name_
+         });
        };
 
-       constructLocalTrack = function (localfile_, name_, indexed_) {
+      constructLocalTrack = function (local_, name_, indexed_) {
           igv.browser.loadTrack( {
-            localFile: localfile_,
-            name: name_,
-            indexed: indexed_
+            localFile: local_,
+            indexed: indexed_,
+            name: name_
           } );
         };
-
   </script>
   </body>
 </html>

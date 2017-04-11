@@ -6,12 +6,16 @@ let newwin
 let contents
 var igv = (function (igv) {
 
-  /*
-   * Opens a new tab/window containing a new IGV browser
-   * containing only the selected CNV segment track and gene track.
-   */
+  /**
+  * Opens up a new browser window with an IGV browser containing only the gene track
+  * and the selected track loaded in.
+  *
+  * @TODO: Fix unreadable local file bug.
+  *
+  * @param {Config} config - configuration information for the selected track
+  */
   newWindow = function (config) {
-    var url_ = config.url;
+    var url_, local_;
     var name_ = config.name;
     var indexed_ = config.indexed;
 
@@ -22,27 +26,23 @@ var igv = (function (igv) {
 
     newwin.loadURL('file://' + pathname + 'subBrowser.html');
 
+    newwin.webContents.openDevTools();
+
     newwin.webContents.on('did-finish-load', function () {
       if(config.localFile) {
-        newwin.webContents.executeJavaScript("console.log('opening track from localfile')");
-        newwin.webContents.executeJavaScript("constructLocalTrack('" + url_ + "', '" + name_ + "', '" + indexed_ + "')");
+      // Currently does not work for local files. Passing through the config.localFile to IGV renders it as an unreadable object,
+      // not a File object.
+      //  local_ = config.localFile;
+      //  newwin.webContents.executeJavaScript("console.log('opening track from localfile')");
+      //  newwin.webContents.executeJavaScript("console.log('" + config.localFile.name + "', '" + config.localFile.path + "', '" + config.localFile.type + "')");
+      //  newwin.webContents.executeJavaScript("constructLocalTrack('" + local_ + "', '" + name_ + "', '" + indexed_ + "')");
       } else {
-          newwin.webContents.executeJavaScript("console.log('opening track from url')");
-          newwin.webContents.executeJavaScript("constructTrack('" + url_ + "', '" + name_ + "', '" + indexed_ + "')");
+        url_ = config.url;
+        newwin.webContents.executeJavaScript("console.log('opening track from url')");
+        newwin.webContents.executeJavaScript("constructTrack('" + url_ + "', '" + name_ + "', '" + indexed_ + "')");
       }
-      //newwin.webContents.executeJavaScript("igv.browser.loadTrack( { url: '" + url_ + "', name: '" + name_ + "', indexed: '" + indexed_ + "'})")
-    });
 
-    // newwin.onload = function() {
-    //   var igvDiv = document.getElementById('#igvDiv');
-    //   igvDiv.onload = function() {
-    //     igv.Browser.loadTrack({
-    //       url: url_,
-    //       indexed: indexed_,
-    //       name: name_
-    //     });
-    //   };
-    // }
+    });
 
   }
 
@@ -82,6 +82,11 @@ var igv = (function (igv) {
 
   };
 
+  /**
+   * Items to place on the popup menu when right-clicked in the track
+   *
+   * @param {Config} config - holds configuration info for the menu
+   */
   igv.CNVTrack.prototype.popupMenuItemList = function (config) {
     var self = this,
         $e,
@@ -92,7 +97,7 @@ var igv = (function (igv) {
 
     clickHandler = function () {
       newWindow(self.config);
-      config.popopver.hide();
+      config.popover.hide();
     }
 
     return [{ name: undefined, object: $e, click: clickHandler, init: undefined } ];
