@@ -244,7 +244,9 @@
                 showNavigation: true,
                 showRuler: true,
                 genome: "hg19",
-                reference: "hg19",
+                reference: {
+                    id: "hg19"
+                },
                 locus: "chr1",
                 tracks: [
                     {
@@ -252,9 +254,11 @@
                         type: "cnvaccum"
                     },
                     {
-                      url: 'http://nabavilab.uconn.edu/cnvvis/uploads/cnv.seg.gz',
-                      indexed: false,
-                      name: 'CNV'
+                    name: "Genes",
+                    url: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
+                    index: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
+                    displayMode: "EXPANDED",
+                    order: Number.MAX_VALUE
                     }
                 ]
             };
