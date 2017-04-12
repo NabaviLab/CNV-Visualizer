@@ -1,17 +1,6 @@
-var BACKGROUND01 = [ "BACKGROUND01" , {
-  BginnerRadius: 100,
-  BgouterRadius: 125,
-  BgFillColor: "#F2F2F2",
-  BgborderColor : "#000",
-  BgborderSize : 0.3,
-  axisShow: "true",
-  axisWidth: 0.1,
-  axisColor: "#000",
-  axisNum: 8
-}];
 var CNV01 = [ "CNV01" , {
-  maxRadius: 90,
-  minRadius: 115,
+  maxRadius: 75,
+  minRadius: 135,
   CNVwidth: 2,
   CNVColor: "#4876FF",
 } , [
