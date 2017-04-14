@@ -26,6 +26,7 @@
 var igv = (function (igv) {
 
     var sortDirection = "DESC";
+    var url, name, indexed;
 
     /**
      * Constructs a segment track, parsing and modifying the options for each.
@@ -39,11 +40,11 @@ var igv = (function (igv) {
 
         igv.configTrack(this, config);
 
-        this.displayMode = config.displayMode || "SQUISHED"; // EXPANDED | SQUISHED
+        this.displayMode = config.displayMode || "EXPANDED"; // EXPANDED | SQUISHED
 
         this.maxHeight = config.maxHeight || 500;
-        this.sampleSquishHeight = config.sampleSquishHeight || 20;
-        this.sampleExpandHeight = config.sampleExpandHeight || 50;
+        this.sampleSquishHeight = config.sampleSquishHeight || 40;
+        this.sampleExpandHeight = config.sampleExpandHeight || 80;
 
         this.posColorScale = config.posColorScale ||
             new igv.GradientColorScale(
@@ -200,8 +201,6 @@ var igv = (function (igv) {
 
             checkForLog(featureList);
 
-            // add for loop here to find min/max value
-
             var valueMin = Number.MAX_VALUE;
             var valueMax = Number.MIN_VALUE;
 
@@ -231,16 +230,21 @@ var igv = (function (igv) {
                     value = Math.log2(value / 2);
                 }
 
-                var trackCenter = myself.samples[segment.sample] * sampleHeight + sampleHeight/2;
+                // trackCenter for multiple samples per track.
+                //  var trackCenter = myself.samples[segment.sample] * sampleHeight + sampleHeight/2;
+
+                // trackCenter for one sample per segTrack.
+                var trackCenter = (pixelHeight / 2);
+
                 igv.graphics.strokeLine(ctx, 0, trackCenter, pixelWidth, trackCenter, {'strokeStyle': "rgb(200, 200, 200)"});
 
                 if (value < -0.1) {
                     color = "rgb(255,0,0)";
-                    y = trackCenter + segment.value/valueMin * sampleHeight/2;
+                    y = trackCenter + segment.value/valueMin * sampleHeight;
                 }
                 else if (value > 0.1) {
                     color = "rgb(0,0,255)";
-                    y = trackCenter - segment.value/valueMax * sampleHeight/2;
+                    y = trackCenter - segment.value/valueMax * sampleHeight;
                 }
                 else {
                     continue;
@@ -249,16 +253,6 @@ var igv = (function (igv) {
                 px = Math.round((segment.start - bpStart) / xScale);
                 px1 = Math.round((segment.end - bpStart) / xScale);
                 pw = Math.max(1, px1 - px);
-
-                // For lines, we need to decide how to scale the Y things.
-                // Need a 0 line, and have to use some scale for the decimal values...
-                // idea1: Find way of keeping track of min/max, adjust Y values to min/max
-                // idea2: Have even spacing above/below
-
-                // Scaling to min/max -- y is where the min will be aligned.
-                // y + sampleHeight is the max. y + sampleHeight/2 is exact center.
-
-                //igv.graphics.fillRect(ctx, px, y, pw, sampleHeight - 2 * border, {fillStyle: color});
 
                 igv.graphics.strokeLine(ctx, px, y, px1, y, {'strokeStyle': color});
 
@@ -283,29 +277,32 @@ var igv = (function (igv) {
         }
     };
 
-    /**
-     * Optional method to compute pixel height to accomodate the list of
-     * features.  The implementation below has side effects (modifiying the
-     * samples hash).  This is unfortunate, but harmless.
-     *
-     * @param features
-     * @returns {number}
-     */
-    igv.SegTrack.prototype.computePixelHeight = function (features) {
+    // Commented out to allow for segTrack viewport to display only one sample in the center.
+    // If multiple samples per track are desired, re-include this function.
 
-        var sampleHeight = ("SQUISHED" === this.displayMode) ? this.sampleSquishHeight : this.sampleExpandHeight;
-
-        for (i = 0, len = features.length; i < len; i++) {
-            sample = features[i].sample;
-            if (!this.samples.hasOwnProperty(sample)) {
-                this.samples[sample] = this.sampleCount;
-                this.sampleNames.push(sample);
-                this.sampleCount++;
-            }
-        }
-
-        return this.sampleCount * sampleHeight;
-    };
+    // /**
+    //  * Optional method to compute pixel height to accomodate the list of
+    //  * features.  The implementation below has side effects (modifiying the
+    //  * samples hash).  This is unfortunate, but harmless.
+    //  *
+    //  * @param features
+    //  * @returns {number}
+    //  */
+    // igv.SegTrack.prototype.computePixelHeight = function (features) {
+    //
+    //     var sampleHeight = ("SQUISHED" === this.displayMode) ? this.sampleSquishHeight : this.sampleExpandHeight;
+    //
+    //     for (i = 0, len = features.length; i < len; i++) {
+    //         sample = features[i].sample;
+    //         if (!this.samples.hasOwnProperty(sample)) {
+    //             this.samples[sample] = this.sampleCount;
+    //             this.sampleNames.push(sample);
+    //             this.sampleCount++;
+    //         }
+    //     }
+    //
+    //     return this.sampleCount * sampleHeight;
+    // };
 
     //// *** worried this impacts how our visualization works *** ////
 
@@ -452,7 +449,9 @@ var igv = (function (igv) {
 
         var self = this,
             $e,
-            clickHandler;
+            $e2,
+            clickHandler,
+            clickHandler2;
 
         $e = $('<div class="igv-track-menu-item">');
         $e.text('Sort by value');
@@ -465,9 +464,19 @@ var igv = (function (igv) {
 
         };
 
-        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }];
+        $e2 = $('<div class="igv-track-menu-item">');
+        $e2.text('Open in own browser');
+
+        clickHandler2 = function () {
+          self.newWindow(url, name, indexed);
+          config.popover.hide();
+        }
+
+        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }, {name: undefined, object: $e2, click: clickHandler2, init: undefined}];
 
     };
+
+
 
     return igv;
 

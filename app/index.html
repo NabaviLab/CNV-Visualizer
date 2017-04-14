@@ -245,6 +245,9 @@
                 showNavigation: true,
                 showRuler: true,
                 genome: "hg19",
+                reference: {
+                    id: "hg19"
+                },
                 locus: "chr1",
                 tracks: [
                     {
@@ -252,20 +255,11 @@
                         type: "cnvaccum"
                     },
                     {
-                        name: "Genes",
-                        url: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
-                        index: "https://s3.amazonaws.com/igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
-                        displayMode: "EXPANDED",
-                        order: Number.MAX_VALUE
-                    },
-                    {
-                      url: 'http://nabavilab.uconn.edu/cnvvis/uploads/cnv.seg.gz',
-                      indexed: false,
-                      name: 'CNV'
-                    },
-                    {
-                      url: 'http://nabavilab.uconn.edu/cnvvis/uploads/sim1.cnv.called',
-                      name: 'real CNV'
+                    name: "Genes",
+                    url: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
+                    index: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
+                    displayMode: "EXPANDED",
+                    order: Number.MAX_VALUE
                     }
                 ]
             };
@@ -282,6 +276,7 @@
      };
 
      function constructLocalTrack(local_, indexed_, name_) {
+       console.log(local_);
         igv.browser.loadTrack( {
           localFile: local_,
           indexed: indexed_,
@@ -290,5 +285,6 @@
       };
 
 </script>
+
 </body>
 </html>
