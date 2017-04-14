@@ -33,7 +33,7 @@
     <!-- OUR IGV JS-->
 
     <script type="text/javascript" src="js/igv.js"></script>
-    <script type="text/javascript" src="WindowHandling.js"></script>
+    <script type="text/javascript" src="js/WindowHandling.js"></script>
 
     <!-- IGV JS-->
 
@@ -232,7 +232,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         var HASH_PREFIX = "#/locus/";
         var currentHash = window.location.hash;
         var locus = currentHash && currentHash.indexOf(HASH_PREFIX) === 0
@@ -244,22 +243,22 @@
                 showKaryo: true,
                 showNavigation: true,
                 showRuler: true,
-                genome: "hg19",
                 reference: {
                     id: "hg19"
                 },
                 locus: "chr1",
+                genome: "hg19",
                 tracks: [
                     {
                         name: "Accum",
                         type: "cnvaccum"
                     },
                     {
-                    name: "Genes",
-                    url: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
-                    index: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
-                    displayMode: "EXPANDED",
-                    order: Number.MAX_VALUE
+                        name: "Genes",
+                        url: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
+                        index: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
+                        displayMode: "EXPANDED",
+                        order: Number.MAX_VALUE
                     }
                 ]
             };

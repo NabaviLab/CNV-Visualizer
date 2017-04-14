@@ -68,16 +68,6 @@ module.exports = function (grunt) {
             }
         },
 
-        jsdoc : {
-            dist : {
-                src : ['js/*'],
-                options: {
-                    recurse: true,
-                    destination: 'jsdoc'
-                }
-            }
-        },
-
         electron : {
             linuxBuild : {
                 options : {
@@ -100,7 +90,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-electron');
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
