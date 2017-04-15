@@ -18,6 +18,8 @@ that was created.
    :maxdepth: 3
    :caption: Contents:
 
+   user-guide
+
    api/api
 
 Indices and tables
