@@ -248,8 +248,8 @@ var igv = (function (igv) {
 
             parsedLines = this.avgType.call(this, featureLists, bpStart, bpEnd, bpPerPixel);
             this.accumulated = parsedLines.lines;
-            this.dataRange = { min: parsedLines.min, max: parsedLines.max };
             yScale = Math.max(-parsedLines.min, parsedLines.max) / yCenter;
+            this.dataRange = { min: -yScale*yCenter, max: yScale*yCenter };
 
             for (j = 0; j < 2; j++){
             for (i = 0; i < parsedLines.lines[j].length; i++) {

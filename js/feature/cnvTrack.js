@@ -108,8 +108,8 @@ var igv = (function (igv) {
                 yMin = Math.min(yMin, featureList[i].log2val);
                 yMax = Math.max(yMax, featureList[i].log2val);
             }
-            this.dataRange = { min: yMin, max: yMax }
             yScale = Math.max(-yMin, yMax) / yCenter;
+            this.dataRange = { min: -yScale*yCenter, max: yScale*yCenter };
 
             for (i = 0; i < featureList.length; i++) {
                 cnv = featureList[i];
