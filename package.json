@@ -1,6 +1,6 @@
 {
   "name": "IGV",
-  "version": "0.1a2",
+  "version": "0.1.2",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-concat-css": "^0.3.1",
