@@ -13,10 +13,7 @@ var igv = (function (igv) {
         this.selectFrom = [];
 
         this.avgType = createAverage;
-
-        this.avgName = "X Average",
-        this.perName = "Percent",
-        this.sumName = "Sum";
+        this.accumBy = 'average';
 
         this.paintAxis = igv.paintAxis;
 
@@ -64,16 +61,41 @@ var igv = (function (igv) {
 
     igv.CNVAccumTrack.prototype.menuItemList = function (popover) {
         var myself = this,
-            toggleList = [];
+            $e,
+            toggleList = [],
+            accumByItems = [];
+
+        $e = $('<div class="igv-track-menu-category igv-track-menu-border-top">');
+        $e.text('Samples');
+        toggleList.push({
+            name: undefined,
+            object: $e,
+            click: undefined,
+            init: undefined
+        });
 
         this.selectFrom.forEach(function (track) {
             var i;
             for (i = 0; i < track.track.sampleCount; i++) {
                 var name = track.track.sampleNames[i];
-                var tName = (myself.selected.indexOf(name) > -1) ? "- " : "+ ";
+                var parts = [];
+
+                parts.push('<div class="igv-track-menu-item">');
+
+                parts.push((myself.selected.indexOf(name) > -1)
+                    ? '<i class="fa fa-check fa-check-shim"></i>'
+                    : '<i class="fa fa-check fa-check-shim fa-check-hidden"></i>');
+
+                parts.push('<span>');
+                parts.push(name);
+                parts.push('</span>');
+                parts.push('</div>');
+
+                $e = $(parts.join(''));
 
                 toggleList.push({
-                    name: tName + name,
+                    name: undefined,
+                    object: $e,
                     click: function (name) {
                         return function () {
                             popover.hide();
@@ -84,49 +106,70 @@ var igv = (function (igv) {
             }
         });
 
-        toggleList.push({
-            name: myself.avgName,
-            click: function (name) {
-                return function () {
-                    popover.hide();
-                    myself.avgName = "X Average",
-                    myself.perName = "Percent",
-                    myself.sumName = "Sum";
-                    myself.avgType = createAverage;
-                    myself.trackView.update();
-                }
-            }(name)
+        accumByItems.push({
+            key: 'average',
+            fn: createAverage,
+            label: 'Average'
+        });
+        accumByItems.push({
+            key: 'percent',
+            fn: createPercent,
+            label: 'Percent'
+        });
+        accumByItems.push({
+            key: 'sum',
+            fn: createSum,
+            label: 'Sum'
         });
 
+        $e = $('<div class="igv-track-menu-category igv-track-menu-border-top">');
+        $e.text('Aggregate by');
         toggleList.push({
-            name: myself.perName,
-            click: function (name) {
-                return function () {
-                    popover.hide();
-                    myself.avgName = "Average",
-                    myself.perName = "X Percent",
-                    myself.sumName = "Sum";
-                    myself.avgType = createPercent;
-                    myself.trackView.update();
-                }
-            }(name)
+            name: undefined,
+            object: $e,
+            click: undefined,
+            init: undefined
         });
 
-        toggleList.push({
-            name: myself.sumName,
-            click: function (name) {
-                return function () {
-                    popover.hide();
-                    myself.avgName = "Average",
-                    myself.perName = "Percent",
-                    myself.sumName = "X Sum";
-                    myself.avgType = createSum;
-                    myself.trackView.update();
-                }
-            }(name)
+        accumByItems.forEach( function (item) {
+            selected = (myself.accumBy === item.key);
+            toggleList.push(accumBy(item, selected));
         });
 
         return toggleList;
+
+        function accumBy(item, showCheck) {
+            var $e,
+                clickHandler,
+                parts = [];
+
+            parts.push('<div class="igv-track-menu-item">');
+
+            parts.push(showCheck
+                ? '<i class="fa fa-check fa-check-shim"></i>'
+                : '<i class="fa fa-check fa-check-shim fa-check-hidden"></i>');
+
+            parts.push('<span>');
+            parts.push(item.label);
+            parts.push('</span>');
+            parts.push('</div>');
+
+            $e = $(parts.join(''));
+
+            clickHandler = function () {
+                igv.popover.hide();
+                myself.accumBy = item.key;
+                item.avgType = item.fn;
+                myself.trackView.update();
+            }
+
+            return {
+                name: undefined,
+                object: $e,
+                click: clickHandler,
+                init: undefined
+            }
+        }
     };
 
     igv.CNVAccumTrack.prototype.toggleTrack = function (sampleName) {
