@@ -18,6 +18,8 @@ var igv = (function (igv) {
         this.perName = "Percent",
         this.sumName = "Sum";
 
+        this.paintAxis = igv.paintAxis;
+
         var myself = this;
         if (igv.trackViews !== undefined) {
             igv.trackViews.filter(function (trackview) {
@@ -203,6 +205,7 @@ var igv = (function (igv) {
 
             parsedLines = this.avgType.call(this, featureLists, bpStart, bpEnd, bpPerPixel);
             this.accumulated = parsedLines.lines;
+            this.dataRange = { min: parsedLines.min, max: parsedLines.max };
             yScale = Math.max(-parsedLines.min, parsedLines.max) / yCenter;
 
             for (j = 0; j < 2; j++){

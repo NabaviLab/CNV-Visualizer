@@ -81,6 +81,8 @@ var igv = (function (igv) {
         //       new igv.BigQueryFeatureSource(this.config) :
         this.featureSource = new igv.FeatureSource(this.config);
 
+        this.paintAxis = igv.paintAxis;
+
         this.supportsWholeGenome = true;
     };
 
@@ -217,6 +219,8 @@ var igv = (function (igv) {
                 valueMax = Math.log2(valieMax/2);
               }
             }
+
+            this.dataRange = { min: valueMin, max: valueMax };
 
             for (i = 0, len = featureList.length; i < len; i++) {
 

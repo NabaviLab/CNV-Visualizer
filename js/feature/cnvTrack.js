@@ -19,6 +19,8 @@ var igv = (function (igv) {
         this.featureSource = new igv.FeatureSource(this.config);
 
         this.supportsWholeGenome = true;
+
+        this.paintAxis = igv.paintAxis;
     };
 
     /**
@@ -106,6 +108,7 @@ var igv = (function (igv) {
                 yMin = Math.min(yMin, featureList[i].log2val);
                 yMax = Math.max(yMax, featureList[i].log2val);
             }
+            this.dataRange = { min: yMin, max: yMax }
             yScale = Math.max(-yMin, yMax) / yCenter;
 
             for (i = 0; i < featureList.length; i++) {
