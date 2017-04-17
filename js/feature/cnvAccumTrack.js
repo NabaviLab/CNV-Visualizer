@@ -159,7 +159,7 @@ var igv = (function (igv) {
             clickHandler = function () {
                 igv.popover.hide();
                 myself.accumBy = item.key;
-                item.avgType = item.fn;
+                myself.avgType = item.fn;
                 myself.trackView.update();
             }
 
