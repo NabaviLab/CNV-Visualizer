@@ -17,7 +17,8 @@ buttons. Choose which button based on where the file is being loaded from:
 
 And then you can input the relevant information, including
 
-.. image:: images/loadinput.png
+.. image:: images/loadurl.png
+.. image:: images/loadlocal.png
 
 * `URL` or `File`, which is the data to be loaded. Track type is inferred off
   of the extension itself.
@@ -27,33 +28,36 @@ And then you can input the relevant information, including
   extension (i.e. http://files.com/a.bam would be http://files.com/a.bam.bai).
 
 Track configuration can be partially controlled with the gear icon, found to
-the right of each track:
-
-.. image:: images/control.png
+the right of each track. All of the following have an ability to set the
+threshold, which determines values that should not be shown. Color controls may
+be added in the future.
 
 Segment Track
 -------------
 
-Segment tracks have the following options available
+.. image:: images/segcontrol.png
+
+Segment tracks have no truly unique options to select from, as the sample
+height is a remnant from having multiple segments per track.
 
 CNV Called Track
 ----------------
 
-CNV called tracks allow controlling
+.. image:: images/calledcontrol.png
+
+CNV called tracks allow controlling the threshold, but that's it.
 
 CNV Accumulated Track
 ---------------------
 
+.. image:: images/calledcontrol.png
+
 Accumulation tracks allow choosing the segment tracks to include in the
 aggregation of data, as well as selecting an aggregation method. These can
-be seen as
+be seen as above.
 
-.. image:: images/accum.png
-
-#. Selected samples are marked with a '-' in front of them.
-#. Deselected samples are marked with a '+' in front of them.
-#. Enabled aggregation method is marked with an 'X'.
-#. Disabled aggregation method is let unmarked.
+#. Selected samples are marked with a checkmark.
+#. Enabled aggregation method is marked with a checkmark.
 
 .. _Range Requests: https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests
 
