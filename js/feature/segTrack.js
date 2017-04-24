@@ -77,6 +77,9 @@ var igv = (function (igv) {
         this.samples = {};
         this.sampleNames = [];
 
+        // default threshold
+        this.threshold = 0.1;
+
         //   this.featureSource = config.sourceType === "bigquery" ?
         //       new igv.BigQueryFeatureSource(this.config) :
         this.featureSource = new igv.FeatureSource(this.config);
@@ -103,7 +106,16 @@ var igv = (function (igv) {
                     popover.hide();
                     self.toggleSampleHeight();
                 }
-            }
+            },
+                igv.trackMenuItem(popover, self.trackView, "Set threshold", function () {
+                return "Set threshold"
+                }, self.threshold, function () {
+                  var number = parseFloat(igv.dialog.$dialogInput.val(), 10);
+                  if(undefined !== number) {
+                    self.threshold = number;
+                    self.trackView.update();
+                  }
+                }, undefined)
         ];
     };
 
@@ -242,11 +254,11 @@ var igv = (function (igv) {
 
                 igv.graphics.strokeLine(ctx, 0, trackCenter, pixelWidth, trackCenter, {'strokeStyle': "rgb(200, 200, 200)"});
 
-                if (value < -0.1) {
+                if (value < -this.threshold) {
                     color = "rgb(255,0,0)";
                     y = trackCenter + segment.value/valueMin * sampleHeight;
                 }
-                else if (value > 0.1) {
+                else if (value > this.threshold) {
                     color = "rgb(0,0,255)";
                     y = trackCenter - segment.value/valueMax * sampleHeight;
                 }

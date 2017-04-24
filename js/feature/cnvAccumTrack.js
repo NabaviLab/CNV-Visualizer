@@ -65,8 +65,21 @@ var igv = (function (igv) {
             toggleList = [],
             accumByItems = [];
 
+        toggleList.push(
+          igv.trackMenuItem(popover, myself.trackView, "Set threshold", function () {
+          return "Set threshold"
+          }, myself.tolerance, function () {
+            var number = parseFloat(igv.dialog.$dialogInput.val(), 10);
+            if(undefined !== number) {
+              myself.tolerance = number;
+              myself.trackView.update();
+            }
+          }, undefined)
+        );
+
         $e = $('<div class="igv-track-menu-category igv-track-menu-border-top">');
         $e.text('Samples');
+
         toggleList.push({
             name: undefined,
             object: $e,
