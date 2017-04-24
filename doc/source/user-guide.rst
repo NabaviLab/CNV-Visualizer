@@ -50,7 +50,7 @@ CNV called tracks allow controlling the threshold, but that's it.
 CNV Accumulated Track
 ---------------------
 
-.. image:: images/calledcontrol.png
+.. image:: images/accumcontrol.png
 
 Accumulation tracks allow choosing the segment tracks to include in the
 aggregation of data, as well as selecting an aggregation method. These can
