@@ -20,6 +20,8 @@ var igv = (function (igv) {
 
         this.supportsWholeGenome = true;
 
+        this.tolerance = config.tolerance || 0.1;
+
         this.paintAxis = igv.paintAxis;
     };
 
@@ -34,6 +36,15 @@ var igv = (function (igv) {
         var myself = this;
 
         return [
+          igv.trackMenuItem(popover, myself.trackView, "Set threshold", function () {
+          return "Set threshold"
+        }, myself.tolerance, function () {
+            var number = parseFloat(igv.dialog.$dialogInput.val(), 10);
+            if(undefined !== number) {
+              myself.tolerance = number;
+              myself.trackView.update();
+            }
+          }, undefined)
         ];
     };
 
