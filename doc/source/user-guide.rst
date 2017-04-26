@@ -31,6 +31,29 @@ the right of each track. All of the following have an ability to set the
 threshold, which determines values that should not be shown. Color controls may
 be added in the future.
 
+Using Local Files
+^^^^^^^^^^^^^^^^^
+
+In order to use local files, you have to select the file from the regular menu.
+However, this does have its limitations. The two main ones being:
+
+#. The file cannot be indexed, and therefore must be uploaded entirely.
+#. The track cannot be opened in a new window.
+
+There are two solutions to this. First, you may upload the file directly to a
+server which can support range requests. This is possibly the easiest, if you
+have one available to you.
+
+The other is to start a server from the folder with holds your files. This can
+just be a local server that you launch with a script.
+
+If you have Python installed, first download this `cors_server.py`_ script.
+Then try running::
+
+   $ pip install --user rangehttpserver
+   $ cd directory/with/your/data
+   $ python -m directory/with/cors_server.py
+
 Segment Track
 -------------
 
