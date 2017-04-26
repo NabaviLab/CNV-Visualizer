@@ -466,8 +466,10 @@ var igv = (function (igv) {
         var self = this,
             $e,
             $e2,
+            $e3,
             clickHandler,
-            clickHandler2;
+            clickHandler2,
+            clickHandler3;
 
         $e = $('<div class="igv-track-menu-item">');
         $e.text('Sort by value');
@@ -484,15 +486,54 @@ var igv = (function (igv) {
         $e2.text('Open in own browser');
 
         clickHandler2 = function () {
-          self.newWindow(url, name, indexed);
-          config.popover.hide();
+            newWindow(self.config);
+            config.popover.hide();
         }
 
-        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }, {name: undefined, object: $e2, click: clickHandler2, init: undefined}];
+        $e3 = $('<div class="igv-track-menu-item">');
+        $e3.text('Create circle from this data');
+
+        clickHandler3 = function () {
+            buildCircos(self);
+            config.popover.hide();
+        }
+
+        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }, {name: undefined, object: $e2, click: clickHandler2, init: undefined}, {name: undefined, object: $e3, click: clickHandler3, init: undefined}];
 
     };
 
+    /**
+     * Items to place on the popup menu when right-clicked in the track
+     *
+     * @param {Config} config - holds configuration info for the menu
+     */
+    igv.CNVTrack.prototype.popupMenuItemList = function (config) {
+        var self = this,
+            $e,
+            clickHandler;
 
+        $e = $('<div class="igv-track-menu-item">');
+        $e.text('Open in own browser');
+
+        clickHandler = function () {
+            newWindow(self.config);
+            config.popover.hide();
+        }
+
+        return [{ name: undefined, object: $e, click: clickHandler, init: undefined } ];
+    }
+
+
+    function buildCircos(track) {
+        var self = track;
+        var featureList = [];
+        for(var i = 0; i<23; i++){
+            featureList.push(self.getFeatures(String(i), 0, Number.MAX_VALUE));
+        }
+        featureList.push(self.getFeatures("X", 0, Number.MAX_VALUE));
+        featureList.push(self.getFeatures("Y", 0, Number.MAX_VALUE));
+        console.log(featureList);
+    }
 
     return igv;
 

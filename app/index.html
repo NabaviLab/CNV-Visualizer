@@ -408,6 +408,8 @@ var CNV02 = [ "CNV02" , {
   {chr: "X", start: "114376344", end: "154884814", value: "1"},
 ]];
 
+//var data = igv.browser.trackViews
+
 BioCircos01 = new BioCircos(BACKGROUND01, CNV02, BioCircosGenome, {  // Initialize BioCircos.js with "BioCircosGenome" and Main configuration
   //Main configuration
   target: "bioCircosDiv",                       // Main configuration "target"
@@ -433,6 +435,9 @@ BioCircos01 = new BioCircos(BACKGROUND01, CNV02, BioCircosGenome, {  // Initiali
 BioCircos01.draw_genome(BioCircos01.genomeLength); // BioCircos.js callback
           </script>
         </div>
+        <!--<button type="button" class="btn btn-default" onclick="d3.select('svg').remove();">Remove Circos</button>-->
+        <button type="button" class="btn btn-default" onclick=console.log($('#inputFile')[0].files[0]);>Log file contents</button>
+        <button type="button" class="btn btn-default" onclick="BioCircos01.draw_genome(BioCircos01.genomeLength);">Redraw</button>
         <div class="col-md-8 col-lg-8">
           <div class="row">
             <div id="igvDiv"></div>
