@@ -82,4 +82,5 @@ be seen as above.
 #. Enabled aggregation method is marked with a checkmark.
 
 .. _Range Requests: https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests
+.. _cors_server.py: https://raw.githubusercontent.com/NabaviLab/CNV-Visualizer/master/scripts/cors_server.py
 
