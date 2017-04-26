@@ -3,7 +3,6 @@ CNVisualizer User Guide
 
 .. note:: This is subject to change, mostly minor aesthetic changes.
 
-
 Loading Tracks
 --------------
 
