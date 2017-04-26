@@ -464,13 +464,7 @@ var igv = (function (igv) {
     igv.SegTrack.prototype.popupMenuItemList = function (config) {
 
         var self = this,
-            $e,
-            $e2,
-            clickHandler,
-            clickHandler2;
-
-        $e = $('<div class="igv-track-menu-item">');
-        $e.text('Sort by value');
+            clickHandler;
 
         clickHandler = function () {
 
@@ -480,16 +474,7 @@ var igv = (function (igv) {
 
         };
 
-        $e2 = $('<div class="igv-track-menu-item">');
-        $e2.text('Open in own browser');
-
-        clickHandler2 = function () {
-          self.newWindow(url, name, indexed);
-          config.popover.hide();
-        }
-
-        return [{ name: undefined, object: $e, click: clickHandler, init: undefined }, {name: undefined, object: $e2, click: clickHandler2, init: undefined}];
-
+        return [{name: "Sort by Value", click: clickHandler, init: undefined}];
     };
 
 
