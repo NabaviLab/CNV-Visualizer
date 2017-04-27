@@ -459,9 +459,29 @@ $(document).ready(function () {
           type: "cnvaccum"
         },
         {
+          name: "A0B3-SEG",
+          url: "http://localhost:8000/A0B3.seg",
+          indexed: false
+        },
+        {
+          name: "A0CE-SEG",
+          url: "http://localhost:8000/A0CE.seg",
+          indexed: false
+        },
+        {
+          name: "A0B3-CNV",
+          url: "http://localhost:8000/A0B3.copynumber.called",
+          indexed: false
+        },
+        {
+          name: "A0CE-CNV",
+          url: "http://localhost:8000/A0CE.copynumber.called",
+          indexed: false
+        },
+        {
           name: "Genes",
-          url: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed",
-          index: "http://igv.broadinstitute.org/annotations/hg19/genes/gencode.v18.collapsed.bed.idx",
+          url: "http://localhost:8000/gencode.v18.collapsed.bed",
+          index: "http://localhost:8000/gencode.v18.collapsed.bed.idx",
           displayMode: "EXPANDED",
           order: Number.MAX_VALUE
         }
