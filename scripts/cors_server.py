@@ -1,4 +1,4 @@
-# adopted from 
+# adopted from https://github.com/danvk/RangeHTTPServer to allow CORS
 
 import os
 import re
