@@ -48,13 +48,13 @@ class RangeRequestHandler(SimpleHTTPRequestHandler):
     def send_head(self):
         if 'Range' not in self.headers:
             self.range = None
-            return SimpleHTTPRequestHandler.send_head(self)
-        try:
-            self.range = parse_byte_range(self.headers['Range'])
-        except ValueError as e:
-            self.send_error(400, 'Invalid byte range')
-            return None
-        first, last = self.range
+        else:
+            try:
+                self.range = parse_byte_range(self.headers['Range'])
+            except ValueError as e:
+                self.send_error(400, 'Invalid byte range')
+                return None
+        first, last = self.range if self.range else 0, None
 
         # Mirroring SimpleHTTPServer.py here
         path = self.translate_path(self.path)
@@ -73,7 +73,7 @@ class RangeRequestHandler(SimpleHTTPRequestHandler):
             return None
 
         self.send_response(206)
-        self.send_header('Content-type', ctype)
+        self.send_header('Content-type', 'text/html')
         self.send_header('Accept-Ranges', 'bytes')
 
         if last is None or last >= file_len:
@@ -84,9 +84,12 @@ class RangeRequestHandler(SimpleHTTPRequestHandler):
                          'bytes %s-%s/%s' % (first, last, file_len))
         self.send_header('Content-Length', str(response_length))
         self.send_header('Last-Modified', self.date_time_string(fs.st_mtime))
-        self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         return f
+
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        return SimpleHTTPRequestHandler.end_headers(self)
 
     def copyfile(self, source, outputfile):
         if not self.range:
@@ -145,10 +148,21 @@ class RangeRequestHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    import sys
+
     try:
         import http.server as SimpleHTTPServer
+        import socketserver as SocketServer
     except ImportError:
         import SimpleHTTPServer
+        import SocketServer
 
-    SimpleHTTPServer.test(HandlerClass=RangeRequestHandler)
+    PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+
+    Handler = RangeRequestHandler
+
+    httpd = SocketServer.TCPServer(("", PORT), Handler)
+
+    print("serving at port", PORT)
+    httpd.serve_forever()
 
