@@ -26,8 +26,6 @@ var igv = (function (igv) {
 
     newwin.loadURL('file://' + pathname + 'subBrowser.html');
 
-    newwin.webContents.openDevTools();
-
     newwin.webContents.on('did-finish-load', function () {
       if(config.localFile) {
       // Currently does not work for local files. Passing through the config.localFile to IGV renders it as an unreadable object,

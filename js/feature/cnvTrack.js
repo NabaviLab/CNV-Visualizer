@@ -146,5 +146,18 @@ var igv = (function (igv) {
         }
     };
 
+    /**
+     * Items to place on the popup menu when right-clicked in the track
+     *
+     * @param {Config} config - holds configuration info for the menu
+     */
+    igv.CNVTrack.prototype.popupMenuItemList = function (config) {
+
+        var self = this;
+
+        return [ 
+        ];
+    };
+
     return igv;
 })(igv || {});
