@@ -50,9 +50,8 @@ just be a local server that you launch with a script.
 If you have Python installed, first download this `cors_server.py`_ script.
 Then try running::
 
-   $ pip install --user rangehttpserver
    $ cd directory/with/your/data
-   $ python -m directory/with/cors_server.py
+   $ python directory/with/cors_server.py
 
 Segment Track
 -------------
